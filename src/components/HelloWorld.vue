@@ -16,6 +16,7 @@ const count = ref(0)
     <p>
       prova prova prova
       <code>components/HelloWorld.vue</code> to test HMR
+      push push push push
     </p>
   </div>
 
