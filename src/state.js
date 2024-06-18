@@ -7,7 +7,6 @@ export const state = reactive({
     doctors_url: "/api/doctors",
     sponsored_url: "/api/sponsoredDoctors",
 
-
     doctors: [],
 
 

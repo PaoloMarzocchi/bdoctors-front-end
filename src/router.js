@@ -1,9 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
-
+import { createWebHistory, createRouter } from "vue-router";
 import AppHome from './views/AppHome.vue';
-import Test from './views/Test.vue';
+import SingleDoctorProfile from "./views/SingleDoctorProfile.vue";
+
+
 
 const router = createRouter({
+
     history: createWebHistory(),
     routes: [
         {
@@ -11,11 +13,12 @@ const router = createRouter({
             name: 'home',
             component: AppHome
         },
-        /* {
-            path: '/:name',
-            name: 'test',
-            component: Test
-        }, */
+        { path: '/doctor-profile/:id', name: 'DoctorProfile', component: SingleDoctorProfile },
+
     ]
-});
-export { router };
+
+})
+
+
+export default router;
+
