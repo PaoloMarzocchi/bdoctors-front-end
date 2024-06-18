@@ -9,19 +9,15 @@ export default
         state,
       }
     },
-    mounted() {
+    /* mounted() {
       this.state.getDoctors(this.state.base_url + this.state.doctors_url)
-    }
+    } */
   }
 
 </script>
 
 <template>
-  <div v-for="doctor in state.doctors">
-    <div>
-      {{ doctor.user.name }} {{ doctor.surname }}
-    </div>
-  </div>
+  <routerView />
 </template>
 
 <style></style>
