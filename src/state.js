@@ -6,7 +6,6 @@ export const state = reactive({
     base_url: "http://127.0.0.1:8000",
     doctors_url: "/api/doctors",
 
-
     doctors: [],
 
 
