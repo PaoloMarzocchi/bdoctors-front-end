@@ -1,6 +1,8 @@
 <script>
+
 import { state } from "./state.js";
 import { RouterLink, RouterView } from "vue-router";
+
 
 export default {
   name: "App",
