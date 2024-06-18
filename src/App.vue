@@ -1,27 +1,22 @@
 <script>
-import { state } from './state.js';
+import { state } from "./state.js";
+import { RouterLink, RouterView } from "vue-router";
 
-export default
-  {
-    name: 'App',
-    data() {
-      return {
-        state,
-      }
-    },
-    mounted() {
-      this.state.getDoctors(this.state.base_url + this.state.doctors_url)
-    }
-  }
-
+export default {
+  name: "App",
+  data() {
+    return {
+      state,
+    };
+  },
+  mounted() {
+    this.state.getDoctors(this.state.base_url + this.state.doctors_url);
+  },
+};
 </script>
 
 <template>
-  <div v-for="doctor in state.doctors">
-    <div>
-      {{ doctor.user.name }} {{ doctor.surname }}
-    </div>
-  </div>
+  <RouterView></RouterView>
 </template>
 
 <style></style>
