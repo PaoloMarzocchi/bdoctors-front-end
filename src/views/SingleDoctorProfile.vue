@@ -17,7 +17,7 @@ export default {
   methods: {
     getDoctor(url) {
       axios.get(url).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
 
         this.doctorProfile = response.data.doctor;
         console.log(this.doctorProfile);
@@ -34,7 +34,7 @@ export default {
   },
 
   mounted() {
-    // console.log(this.$route.params.slug);
+    console.log(this.$route.params.slug);
 
     let url =
       this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
@@ -51,14 +51,15 @@ export default {
           <div class="row">
             <div class="col">
               <div>
-                <template v-if="this.doctorProfile.photo.startsWith('uploads')">
-                  <img
-                    :src="this.state.base_api + '/storage/' + this.doctorProfile.photo"
-                    alt=""
-                /></template>
+                <template v-if="!this.doctorProfile.photo">
+                  <img :src="this.doctorProfile.photo" alt="" />
+                </template>
 
                 <template v-else>
-                  <img :src="this.doctorProfile.photo" alt="" />
+                  <img
+                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
+                    alt=""
+                  />
                 </template>
               </div>
             </div>
