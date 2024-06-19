@@ -52,15 +52,31 @@ export default {
             <div class="col">
               <div>
                 <template v-if="!this.doctorProfile.photo">
-                  <img :src="this.doctorProfile.photo" alt="" />
+                  <p>Doctor still has to upload a photo</p>
+                  <img
+                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
+                    alt=""
+                  />
                 </template>
 
-                <template v-else>
+                <template v-else="this.doctorProfile.photo.startsWith('uploads')">
                   <img
                     :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
                     alt=""
                   />
                 </template>
+
+                <!-- <template v-else-if="this.doctorProfile.photo.startsWith('https')">
+                  <img :src="this.doctorProfile.photo" alt="" />
+                </template> -->
+
+                <!-- <template v-else>
+                  <p>Doctor still has to upload a photo</p>
+                  <img
+                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
+                    alt=""
+                  />
+                </template> -->
               </div>
             </div>
             <div class="col">
