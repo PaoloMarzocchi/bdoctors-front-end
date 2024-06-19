@@ -29,6 +29,8 @@ export default {
           console.log(this.doctorProfile, this.success);
           this.$router.push({ name: "notFound" });
         }
+
+        console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
   },
@@ -65,18 +67,6 @@ export default {
                     alt=""
                   />
                 </template>
-
-                <!-- <template v-else-if="this.doctorProfile.photo.startsWith('https')">
-                  <img :src="this.doctorProfile.photo" alt="" />
-                </template> -->
-
-                <!-- <template v-else>
-                  <p>Doctor still has to upload a photo</p>
-                  <img
-                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                    alt=""
-                  />
-                </template> -->
               </div>
             </div>
             <div class="col">
@@ -88,7 +78,7 @@ export default {
                 </div>
                 <div class="card-body">
                   <p>
-                    Hi! You can find me at my studio, here :
+                    Hi! You can find me at my studio here :
                     {{ this.doctorProfile.address }}
                   </p>
                   <p>
@@ -105,6 +95,20 @@ export default {
                   </p>
                 </div>
               </div>
+              <!-- <div class="card mt-5">
+                <template v-if="this.doctorProfile.cv.startsWith('cv')">
+                  <object
+                    class="pdf"
+                    height="300"
+                    :data="this.state.base_url + '/storage/' + this.doctorProfile.cv"
+                    type=""
+                  ></object>
+                </template>
+
+                <template v-else>
+                  <p>Doctor still has to upload his cv</p>
+                </template>
+              </div> -->
             </div>
           </div>
         </div>
