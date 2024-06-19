@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 import AppHome from './views/AppHome.vue';
 import SingleDoctorProfile from "./views/SingleDoctorProfile.vue";
+import ContactMe from "./views/ContactMe.vue";
+
 
 
 
@@ -13,7 +15,9 @@ const router = createRouter({
             name: 'home',
             component: AppHome
         },
-        { path: '/doctor-profile/:id', name: 'DoctorProfile', component: SingleDoctorProfile },
+        { path: '/doctor-profile/:slug', name: 'DoctorProfile', component: SingleDoctorProfile },
+        { path: '/contact-me/:slug', name: 'contact-me', component: ContactMe },
+
 
     ]
 

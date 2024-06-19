@@ -34,7 +34,10 @@ export default {
   },
 
   mounted() {
-    let url = this.state.base_url + this.state.doctors_url + "/" + this.$route.params.id;
+    // console.log(this.$route.params.slug);
+
+    let url =
+      this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
   },
 };
@@ -42,15 +45,6 @@ export default {
 
 <template>
   <div>
-    <!-- Project {{ $route.params.id }} -->
-
-    <!-- <Banner
-      :bannerTitle="project.project_title"
-      bannerParagraph="Take a look at this project by"
-      bannerCTA="Back to projects"
-      bannerCTAUrl="projects"
-    ></Banner> -->
-
     <main>
       <template v-if="this.success">
         <div class="container my-5">
@@ -74,6 +68,24 @@ export default {
                   <h3>
                     Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
                   </h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Hi! You can find me at my studio, here :
+                    {{ this.doctorProfile.address }}
+                  </p>
+                  <p>
+                    Or, if you want to get in touch with me, feel free to call at the :
+                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a>
+                  </p>
+                  <p>
+                    Otherwise, you can send me a message here:
+                    <button class="btn btn-primary">
+                      <router-link class="nav-link" :to="{ name: 'contact-me' }"
+                        >Send me a message</router-link
+                      >
+                    </button>
+                  </p>
                 </div>
               </div>
             </div>
