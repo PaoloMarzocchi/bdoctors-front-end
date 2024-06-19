@@ -51,16 +51,13 @@ export default {
           <div class="row">
             <div class="col">
               <div>
-                <template v-if="this.doctorProfile.photo.startsWith('uploads')">
-                  <img
-                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
-                    alt=""
-                /></template>
+                <template v-if="!this.doctorProfile.photo">
+                  <img :src="this.doctorProfile.photo" alt="" />
+                </template>
 
                 <template v-else>
-                  <p>Doctor still has to upload a photo</p>
                   <img
-                    src="https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg"
+                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
                     alt=""
                   />
                 </template>
