@@ -45,7 +45,7 @@ export default {
     methods: {
         goToIndex() {
             console.log(this.selectedSpec);
-            /* this.$router.push({ name: 'test', params: { name: this.selectedSpec } }); */
+            this.$router.push({ name: 'DoctorResults', params: { name: this.selectedSpec } });
         },
         sponsoredAPI(url) {
 
