@@ -10,7 +10,7 @@ export default {
     this.routeBack = this.$router.options.history.state.back
   },
   mounted() {
-    console.log(this.$router.options.history.state.back);
+    //console.log(this.$router.options.history.state.back);
   },
 }
 </script>

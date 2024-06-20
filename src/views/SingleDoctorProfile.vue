@@ -11,6 +11,8 @@ export default {
       doctorProfile: "",
       success: "",
       loading: true,
+      ButtonA: false,
+      ButtonB: false,
     };
   },
 
@@ -28,7 +30,6 @@ export default {
           //console.log(this.doctorProfile, this.success);
           this.$router.push({ name: "notFound" });
         }
-
         //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
@@ -36,10 +37,23 @@ export default {
 
   mounted() {
     //console.log(this.$route.params.slug);
-
-    let url =
-      this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
+    let url = this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
+    /* this.getDoctorsBySpec(this.$route.params.name); */
+
+    //console.log(typeof (document.referrer));
+    //console.log(document.referrer);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('source');
+
+    if (source === 'back-end') {
+      this.ButtonA = true;
+      //console.log("A " + this.ButtonA);
+    } else {
+      this.ButtonB = true;
+      //console.log("B " + this.ButtonB);
+    }
   },
 };
 </script>
@@ -100,14 +114,20 @@ export default {
                   <p>Doctor still has to upload his cv</p>
                 </template>
               </div> -->
-              <button @click="$router.back()" class="btn btn-dark text-warning">BACK</button>
+              <a v-show="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                href="http://127.0.0.1:8000/admin/doctorProfile">
+                BACK TO UR
+              </a>
+              <button v-show="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                BACK
+              </button>
             </div>
           </div>
         </div>
       </template>
 
       <template v-else>
-        <p>Burodogah</p>
+        <p>Dragon Ball Z: Budokai Tenkaichi</p>
       </template>
     </main>
   </div>
