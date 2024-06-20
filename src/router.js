@@ -21,8 +21,16 @@ const router = createRouter({
             name: 'DoctorResults',
             component: DoctorResults
         },
-        { path: '/doctor-profile/:slug', name: 'DoctorProfile', component: SingleDoctorProfile },
-        { path: '/contact-me/:slug', name: 'contact-me', component: ContactMe },
+        {
+            path: '/doctor-profile/:slug',
+            name: 'DoctorProfile',
+            component: SingleDoctorProfile
+        },
+        {
+            path: '/contact-me/:slug',
+            name: 'contact-me',
+            component: ContactMe
+        },
 
 
     ]

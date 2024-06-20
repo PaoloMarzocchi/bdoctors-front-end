@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         goToIndex() {
-            console.log(this.selectedSpec);
+            //console.log(this.selectedSpec);
             this.$router.push({ name: 'DoctorResults', params: { name: this.selectedSpec } });
         },
         sponsoredAPI(url) {
@@ -54,7 +54,7 @@ export default {
                 .then(response => {
 
                     this.sponsoredDocs = response.data.sponsoredDoctors;
-                    console.log(this.sponsoredDocs);
+                    //console.log(this.sponsoredDocs);
                 })
                 .catch(err => {
                     console.error(err);
