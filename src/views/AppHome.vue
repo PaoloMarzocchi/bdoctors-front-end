@@ -78,12 +78,7 @@ export default {
       <h2 class="text-warning mb-3">Search your doctor by specializations</h2>
       <div class="col-md-8 fs-4 text-center">
         <div class="mb-3">
-          <select
-            class="form-select form-select-lg"
-            name="specializations"
-            id="specializations"
-            v-model="selectedSpec"
-          >
+          <select class="form-select form-select-lg" name="specializations" id="specializations" v-model="selectedSpec">
             <option selected disabled>Select one</option>
             <option v-for="(specialization, id) in specializations">
               {{ specialization.name }}
@@ -106,20 +101,14 @@ export default {
                 Dr. {{ doc.surname }} {{ doc.user.name }}
               </h5>
               <template v-if="doc.photo == null">
-                <img
-                  src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                  class="card-img-top img-fluid rounded-3 align-self-center mt-3"
-                  alt="Foto del dottore"
-                  style="height: 250px; width: 280px; object-fit: cover"
-                />
+                <img src="/img/DoctorAvatar.png"
+                  class="bg-transparent card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
+                  style="height: 250px; width: 280px; object-fit: cover" />
               </template>
               <template v-else>
-                <img
-                  :src="`${state.base_url}/storage/${doc.photo}`"
-                  class="card-img-top img-fluid rounded-3 align-self-center mt-3"
-                  alt="Foto del dottore"
-                  style="height: 250px; width: 280px; object-fit: cover"
-                />
+                <img :src="`${state.base_url}/storage/${doc.photo}`"
+                  class="card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
+                  style="height: 250px; width: 280px; object-fit: cover" />
               </template>
             </div>
 
@@ -129,10 +118,7 @@ export default {
               <span><strong>Telephone:</strong> {{ doc.telephone }}</span>
               <span><strong>Email:</strong> {{ doc.user.email }}</span>
 
-              <router-link
-                :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }"
-                class="btn btn-primary mt-3"
-              >
+              <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }" class="btn btn-primary mt-3">
                 Visit doctor profile
               </router-link>
             </div>
@@ -142,11 +128,7 @@ export default {
 
               <template v-if="doc.specializations">
                 <p>
-                  <span
-                    v-for="spec in doc.specializations"
-                    class="badge bg-warning text-dark"
-                    >{{ spec.name }}</span
-                  >
+                  <span v-for="spec in doc.specializations" class="badge bg-warning text-dark">{{ spec.name }}</span>
                 </p>
               </template>
             </div>

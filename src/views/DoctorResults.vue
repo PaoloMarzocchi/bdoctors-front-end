@@ -47,8 +47,7 @@ export default {
         Risultati ricerca Specializzazione: {{ $route.params.name }}
       </h2>
       <RouterLink :to="{ name: 'home' }" class="btn btn-dark text-warning">
-        BACK</RouterLink
-      >
+        BACK</RouterLink>
     </div>
     <div v-if="isLoading" class="d-flex justify-content-center my-5">
       <div class="spinner-border" role="status">
@@ -59,31 +58,21 @@ export default {
       {{ error }}
     </div>
     <div v-else class="row gap-5 justify-content-center">
-      <div
-        class="col-12 col-md-6 col-lg-3"
-        v-for="doctor in doctorsBySpec"
-        :key="doctor.id"
-      >
+      <div class="col-12 col-md-6 col-lg-3" v-for="doctor in doctorsBySpec" :key="doctor.id">
         <div class="card h-100 shadow-lg rounded-4">
           <div class="card-header">
             <h5 class="card-title text-center bg-transparent">
               Dr. {{ doctor.surname }} {{ doctor.user.name }}
             </h5>
             <template v-if="doctor.photo == null">
-              <img
-                src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                class="card-img-top img-fluid rounded-3 align-self-center mt-3"
-                alt="Foto del dottore"
-                style="height: 250px; width: 280px; object-fit: cover"
-              />
+              <img src="/img/DoctorAvatar.png"
+                class="bg-transparent card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
+                style="height: 250px; width: 280px; object-fit: cover" />
             </template>
             <template v-else>
-              <img
-                :src="`${state.base_url}/storage/${doctor.photo}`"
-                class="card-img-top img-fluid rounded-3 align-self-center mt-3"
-                alt="Foto del dottore"
-                style="height: 250px; width: 280px; object-fit: cover"
-              />
+              <img :src="`${state.base_url}/storage/${doctor.photo}`"
+                class="card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
+                style="height: 250px; width: 280px; object-fit: cover" />
             </template>
           </div>
 
@@ -93,10 +82,7 @@ export default {
             <span><strong>Telephone:</strong> {{ doctor.telephone }}</span>
             <span><strong>Email:</strong> {{ doctor.user.email }}</span>
 
-            <router-link
-              :to="{ name: 'DoctorProfile', params: { slug: doctor.slug } }"
-              class="btn btn-primary mt-3"
-            >
+            <router-link :to="{ name: 'DoctorProfile', params: { slug: doctor.slug } }" class="btn btn-primary mt-3">
               Visit doctor profile
             </router-link>
           </div>

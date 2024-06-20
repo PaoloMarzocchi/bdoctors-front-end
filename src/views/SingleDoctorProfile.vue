@@ -67,17 +67,11 @@ export default {
             <div class="col">
               <div>
                 <template v-if="!this.doctorProfile.photo">
-                  <img
-                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                    alt=""
-                  />
+                  <img src="/img/DoctorAvatar.png" alt="" />
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img
-                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
-                    alt=""
-                  />
+                  <img :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
                 </template>
               </div>
             </div>
@@ -109,28 +103,19 @@ export default {
 
                 <div class="card-body d-flex flex-column text-center bg-transparent">
                   <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
-                  <span
-                    ><strong>Services:</strong> {{ this.doctorProfile.services }}</span
-                  >
-                  <span
-                    ><strong>Telephone:</strong>
-                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span
-                  >
-                  <span
-                    ><strong>Email:</strong>
-                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span
-                  >
+                  <span><strong>Services:</strong> {{ this.doctorProfile.services }}</span>
+                  <span><strong>Telephone:</strong>
+                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span>
+                  <span><strong>Email:</strong>
+                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span>
                 </div>
 
                 <div class="card-footer d-flex flex-column">
                   <template v-if="this.doctorProfile.specializations">
                     <p>
                       <strong>Specializations : </strong>
-                      <span
-                        v-for="spec in this.doctorProfile.specializations"
-                        class="badge bg-warning text-dark"
-                        >{{ spec.name }}</span
-                      >
+                      <span v-for="spec in this.doctorProfile.specializations" class="badge bg-warning text-dark">{{
+                        spec.name }}</span>
                     </p>
                   </template>
                 </div>
@@ -155,19 +140,17 @@ export default {
                 <button @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
                 </button>
-                
+
                 <a v-show="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                href="http://127.0.0.1:8000/admin/doctorProfile">
-                BACK TO UR
-              </a>
-              <button v-show="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
-                BACK
-              </button>
+                  href="http://127.0.0.1:8000/admin/doctorProfile">
+                  BACK TO UR
+                </a>
+                <button v-show="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                  BACK
+                </button>
 
                 <button class="btn btn-primary">
-                  <router-link class="nav-link" :to="{ name: 'contact-me' }"
-                    >Send me a message</router-link
-                  >
+                  <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
                 </button>
               </div>
 
