@@ -67,15 +67,15 @@ export default {
             <div class="col">
               <div>
                 <template v-if="!this.doctorProfile.photo">
-                  <img src="/img/DoctorAvatar.png" alt="" />
+                  <img class="img-fluid" src="/img/DoctorAvatar.png" alt="" />
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
+                  <img class="img-fluid" :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
                 </template>
               </div>
             </div>
-            <div class="col">
+            <div class="col d-flex flex-column justify-content-between">
               <!-- <div class="card">
                 <div class="card-title">
                   <h3>
@@ -110,13 +110,13 @@ export default {
                     <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span>
                 </div>
 
-                <div class="card-footer d-flex flex-column">
+                <div class="card-footer bg-transparent d-flex flex-column">
                   <template v-if="this.doctorProfile.specializations">
                     <p>
                       <strong>Specializations : </strong>
                       <span v-for="spec in this.doctorProfile.specializations"
                         class="badge bg-warning text-dark mx-1">{{
-        spec.name }}</span>
+                          spec.name }}</span>
                     </p>
                   </template>
                 </div>

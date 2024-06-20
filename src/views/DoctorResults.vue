@@ -61,8 +61,9 @@ export default {
     <div v-else-if="error" class="alert alert-danger" role="alert">
       {{ error }}
     </div>
-    <div v-else class="row gap-5 justify-content-center">
-      <div class="col-12 col-md-6 col-lg-3" v-for="doctor in doctorsBySpec" :key="doctor.id">
+
+    <div v-else class="row row-cols-auto gap-5 justify-content-center">
+      <div class="col" v-for="doctor in doctorsBySpec" :key="doctor.id">
 
         <DoctorCard :doc="doctor"></DoctorCard>
 
