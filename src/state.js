@@ -7,9 +7,7 @@ export const state = reactive({
     doctors_url: "/api/doctors",
     sponsored_url: "/api/sponsoredDoctors",
     user: '',
-
     doctors: [],
-
 
     getDoctors(url) {
         axios.get(url)
