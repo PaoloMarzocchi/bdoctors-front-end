@@ -53,17 +53,22 @@ export default {
             <div class="col">
               <div>
                 <template v-if="!this.doctorProfile.photo">
-                  <p>Doctor still has to upload a photo</p>
-                  <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg" alt="" />
+                  <img
+                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
+                    alt=""
+                  />
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
+                  <img
+                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
+                    alt=""
+                  />
                 </template>
               </div>
             </div>
             <div class="col">
-              <div class="card">
+              <!-- <div class="card">
                 <div class="card-title">
                   <h3>
                     Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
@@ -78,16 +83,51 @@ export default {
                     Or, if you want to get in touch with me, feel free to call at the :
                     <a href="tel:+">{{ this.doctorProfile.telephone }}</a>
                   </p>
-                  <p>
-                    Otherwise, you can send me a message here:
-                    <button class="btn btn-primary">
-                      <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
-                    </button>
-                  </p>
+                  <p>Otherwise, you can send me a message here:</p>
+                </div>
+              </div> -->
+              <div class="card h-75 shadow-lg rounded-4">
+                <div class="card-header">
+                  <h5 class="card-title text-center bg-transparent">
+                    Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
+                  </h5>
+                </div>
+
+                <div class="card-body d-flex flex-column text-center bg-transparent">
+                  <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
+                  <span
+                    ><strong>Services:</strong> {{ this.doctorProfile.services }}</span
+                  >
+                  <span
+                    ><strong>Telephone:</strong>
+                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span
+                  >
+                  <span
+                    ><strong>Email:</strong>
+                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span
+                  >
+                </div>
+
+                <div class="card-footer d-flex flex-column">
+                  <template v-if="this.doctorProfile.specializations">
+                    <p>
+                      <strong>Specializations : </strong>
+                      <span
+                        v-for="spec in this.doctorProfile.specializations"
+                        class="badge bg-warning text-dark"
+                        >{{ spec.name }}</span
+                      >
+                    </p>
+                  </template>
                 </div>
               </div>
+
               <!-- <div class="card mt-5">
-                <template v-if="this.doctorProfile.cv.startsWith('cv')">
+                <template v-if="this.doctorProfile.cv == null">
+                  <p>Doctor still has to upload his cv</p>
+                </template>
+
+                <template v-else="this.doctorProfile.cv.startsWith('cv')">
                   <object
                     class="pdf"
                     height="300"
@@ -95,19 +135,25 @@ export default {
                     type=""
                   ></object>
                 </template>
-
-                <template v-else>
-                  <p>Doctor still has to upload his cv</p>
-                </template>
               </div> -->
-              <button @click="$router.back()" class="btn btn-dark text-warning">BACK</button>
+              <div class="actions d-flex justify-content-between mt-2">
+                <button @click="$router.back()" class="btn btn-dark text-warning">
+                  BACK
+                </button>
+
+                <button class="btn btn-primary">
+                  <router-link class="nav-link" :to="{ name: 'contact-me' }"
+                    >Send me a message</router-link
+                  >
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </template>
 
       <template v-else>
-        <p>Burodogah</p>
+        <p>Sorry, nothing to show here. Retry with another doctor.</p>
       </template>
     </main>
   </div>
