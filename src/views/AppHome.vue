@@ -98,7 +98,7 @@ export default {
     <section class="sponsored pb-4 text-center">
         <h3 class="text-warning pb-4">Our Doctors</h3>
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gy-4">
+            <div class="row row-cols-auto gap-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
 
                     <DoctorCard :doc="doc"></DoctorCard>
