@@ -1,6 +1,17 @@
 <script>
 export default {
-  name: 'AppHeader'
+  name: 'AppHeader',
+  data() {
+    return {
+      routeBack: '',
+    }
+  },
+  created() {
+    this.routeBack = this.$router.options.history.state.back
+  },
+  mounted() {
+    //console.log(this.$router.options.history.state.back);
+  },
 }
 </script>
 
@@ -21,6 +32,11 @@ export default {
             <RouterLink class="nav-link" :to="{ name: 'home' }" href="#" aria-current="page">
               Home
             </RouterLink>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/login">
+              Sign-in
+            </a>
           </li>
         </ul>
       </div>

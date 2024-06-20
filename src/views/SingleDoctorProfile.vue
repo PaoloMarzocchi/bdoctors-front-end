@@ -11,34 +11,49 @@ export default {
       doctorProfile: "",
       success: "",
       loading: true,
+      ButtonA: false,
+      ButtonB: false,
     };
   },
 
   methods: {
     getDoctor(url) {
       axios.get(url).then((response) => {
-        // console.log(response.data);
-
+        //console.log(response.data);
         this.doctorProfile = response.data.doctor;
-        console.log(this.doctorProfile);
+        //console.log(this.doctorProfile);
 
         if (response.data.success) {
           this.success = response.data.success;
           this.project = response.data.doctor;
         } else {
-          console.log(this.doctorProfile, this.success);
+          //console.log(this.doctorProfile, this.success);
           this.$router.push({ name: "notFound" });
         }
+        //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
   },
 
   mounted() {
-    console.log(this.$route.params.slug);
-
-    let url =
-      this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
+    //console.log(this.$route.params.slug);
+    let url = this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
+    /* this.getDoctorsBySpec(this.$route.params.name); */
+
+    //console.log(typeof (document.referrer));
+    //console.log(document.referrer);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('source');
+
+    if (source === 'back-end') {
+      this.ButtonA = true;
+      //console.log("A " + this.ButtonA);
+    } else {
+      this.ButtonB = true;
+      //console.log("B " + this.ButtonB);
+    }
   },
 };
 </script>
@@ -53,30 +68,12 @@ export default {
               <div>
                 <template v-if="!this.doctorProfile.photo">
                   <p>Doctor still has to upload a photo</p>
-                  <img
-                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                    alt=""
-                  />
+                  <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg" alt="" />
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img
-                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
-                    alt=""
-                  />
+                  <img :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
                 </template>
-
-                <!-- <template v-else-if="this.doctorProfile.photo.startsWith('https')">
-                  <img :src="this.doctorProfile.photo" alt="" />
-                </template> -->
-
-                <!-- <template v-else>
-                  <p>Doctor still has to upload a photo</p>
-                  <img
-                    src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
-                    alt=""
-                  />
-                </template> -->
               </div>
             </div>
             <div class="col">
@@ -88,7 +85,7 @@ export default {
                 </div>
                 <div class="card-body">
                   <p>
-                    Hi! You can find me at my studio, here :
+                    Hi! You can find me at my studio here :
                     {{ this.doctorProfile.address }}
                   </p>
                   <p>
@@ -98,20 +95,39 @@ export default {
                   <p>
                     Otherwise, you can send me a message here:
                     <button class="btn btn-primary">
-                      <router-link class="nav-link" :to="{ name: 'contact-me' }"
-                        >Send me a message</router-link
-                      >
+                      <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
                     </button>
                   </p>
                 </div>
               </div>
+              <!-- <div class="card mt-5">
+                <template v-if="this.doctorProfile.cv.startsWith('cv')">
+                  <object
+                    class="pdf"
+                    height="300"
+                    :data="this.state.base_url + '/storage/' + this.doctorProfile.cv"
+                    type=""
+                  ></object>
+                </template>
+
+                <template v-else>
+                  <p>Doctor still has to upload his cv</p>
+                </template>
+              </div> -->
+              <a v-show="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                href="http://127.0.0.1:8000/admin/doctorProfile">
+                BACK TO UR
+              </a>
+              <button v-show="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                BACK
+              </button>
             </div>
           </div>
         </div>
       </template>
 
       <template v-else>
-        <p>Burodogah</p>
+        <p>Dragon Ball Z: Budokai Tenkaichi</p>
       </template>
     </main>
   </div>

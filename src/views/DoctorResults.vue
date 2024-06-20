@@ -17,11 +17,11 @@ export default {
             this.isLoading = true; // Avvia il caricamento
             this.error = null;
             const url = `${this.state.base_url}/api/research/${specialization}`;
-            console.log(url);
+            //console.log(url);
             axios
                 .get(url)
                 .then(response => {
-                    console.log(response.data.searchResults);
+                    //console.log(response.data.searchResults);
                     this.doctorsBySpec = response.data.searchResults;
                 })
                 .catch(err => {
@@ -41,8 +41,9 @@ export default {
 
 <template>
     <div class="container my-5">
-        <div class="my-4">
+        <div class="my-4 d-flex justify-content-between align-items-center">
             <h2 class="text-warning mb-3">Specialization search results: {{ $route.params.name }}</h2>
+            <RouterLink :to="{ name: 'home' }" class="btn btn-dark text-warning"> BACK</RouterLink>
         </div>
         <div v-if="isLoading" class="d-flex justify-content-center my-5">
             <div class="spinner-border" role="status">
