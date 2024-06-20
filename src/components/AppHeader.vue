@@ -16,10 +16,10 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <div class="container d-flex justify-content-between">
+  <nav class="navbar navbar-expand-sm navbar-light bg-secondary">
+    <div class="container d-flex justify-content-between rounded-5 px-5 border border-warning">
 
-      <img width="80" class="img-fluid mw-100" src="/img/logo.png" alt="">
+      <img width="80" class="img-fluid mw-100 rounded-5" src="/img/logo.png" alt="">
 
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
         data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -27,11 +27,13 @@ export default {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-          <li class="nav-item" :class="$route.name == 'home' ? 'active' : ''">
-            <RouterLink class="nav-link" :to="{ name: 'home' }" href="#" aria-current="page">
+        <ul class="navbar-nav ms-auto d-flex align-items-center mt-2 mt-lg-0 me-1">
+          <li class="nav-item px-2">
+            <RouterLink class="nav-link" :class="$route.name == 'home' ? 'my_active' : ''" :to="{ name: 'home' }"
+              href="#" aria-current="page">
               Home
             </RouterLink>
+
           </li>
           <li class="nav-item">
             <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/login">
@@ -45,4 +47,9 @@ export default {
 
 </template>
 
-<style></style>
+<style scoped>
+.my_active {
+  color: #ffc107;
+  border-bottom: 4px double #ffc107;
+}
+</style>
