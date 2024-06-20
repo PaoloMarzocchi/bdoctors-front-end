@@ -1,9 +1,13 @@
 <script>
 import { state } from "../state.js";
 import axios from "axios";
+import DoctorCard from "../components/DoctorCard.vue";
 
 export default {
   name: "DoctorResults",
+  components: {
+    DoctorCard,
+  },
   data() {
     return {
       state,
@@ -43,8 +47,8 @@ export default {
 <template>
   <div class="container my-5">
     <div class="my-4 d-flex justify-content-between align-items-center">
-      <h2 class="text-warning mb-3">
-        Risultati ricerca Specializzazione: {{ $route.params.name }}
+      <h2 class="mb-3">
+        Research results for: <span class="text-warning">{{ $route.params.name }}</span>
       </h2>
       <RouterLink :to="{ name: 'home' }" class="btn btn-dark text-warning">
         BACK</RouterLink>
@@ -59,49 +63,9 @@ export default {
     </div>
     <div v-else class="row gap-5 justify-content-center">
       <div class="col-12 col-md-6 col-lg-3" v-for="doctor in doctorsBySpec" :key="doctor.id">
-        <div class="card h-100 shadow-lg rounded-4">
-          <div class="card-header">
-            <h5 class="card-title text-center bg-transparent">
-              Dr. {{ doctor.surname }} {{ doctor.user.name }}
-            </h5>
-            <template v-if="doctor.photo == null">
-              <img src="/img/DoctorAvatar.png"
-                class="bg-transparent card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
-                style="height: 250px; width: 280px; object-fit: cover" />
-            </template>
-            <template v-else>
-              <img :src="`${state.base_url}/storage/${doctor.photo}`"
-                class="card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
-                style="height: 250px; width: 280px; object-fit: cover" />
-            </template>
-          </div>
 
-          <div class="card-body d-flex flex-column text-center bg-transparent">
-            <span><strong>Address:</strong> {{ doctor.address }}</span>
-            <span><strong>Services:</strong> {{ doctor.services }}</span>
-            <span><strong>Telephone:</strong> {{ doctor.telephone }}</span>
-            <span><strong>Email:</strong> {{ doctor.user.email }}</span>
+        <DoctorCard :doc="doctor"></DoctorCard>
 
-            <router-link :to="{ name: 'DoctorProfile', params: { slug: doctor.slug } }" class="btn btn-primary mt-3">
-              Visit doctor profile
-            </router-link>
-          </div>
-
-          <!-- <div class="card-footer d-flex flex-column">
-            <strong>Specializations : </strong>
-            <template v-if="doctor.specializations">
-              <div>
-                <span
-                  class="badge bg-dark my_primary mt-4"
-                  v-for="spec in doctor.specializations"
-                >
-                  {{ spec.name }}
-                </span>
-              </div>
-            </template>
-          </div>
-           -->
-        </div>
       </div>
     </div>
   </div>

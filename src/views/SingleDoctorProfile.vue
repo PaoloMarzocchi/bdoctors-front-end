@@ -101,7 +101,7 @@ export default {
                   </h5>
                 </div>
 
-                <div class="card-body d-flex flex-column text-center bg-transparent">
+                <div class="card-body d-flex flex-column justify-content-center  text-center bg-transparent">
                   <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
                   <span><strong>Services:</strong> {{ this.doctorProfile.services }}</span>
                   <span><strong>Telephone:</strong>
@@ -114,8 +114,9 @@ export default {
                   <template v-if="this.doctorProfile.specializations">
                     <p>
                       <strong>Specializations : </strong>
-                      <span v-for="spec in this.doctorProfile.specializations" class="badge bg-warning text-dark">{{
-                        spec.name }}</span>
+                      <span v-for="spec in this.doctorProfile.specializations"
+                        class="badge bg-warning text-dark mx-1">{{
+        spec.name }}</span>
                     </p>
                   </template>
                 </div>
@@ -136,20 +137,20 @@ export default {
                 </template>
               </div> -->
 
-              <div class="actions d-flex justify-content-between mt-2">
-                <button @click="$router.back()" class="btn btn-dark text-warning">
+              <div class="actions d-flex justify-content-between mt-4">
+                <!-- <button @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
-                </button>
+                </button> -->
 
-                <a v-show="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
                   href="http://127.0.0.1:8000/admin/doctorProfile">
                   BACK TO UR
                 </a>
-                <button v-show="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
                 </button>
 
-                <button class="btn btn-primary">
+                <button class="btn btn-warning text-dark fw-semibold">
                   <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
                 </button>
               </div>

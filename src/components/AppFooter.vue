@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <section class="site-footer border-top border-warning">
+    <!-- <section class="site-footer border-top border-warning">
         <div class="container py-4">
             <div class="row bg-secondary">
                 <div class="col ">
@@ -34,7 +34,15 @@ export default {
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
+    <nav class=" border-top border-warning">
+        <footer class="py-3 bg-secondary text-center ">
+
+            <div class="bg-secondary text-white">Made by Boolean team #4 class 119</div>
+            <div class="bg-secondary text-white">All rights reserved &copy;</div>
+
+        </footer>
+    </nav>
 </template>
 
 
