@@ -43,6 +43,7 @@ export default {
 
     //console.log(typeof (document.referrer));
     //console.log(document.referrer);
+    //console.log(document.referrer.includes('/admin'));
 
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get('source');
@@ -143,8 +144,8 @@ export default {
                 </button> -->
 
                 <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                  href="http://127.0.0.1:8000/admin/doctorProfile">
-                  BACK TO UR
+                  href="http://127.0.0.1:8000/dashboard">
+                  DASHBOARD
                 </a>
                 <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
                   BACK

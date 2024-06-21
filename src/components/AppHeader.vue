@@ -4,6 +4,8 @@ export default {
   data() {
     return {
       routeBack: '',
+      ButtonA: false,
+      ButtonB: false,
     }
   },
   created() {
@@ -11,6 +13,16 @@ export default {
   },
   mounted() {
     //console.log(this.$router.options.history.state.back);
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('source');
+
+    if (source === 'back-end') {
+      this.ButtonA = true;
+      //console.log("A " + this.ButtonA);
+    } else {
+      this.ButtonB = true;
+      //console.log("B " + this.ButtonB);
+    }
   },
 }
 </script>
@@ -35,7 +47,12 @@ export default {
             </RouterLink>
 
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="this.ButtonA">
+            <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/logout/">
+              Log-out
+            </a>
+          </li>
+          <li class="nav-item" v-if="this.ButtonB">
             <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/login">
               Sign-in
             </a>
