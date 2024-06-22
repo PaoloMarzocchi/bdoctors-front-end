@@ -96,8 +96,8 @@ export default {
     </section>
 
     <section class="sponsored pb-4 text-center">
-        <h3 class="text-warning pb-4">Our Doctors</h3>
-        <div class="container">
+        <h3 class="text-warning mb-4">Our sponsored doctors</h3>
+        <div class="container py-5">
             <div class="row row-cols-auto gap-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
 
