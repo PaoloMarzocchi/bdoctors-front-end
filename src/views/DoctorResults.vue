@@ -25,7 +25,7 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          //console.log(response.data.searchResults);
+          console.log(response.data.searchResults);
           this.doctorsBySpec = response.data.searchResults;
         })
         .catch((err) => {

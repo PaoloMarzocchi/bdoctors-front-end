@@ -16,175 +16,145 @@ export default {
 
 <template>
 
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
+    <div class="doctor_card d-flex flex-column gap-3" :class="{ sponsored: doc.sponsorships.length > 0 }">
 
-                <!-- Doctor photo -->
-                <div class="photo bg-transparent p-3">
-                    <template v-if="doc.photo == null">
-                        <img src="/img/DoctorAvatar.png" class="bg-transparent img-fluid" alt="Foto del dottore" />
-                    </template>
+        <div class="profile_image">
+            <template v-if="doc.photo == null">
+                <img src="/img/DoctorAvatar.png" class="img-fluid" alt="Foto del dottore" />
+            </template>
 
-                    <template v-else>
-                        <img :src="`${state.base_url}/storage/${doc.photo}`" class="img-fluid" alt="Foto del dottore"
-                            style="height: 250px; width: 280px; object-fit: cover" />
-                    </template>
-                </div>
-
-
-                <!-- Doctor info front -->
-                <div class="info_front bg-transparent p-3">
-                    <!-- Doctor name -->
-                    <h5 class="text-center bg-transparent">
-                        Dr. {{ doc.surname }} {{ doc.user.name }}
-                    </h5>
-
-                    <!-- Doctor specialization -->
-                    <span class="bg-transparent">
-                        <i class="color_primary bg-transparent fa-solid fa-stethoscope"></i>
-                        {{ doc.services }}
-                    </span>
-
-                    <!-- Doctor address-->
-                    <div class="doctor_info_front bg-transparent">
-
-                        <span class="bg-transparent">
-                            <i class="color_primary bg-transparent fa-solid fa-location-dot"></i>
-                            {{ doc.address }}
-                        </span>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="flip-card-back">
-                <!-- Doctor info back-->
-                <div class="doctor_info_back bg-transparent">
-
-                    <div class="bg-transparent">
-                        <i class="color_primary bg-transparent fa-solid fa-phone"></i>
-                        {{ doc.telephone }}
-                    </div>
-
-                    <div class="bg-transparent">
-                        <i class="color_primary bg-transparent fa-solid fa-at"></i>
-                        {{ doc.user.email }}
-                    </div>
-
-                    <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }"
-                        class="btn btn-dark text-warning mt-3">
-                        Visit doctor profile
-                    </router-link>
-                </div>
-
-
-            </div>
+            <template v-else>
+                <img :src="`${state.base_url}/storage/${doc.photo}`" class="img-fluid" alt="Foto del dottore"
+                    style="object-fit: cover" />
+            </template>
         </div>
+
+
+        <div class="d-flex justify-content-center align-items-center">
+            <span class="doctor_name"> Dr. {{ doc.surname }} {{ doc.user.name }}</span>
+
+            <i v-if="doc.sponsorships.length > 0" class="ms-2 fa-solid fa-crown fa-lg"></i>
+
+        </div>
+
+        <div class="doctor_info">
+
+            <div>
+                <i class="color_primary fa-solid fa-location-dot"></i>
+                {{ doc.address }}
+            </div>
+
+            <div>
+                <i class="color_primary fa-solid fa-phone"></i>
+                {{ doc.telephone }}
+            </div>
+
+            <div>
+                <i class="color_primary fa-solid fa-at"></i>
+                {{ doc.user.email }}
+            </div>
+
+            <div>
+                <i class="color_primary fa-solid fa-stethoscope"></i>
+                {{ doc.services }}
+            </div>
+
+        </div>
+
+        <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }" class="doctor_profile_button btn mt-3">
+            Visit doctor profile
+        </router-link>
+
+
+
     </div>
 
-    <!--     <div class="card h-100 shadow-lg rounded-4">
-        <div class="card-header">
-            <h5 class="card-title text-center bg-transparent">
-                Dr. {{ doc.surname }} {{ doc.user.name }}
-            </h5>
-            <template v-if="doc.photo == null">
-                <img src="/img/DoctorAvatar.png"
-                    class="bg-transparent card-img-top img-fluid rounded-3 align-self-center mt-3"
-                    alt="Foto del dottore" style="height: 250px; width: 280px; object-fit: cover" />
-            </template>
-<template v-else>
-                <img :src="`${state.base_url}/storage/${doc.photo}`"
-                    class="card-img-top img-fluid rounded-3 align-self-center mt-3" alt="Foto del dottore"
-                    style="height: 250px; width: 280px; object-fit: cover" />
-            </template>
-</div>
 
-<div class="card-body d-flex flex-column text-center bg-transparent">
-    <span><strong>Address:</strong> {{ doc.address }}</span>
-    <span><strong>Telephone:</strong> {{ doc.telephone }}</span>
-    <span><strong>Services:</strong> {{ doc.services }}</span>
-    <span><strong>Email:</strong> {{ doc.user.email }}</span>
 
-    <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }" class="btn btn-dark text-warning mt-3">
-        Visit doctor profile
-    </router-link>
-</div>
 
-<div class="card-footer d-flex flex-column align-items-center">
-    <strong>Specializations</strong>
-
-    <template v-if="doc.specializations">
-                <p class="text-center">
-                    <span v-for="spec in doc.specializations" class="badge bg-warning text-dark m-1">{{
-                    spec.name }}</span>
-                </p>
-            </template>
-</div>
-</div> -->
 </template>
 
-
-
 <style scoped>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .color_primary {
     color: #f77b02;
 }
 
-.flip-card {
-    background-color: transparent;
-    width: 304px;
-    height: 400px;
-    perspective: 1000px;
-    font-family: sans-serif;
+.doctor_card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 20px;
+    min-width: 300px;
+    max-width: 350px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.1));
+    text-align: center;
+    padding: 20px;
 
-    &:hover {
-        cursor: pointer;
 
-        .flip-card-inner {
-            transform: rotateY(180deg);
+    /*     &::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        transform: translate(-50%, 0%);
+        left: 50%;
+        right: 0;
+        width: 102%;
+        height: 40px;
+        background-color: #26235C;
+        clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 98% 0%, 98% 55%, 95% 80%, 5% 80%, 2% 55%, 2% 0%);
+        border-radius: 6px 6px 20px 20px;
+    } */
+
+
+    .doctor_name {
+        font-size: 1.3rem;
+        font-weight: bold;
+
+        &+i {
+            color: goldenrod;
         }
     }
-}
 
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-}
+    .profile_image img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-top: -50px;
+        border: 5px solid #E1D9F7;
 
-.flip-card-front,
-.flip-card-back {
-    box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border: 1px solid #f77b02;
-    border-radius: 1rem;
-}
-
-.flip-card-front {
-    .photo {
-        height: 350px;
     }
 
-    background: linear-gradient(120deg, bisque 60%, rgb(255, 231, 222) 88%,
-        rgb(255, 211, 195) 40%, coral 48%);
-    color: coral;
+
+    h2 {
+        font-size: 1.5em;
+        margin: 10px 0 5px;
+    }
+
+    .doctor_profile_button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #2C3E50;
+        color: #fff;
+        border-radius: 10px;
+        text-decoration: none;
+        margin-bottom: 20px;
+    }
+
 }
 
-.flip-card-back {
-    background: linear-gradient(120deg, rgb(255, 174, 145) 30%, coral 88%,
-            bisque 40%, rgb(255, 185, 160) 78%);
-    color: white;
-    transform: rotateY(180deg);
+.sponsored {
+    .doctor_profile_button {
+        background-color: goldenrod;
+    }
+
+    .profile_image img {
+        border: 5px solid goldenrod;
+    }
 }
 </style>
