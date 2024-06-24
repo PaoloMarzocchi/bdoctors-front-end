@@ -86,7 +86,7 @@ export default {
     </div>
 
     <form @submit.prevent="advancedSearch()" method="get">
-      <div class="advanced_search">
+      <div class="advanced_search mb-3">
         <div class="mb-3">
           <label for="specializations">Change Specialization</label>
           <select class="form-select form-select-sm" name="specializations" id="specializations" v-model="selectedSpec">
@@ -125,7 +125,7 @@ export default {
             {{ specialization.name }}
           </option>
         </select>
-      </div> -->
+       </div> -->
         <button type="submit" class="btn btn-dark">Search</button>
       </div>
     </form>
@@ -139,11 +139,17 @@ export default {
       {{ error }}
     </div>
 
-    <div v-if="advanceSearch" class="row row-cols-auto gap-5 justify-content-center">
+    <div v-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
+      class="row row-cols-auto gap-5 justify-content-center">
+
       <div class="col" v-for="doctor in doctorsByAdvancedSearch" :key="doctor.id">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
+
     </div>
+
+    <img v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="img-fluid" src="/img/no_results.png"
+      alt="No results">
 
     <div v-else class="row row-cols-auto gap-5 justify-content-center">
       <div class="col" v-for="doctor in doctorsBySpec" :key="doctor.id">
