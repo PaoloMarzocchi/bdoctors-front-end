@@ -44,9 +44,11 @@ export default {
 
       console.log(data, this.url);
 
-      axios.post(this.url, data)
+      axios
+        .post(this.url, data)
         .then(response => {
           console.log(response);
+          console.log(response.data);
           console.log(response.data.errors);
 
           if (response.data.success) {
@@ -74,7 +76,7 @@ export default {
 </script>
 
 <template>
-  <div class="message_form position-relative my-5">
+  <div class="message_form position-relative mt-5">
     <div class="shadow-lg rounded-4 p-4">
 
       <div class="message_form_title rounded-4 position-relative d-flex justify-content-center align-items-center">
@@ -208,7 +210,7 @@ export default {
   top: 50%;
   left: 50%;
   width: 400px;
-  height: 140px;
+  height: 100px;
   background-color: #f77b02;
   background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
 
