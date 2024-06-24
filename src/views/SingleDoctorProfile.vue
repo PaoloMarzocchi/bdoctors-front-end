@@ -56,20 +56,25 @@ export default {
       console.log(data);
 
       const url = `${this.state.base_url}/api/votes`;
-      axios.post(url, data).then(response => {
-        console.log(response);
-        if (response.data.success) {
-          this.vote = '';
-          n = 0;
+
+      axios
+        .post(url, data)
+        .then(response => {
+
+          console.log(response);
+
+          if (response.data.success) {
+            this.vote = '';
+            n = 0;
+          }
+          else {
+            /* this.$router.push({ name: 'not-found' }); */
+          }
         }
-        else {
-          /* this.$router.push({ name: 'not-found' }); */
-        }
-      }
-      ).catch(err => {
-        //console.log(err.message);
-        this.error_message = err.message;
-      })
+        ).catch(err => {
+          //console.log(err.message);
+          this.error_message = err.message;
+        })
     },
     getStarIcon(n) {
       return {
@@ -219,7 +224,7 @@ export default {
                   </div>
                 </div>
                 <div class="card-body">
-                  <form @submit.prevent="sendVote()" action="" method="post">
+                  <form @submit.prevent="sendVote()">
                     <div class="stars py-5 justify-content-center">
                       <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
                         @click="setRating(n)" class="vote_stars">

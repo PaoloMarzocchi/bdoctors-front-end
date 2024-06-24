@@ -16,6 +16,7 @@ export default {
       selectedSpec: null,
       selectedVote: null,
       selectedReview: null,
+      advanceSearch: false,
       isLoading: false, // variabile per l'indicatore di caricamento
       error: null, // variabile per il messaggio di errore
     };
@@ -43,13 +44,22 @@ export default {
     },
 
     advancedSearch() {
-      const url = `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`;
-      axios.get(url).then((response) => {
-        console.log(response.data.searchResults);
-        this.doctorsByAdvancedSearch = response.data.searchResults;
+      this.advanceSearch = true;
 
-        console.log(this.doctorsByAdvancedSearch);
-      });
+      const url = `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`;
+
+      console.log(url);
+
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.data);
+          console.log(response.data.searchResults);
+
+          this.doctorsByAdvancedSearch = response.data.searchResults;
+
+          console.log(this.doctorsByAdvancedSearch);
+        });
     },
 
     test(review) {
@@ -72,20 +82,14 @@ export default {
         <span class="text-warning" v-else>{{ $route.params.name }}</span>
       </h2>
       <RouterLink :to="{ name: 'home' }" class="btn btn-dark text-warning">
-        BACK</RouterLink
-      >
+        BACK</RouterLink>
     </div>
 
     <form @submit.prevent="advancedSearch()" method="get">
       <div class="advanced_search">
         <div class="mb-3">
           <label for="specializations">Change Specialization</label>
-          <select
-            class="form-select form-select-sm"
-            name="specializations"
-            id="specializations"
-            v-model="selectedSpec"
-          >
+          <select class="form-select form-select-sm" name="specializations" id="specializations" v-model="selectedSpec">
             <option selected disabled>Select specialization</option>
             <option v-for="(specialization, id) in state.specializations">
               {{ specialization.name }}
@@ -96,12 +100,7 @@ export default {
         <div class="my-3 d-flex">
           <div class="w-25">
             <label for="votes">Filter for vote</label>
-            <select
-              class="form-select form-select-sm"
-              name="votes"
-              id="votes"
-              v-model="selectedVote"
-            >
+            <select class="form-select form-select-sm" name="votes" id="votes" v-model="selectedVote">
               <option selected disabled>Select vote</option>
               <option v-for="n in 5">
                 {{ n }}
@@ -111,12 +110,7 @@ export default {
 
           <div class="w-25 ms-3">
             <label for="reviews">Filter for reviews number</label>
-            <select
-              class="form-select form-select-sm"
-              name="reviews"
-              id="reviews"
-              v-model="selectedReview"
-            >
+            <select class="form-select form-select-sm" name="reviews" id="reviews" v-model="selectedReview">
               <option selected disabled>Select n° reviews</option>
               <option value="5">>5</option>
               <option value="10">>10</option>
@@ -145,11 +139,18 @@ export default {
       {{ error }}
     </div>
 
+    <div v-if="advanceSearch" class="row row-cols-auto gap-5 justify-content-center">
+      <div class="col" v-for="doctor in doctorsByAdvancedSearch" :key="doctor.id">
+        <DoctorCard :doc="doctor"></DoctorCard>
+      </div>
+    </div>
+
     <div v-else class="row row-cols-auto gap-5 justify-content-center">
       <div class="col" v-for="doctor in doctorsBySpec" :key="doctor.id">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
+
   </div>
 </template>
 
