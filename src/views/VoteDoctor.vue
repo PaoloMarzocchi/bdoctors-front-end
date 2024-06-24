@@ -46,7 +46,7 @@ export default {
                 Hello visitor ! <br>
                 Do you want to leave a vote for the Doctor ?
             </h2>
-            <form @submit.prevent="sendVote()" action="">
+            <form @submit.prevent="sendVote()" action="" method="post">
                 <div class="stars py-5">
                     <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
                         @click="setRating(n)" class="vote_stars">
