@@ -272,6 +272,14 @@ export default {
                 >
                   BACK
                 </button>
+                <div class="right_actions">
+                  <button class="btn btn-warning text-dark fw-semibold">
+                    <router-link class="nav-link" :to="{ name: 'vote-doctor' }">Vote the doctor</router-link>
+                  </button>
+                  <button class="btn btn-warning text-dark fw-semibold mx-2">
+                    <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
