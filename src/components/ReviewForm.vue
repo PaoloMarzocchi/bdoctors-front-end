@@ -40,7 +40,8 @@ export default {
 
       console.log(data, this.url);
 
-      axios.post(this.url, data)
+      axios
+        .post(this.url, data)
         .then(response => {
           console.log(response);
 
@@ -174,7 +175,7 @@ export default {
   top: 50%;
   left: 50%;
   width: 400px;
-  height: 140px;
+  height: 100px;
   background-color: #f77b02;
   background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
 
