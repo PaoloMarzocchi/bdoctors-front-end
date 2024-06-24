@@ -219,20 +219,28 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="card shadow rounded-3 p-3 py-5">
-                <h2 class="fw-bold fs-1">
-                  Hello visitor ! <br>
-                  Do you want to leave a vote for the Doctor ?
-                </h2>
-                <form @submit.prevent="sendVote()" action="" method="post">
-                  <div class="stars py-5">
-                    <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
-                      @click="setRating(n)" class="vote_stars">
-                      <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
-                    </span>
+              <div class="card shadow-lg rounded-4 mt-3">
+                <div class="card-header">
+                  <div class="text-center bg-transparent fs-3 fw-bold">
+                    Hello visitor ! <br>
+                    Do you want to leave a vote for Dr. <span class="text-warning">{{ this.doctorProfile.user.name }} {{
+                      this.doctorProfile.surname
+                    }}</span>
                   </div>
-                  <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
-                </form>
+                </div>
+                <div class="card-body">
+                  <form @submit.prevent="sendVote()" action="" method="post">
+                    <div class="stars py-5 justify-content-center">
+                      <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
+                        @click="setRating(n)" class="vote_stars">
+                        <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
+                      </span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
             <div class="col d-flex flex-column justify-content-between">
