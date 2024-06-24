@@ -122,7 +122,7 @@ export default {
 
         <div class="col-12 form-floating has-validation">
           <textarea class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
-            :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
+            style="height: 100px" :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
           <label class="ms-2" for="review_text">Your review</label>
         </div>
 

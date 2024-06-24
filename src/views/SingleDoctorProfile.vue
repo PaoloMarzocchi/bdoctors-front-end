@@ -125,7 +125,7 @@ export default {
           <div class="row">
 
 
-            <div class="col d-flex flex-column gap-3">
+            <div class="col-12 col-md-6 d-flex flex-column gap-3">
               <div class="card doc_profile shadow-lg rounded-4 mt-5 border-0">
 
 
@@ -191,6 +191,7 @@ export default {
                       type="button" role="tab" aria-controls="services-tab-pane" aria-selected="false">Services</button>
                   </li>
                 </ul>
+
                 <!-- Tabs content -->
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="contacts-tab-pane" role="tabpanel"
@@ -204,15 +205,17 @@ export default {
                   </div>
                 </div>
 
-
               </div>
+
+              <!-- Vote doctor -->
               <div class="card shadow-lg rounded-4 mt-3">
                 <div class="card-header">
                   <div class="text-center bg-transparent fs-3 fw-bold">
                     Hello visitor ! <br>
-                    Do you want to leave a vote for Dr. <span class="text-warning">{{ this.doctorProfile.user.name }} {{
-                      this.doctorProfile.surname
-                    }}</span>
+                    Do you want to leave a vote for Dr. <span class="text-warning">{{ this.doctorProfile.user.name }}
+                      {{
+                        this.doctorProfile.surname
+                      }}</span>
                   </div>
                 </div>
                 <div class="card-body">
@@ -229,22 +232,35 @@ export default {
                   </form>
                 </div>
               </div>
+
+              <!-- Navigation button -->
+              <div class="actions mt-4">
+                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                  href="http://127.0.0.1:8000/dashboard">
+                  DASHBOARD
+                </a>
+                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                  BACK
+                </button>
+              </div>
+
             </div>
-            <div class="actions d-flex justify-content-center mt-4">
-              <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                href="http://127.0.0.1:8000/dashboard">
-                DASHBOARD
-              </a>
-              <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
-                BACK
-              </button>
+
+            <div class="col-12 col-md-6 d-flex flex-column gap-3">
+
+              <MessageForm :doc_id="this.doctorProfile.id" />
+              <ReviewForm :doc_id="this.doctorProfile.id" />
+
             </div>
+
           </div>
         </div>
       </template>
+
       <template v-else>
         <p class="py-5">Sorry, nothing to show here. Retry with another doctor.</p>
       </template>
+
     </main>
   </div>
 </template>
