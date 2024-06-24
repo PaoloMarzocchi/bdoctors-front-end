@@ -1,10 +1,13 @@
 <script>
 import axios from "axios";
 import { state } from "../state.js";
+import ReviewForm from "../components/ReviewForm.vue";
 
 export default {
   name: "SingleDoctorProfile",
-
+  components: {
+    ReviewForm,
+  },
   data() {
     return {
       state,
@@ -28,7 +31,7 @@ export default {
       axios.get(url).then((response) => {
         //console.log(response.data);
         this.doctorProfile = response.data.doctor;
-        //console.log(this.doctorProfile);
+        console.log(this.doctorProfile);
 
         if (response.data.success) {
           this.success = response.data.success;
@@ -125,7 +128,9 @@ export default {
                 </template>
               </div>
             </div>
+
             <div class="col d-flex flex-column justify-content-between">
+
               <div class="card h-75 shadow-lg rounded-4">
                 <div class="card-header">
                   <h5 class="card-title text-center bg-transparent">
@@ -256,6 +261,8 @@ export default {
                   </form>
                 </div>
               </div>
+
+              <ReviewForm :doc_id="this.doctorProfile.id" />
 
               <div class="actions d-flex justify-content-between mt-4">
                 <!-- <button @click="$router.back()" class="btn btn-dark text-warning">
