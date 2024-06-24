@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <div class="container my-5">
+  <div class="container my-5 py-5">
     <div class="my-4 d-flex justify-content-between align-items-center">
       <h2 class="mb-3">
         Research results for: <span class="text-warning">{{ $route.params.name }}</span>

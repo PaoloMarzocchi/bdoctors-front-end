@@ -112,7 +112,7 @@ export default {
   <div>
     <main>
       <template v-if="this.success">
-        <div class="container my-5">
+        <div class="container py-5 my-5">
           <div class="row">
             <div class="col">
               <div>
@@ -121,11 +121,7 @@ export default {
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img
-                    class="img-fluid"
-                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
-                    alt=""
-                  />
+                  <img class="img-fluid" :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
                 </template>
               </div>
             </div>
@@ -137,21 +133,13 @@ export default {
                   </h5>
                 </div>
 
-                <div
-                  class="card-body d-flex flex-column justify-content-center text-center bg-transparent"
-                >
+                <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
                   <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
-                  <span
-                    ><strong>Services:</strong> {{ this.doctorProfile.services }}</span
-                  >
-                  <span
-                    ><strong>Telephone:</strong>
-                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span
-                  >
-                  <span
-                    ><strong>Email:</strong>
-                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span
-                  >
+                  <span><strong>Services:</strong> {{ this.doctorProfile.services }}</span>
+                  <span><strong>Telephone:</strong>
+                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span>
+                  <span><strong>Email:</strong>
+                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span>
                 </div>
 
                 <div class="card-footer bg-transparent d-flex flex-column">
@@ -164,6 +152,7 @@ export default {
                         class="badge bg-warning text-dark mx-1"
                         >{{ spec.name }}</span
                       >
+                      
                     </p>
                   </template>
                 </div>
@@ -174,12 +163,11 @@ export default {
                   <h5 class="card-title text-center bg-transparent">Send me a message</h5>
                 </div>
 
-                <div
-                  class="card-body d-flex flex-column justify-content-center text-center bg-transparent"
-                >
+                <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
                   <form @submit.prevent="sendMessage()" action="" method="post">
                     <div class="mb-3">
                       <label for="firstName" class="form-label">First Name *</label>
+
                       <input
                         type="text"
                         class="form-control"
@@ -195,10 +183,12 @@ export default {
                       <small id="helpId" class="form-text text-muted"
                         >Type your first name here <i class="fa-solid fa-arrow-up"></i
                       ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="lastName" class="form-label">Last Name *</label>
+
                       <input
                         type="text"
                         class="form-control"
@@ -214,10 +204,12 @@ export default {
                       <small id="helpId" class="form-text text-muted"
                         >Type your last name here <i class="fa-solid fa-arrow-up"></i
                       ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="email" class="form-label">Email *</label>
+
                       <input
                         type="email"
                         class="form-control"
@@ -233,10 +225,12 @@ export default {
                       <small id="emailHelpId" class="form-text text-muted"
                         >Insert your email here <i class="fa-solid fa-arrow-up"></i
                       ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="message" class="form-label">Your message *</label>
+
                       <textarea
                         class="form-control"
                         name="message"
@@ -251,6 +245,7 @@ export default {
                         >Write here what you want to tell me
                         <i class="fa-solid fa-arrow-up"></i
                       ></small>
+
                     </div>
 
                     <div class="col-md-12 mt-5 row text-danger">
@@ -267,28 +262,16 @@ export default {
                   BACK
                 </button> -->
 
-                <a
-                  v-if="ButtonA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-dark text-warning"
-                  href="http://127.0.0.1:8000/dashboard"
-                >
+                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                  href="http://127.0.0.1:8000/dashboard">
                   DASHBOARD
                 </a>
-                <button
-                  v-if="ButtonB"
-                  @click="$router.back()"
-                  class="btn btn-dark text-warning"
-                >
+                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
                 </button>
                 <div class="right_actions">
                   <button class="btn btn-warning text-dark fw-semibold">
                     <router-link class="nav-link" :to="{ name: 'vote-doctor' }">Vote the doctor</router-link>
-                  </button>
-                  <button class="btn btn-warning text-dark fw-semibold mx-2">
-                    <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
                   </button>
                 </div>
               </div>
@@ -298,7 +281,7 @@ export default {
       </template>
 
       <template v-else>
-        <p>Sorry, nothing to show here. Retry with another doctor.</p>
+        <p class="py-5">Sorry, nothing to show here. Retry with another doctor.</p>
       </template>
     </main>
   </div>
