@@ -42,15 +42,19 @@ export default {
 <template>
     <main>
         <div class="container my-5">
+            <h2 class="fw-bold fs-1">
+                Hello visitor ! <br>
+                Do you want to leave a vote for the Doctor ?
+            </h2>
             <form @submit.prevent="sendVote()" action="">
-                <div class="stars">
+                <div class="stars py-5">
                     <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
                         @click="setRating(n)" class="vote_stars">
-                        <font-awesome-icon :icon="getStarIcon(n).icon" size="lg" :style="getStarIcon(n).style" />
+                        <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
                     </span>
                 </div>
                 <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
-                <button @click="$router.back()" class="btn btn-dark text-warning">Cancel</button>
+                <button @click="$router.back()" class="btn btn-dark text-warning mx-3">Cancel</button>
             </form>
         </div>
     </main>
