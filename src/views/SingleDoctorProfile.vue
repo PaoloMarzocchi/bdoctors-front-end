@@ -1,10 +1,13 @@
 <script>
 import axios from "axios";
 import { state } from "../state.js";
+import ReviewForm from "../components/ReviewForm.vue";
 
 export default {
   name: "SingleDoctorProfile",
-
+  components: {
+    ReviewForm,
+  },
   data() {
     return {
       state,
@@ -28,7 +31,7 @@ export default {
       axios.get(url).then((response) => {
         //console.log(response.data);
         this.doctorProfile = response.data.doctor;
-        //console.log(this.doctorProfile);
+        console.log(this.doctorProfile);
 
         if (response.data.success) {
           this.success = response.data.success;
@@ -82,7 +85,6 @@ export default {
       });
     },
   },
-
   mounted() {
     //console.log(this.$route.params.slug);
     let url =
@@ -112,101 +114,122 @@ export default {
   <div>
     <main>
       <template v-if="this.success">
-        <div class="container my-5">
+        <div class="container py-5 my-5">
           <div class="row">
-            <div class="col">
-              <div>
-                <template v-if="!this.doctorProfile.photo">
-                  <img class="img-fluid" src="/img/DoctorAvatar.png" alt="" />
-                </template>
 
-                <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img class="img-fluid" :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
-                </template>
+            <div class="col">
+              <div class="card doc_profile shadow-lg rounded-4">
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="doc_photo">
+                        <template v-if="!this.doctorProfile.photo">
+                          <img class="img-fluid" src="/img/DoctorAvatar.png" alt="" />
+                        </template>
+
+                        <template v-else="this.doctorProfile.photo.startsWith('uploads')">
+                          <img class="img-fluid" :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
+                            alt="" />
+                        </template>
+                      </div>
+                    </div>
+
+                    <div class="col-8">
+                      <div class="doc_info d-flex flex-column justify-content-center gap-3">
+
+                        <div class="doc_name">
+                          <h5>
+                            Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
+                          </h5>
+                          <span class="doc_specialist" v-for="(spec, id) in this.doctorProfile.specializations">
+                            {{ id !=
+                              this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
+                            + ' ' :
+                              spec.specialist }}
+                          </span>
+                        </div>
+
+                        <div><strong>Address: </strong> {{ this.doctorProfile.address }}</div>
+                        <div><strong>Services: </strong> {{ this.doctorProfile.services }}</div>
+                        <div><strong>Telephone: </strong>
+                          <a href="tel:+"> {{ this.doctorProfile.telephone }}</a>
+                        </div>
+                        <div><strong>Email: </strong>
+                          <a href="mailto:"> {{ this.doctorProfile.user.email }}</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent d-flex flex-column">
+                  <div>
+                    <strong>Specializations : </strong>
+                    <span v-for="spec in this.doctorProfile.specializations" class="badge bg-warning text-dark mx-1">{{
+                      spec.name }}</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col d-flex flex-column justify-content-between">
-              <div class="card h-75 shadow-lg rounded-4">
-                <div class="card-header">
-                  <h5 class="card-title text-center bg-transparent">
-                    Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
-                  </h5>
-                </div>
-
-                <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
-                  <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
-                  <span><strong>Services:</strong> {{ this.doctorProfile.services }}</span>
-                  <span><strong>Telephone:</strong>
-                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span>
-                  <span><strong>Email:</strong>
-                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span>
-                </div>
-
-                <div class="card-footer bg-transparent d-flex flex-column">
-                  <template v-if="this.doctorProfile.specializations">
-                    <p>
-                      <strong>Specializations : </strong>
-
-                      <span v-for="spec in this.doctorProfile.specializations"
-                        class="badge bg-warning text-dark mx-1">{{ spec.name }}</span>
-
-                    </p>
-                  </template>
-                </div>
-              </div>
-
-              <div class="card h-75 shadow-lg rounded-4 mt-3">
+              <div class="card h-75 shadow-lg rounded-4 mb-3">
                 <div class="card-header">
                   <h5 class="card-title text-center bg-transparent">Send me a message</h5>
                 </div>
-
                 <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
                   <form @submit.prevent="sendMessage()" action="" method="post">
                     <div class="mb-3">
                       <label for="firstName" class="form-label">First Name *</label>
                       <input type="text" class="form-control" name="firstName" id="firstName" aria-describedby="helpId"
                         placeholder="Your first name here" v-model="firstName" />
+                      <p class="text-danger mt-3" v-show="this.firstNameError">
+                        {{ this.firstNameError }}
+                      </p>
                       <small id="helpId" class="form-text text-muted">Type your first name here <i
                           class="fa-solid fa-arrow-up"></i></small>
                     </div>
-
                     <div class="mb-3">
                       <label for="lastName" class="form-label">Last Name *</label>
                       <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="helpId"
                         placeholder="Your last name here" v-model="lastName" />
+                      <p class="text-danger mt-3" v-show="this.lastNameError">
+                        {{ this.lastNameError }}
+                      </p>
                       <small id="helpId" class="form-text text-muted">Type your last name here <i
                           class="fa-solid fa-arrow-up"></i></small>
                     </div>
-
                     <div class="mb-3">
                       <label for="email" class="form-label">Email *</label>
                       <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
                         placeholder="abc@mail.com" v-model="email" />
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
                       <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
                           class="fa-solid fa-arrow-up"></i></small>
                     </div>
-
                     <div class="mb-3">
                       <label for="message" class="form-label">Your message *</label>
                       <textarea class="form-control" name="message" id="message" rows="6" v-model="message"></textarea>
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
                       <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me
                         <i class="fa-solid fa-arrow-up"></i></small>
                     </div>
-
                     <div class="col-md-12 mt-5 row text-danger">
                       <p>( <span class="text-dark">*</span> ) Required fields.</p>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Send</button>
                   </form>
                 </div>
               </div>
-
+              <ReviewForm :doc_id="this.doctorProfile.id" />
               <div class="actions d-flex justify-content-between mt-4">
                 <!-- <button @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
                 </button> -->
-
                 <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
                   href="http://127.0.0.1:8000/dashboard">
                   DASHBOARD
@@ -227,12 +250,23 @@ export default {
           </div>
         </div>
       </template>
-
       <template v-else>
-        <p>Sorry, nothing to show here. Retry with another doctor.</p>
+        <p class="py-5">Sorry, nothing to show here. Retry with another doctor.</p>
       </template>
     </main>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.doc_profile {
+
+  .doc_photo {
+    width: 150px;
+    aspect-ratio: 1;
+  }
+
+  .doc_specialist {
+    font-size: 0.90rem;
+  }
+}
+</style>
