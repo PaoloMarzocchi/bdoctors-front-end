@@ -5,9 +5,6 @@ import SingleDoctorProfile from "./views/SingleDoctorProfile.vue";
 import ContactMe from "./views/ContactMe.vue";
 import VoteDoctor from './views/VoteDoctor.vue';
 
-
-
-
 const router = createRouter({
 
     history: createWebHistory(),
@@ -41,6 +38,4 @@ const router = createRouter({
 
 })
 
-
 export default router;
-

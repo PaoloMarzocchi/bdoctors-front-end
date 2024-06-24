@@ -77,27 +77,27 @@ export default {
 </script>
 
 <template>
-    <section class="spec-search p-5 mb-4 bg-secondary border-bottom border-warning">
+    <section class="spec-search p-5 pb-5 bg-secondary">
         <div class="container py-5 d-flex flex-column align-items-center rounded-5">
-            <h2 class="text-warning mb-3">Search your doctor by specializations</h2>
+            <h2 class="my-3">Search your doctor by specialization</h2>
             <div class="col-md-8 fs-4 text-center">
                 <div class="mb-3">
-                    <select class="form-select form-select-lg border border-warning" name="specializations"
-                        id="specializations" v-model="selectedSpec">
+                    <select class="form-select form-select-lg" name="specializations" id="specializations"
+                        v-model="selectedSpec">
                         <option selected disabled>Select one</option>
                         <option v-for="(specialization, id) in specializations">
                             {{ specialization.name }}
                         </option>
                     </select>
                 </div>
-                <button class="btn btn-dark text-warning" @click="goToIndex()">Search</button>
+                <button class="btn btn-dark" @click="goToIndex()">Search</button>
             </div>
         </div>
     </section>
 
-    <section class="sponsored pb-4 text-center">
-        <h3 class="text-warning pb-4">Our Doctors</h3>
-        <div class="container">
+    <section class="sponsored py-4 text-center">
+        <h3 class="mb-4">Our sponsored doctors</h3>
+        <div class="container py-5">
             <div class="row row-cols-auto gap-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
 
@@ -109,4 +109,41 @@ export default {
     </section>
 </template>
 
-<style></style>
+<style>
+/* body {
+    background-color: rgba(0, 0, 255, 0.171);
+} */
+
+.spec-search {
+    background-image: url('/img/bg_doctors.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 20% 20%;
+    border-bottom-right-radius: 20% 20%;
+
+
+    & h2 {
+        color: var(--secondary);
+    }
+
+    & select {
+        border: 3px solid var(--secondary);
+        border-radius: 30px;
+    }
+
+    & button {
+        color: var(--secondary);
+        /* background-color: var(--dark); */
+    }
+
+}
+
+.sponsored {
+    /* background-color: rgba(0, 0, 255, 0.171); */
+
+    & h3 {
+        color: var(--warning);
+    }
+}
+</style>
