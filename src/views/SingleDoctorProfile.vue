@@ -10,7 +10,10 @@ export default {
       state,
       doctorProfile: "",
       success: "",
-      loading: true,
+      firstName: "",
+      lastName: "",
+      email: "",
+      message: "",
       ButtonA: false,
       ButtonB: false,
     };
@@ -33,11 +36,40 @@ export default {
         //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
+
+    sendMessage() {
+      this.loading = true;
+      const data = {
+        doctor_profile_id: this.doctorProfile.id,
+        sender_first_name: this.firstName,
+        sender_last_name: this.lastName,
+        email: this.email,
+        message_text: this.message,
+      };
+
+      console.log(data);
+
+      const apiUrl = `${this.state.base_url}/api/contacts`;
+
+      axios.post(apiUrl, data).then((response) => {
+        console.log(response);
+
+        if (response.data.success) {
+          (this.firstName = ""),
+            (this.lastName = ""),
+            (this.email = ""),
+            (this.message = "");
+        }
+      });
+
+      this.loading = false;
+    },
   },
 
   mounted() {
     //console.log(this.$route.params.slug);
-    let url = this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
+    let url =
+      this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
     /* this.getDoctorsBySpec(this.$route.params.name); */
 
@@ -46,9 +78,9 @@ export default {
     //console.log(document.referrer.includes('/admin'));
 
     const urlParams = new URLSearchParams(window.location.search);
-    const source = urlParams.get('source');
+    const source = urlParams.get("source");
 
-    if (source === 'back-end') {
+    if (source === "back-end") {
       this.ButtonA = true;
       //console.log("A " + this.ButtonA);
     } else {
@@ -72,29 +104,15 @@ export default {
                 </template>
 
                 <template v-else="this.doctorProfile.photo.startsWith('uploads')">
-                  <img class="img-fluid" :src="this.state.base_url + '/storage/' + this.doctorProfile.photo" alt="" />
+                  <img
+                    class="img-fluid"
+                    :src="this.state.base_url + '/storage/' + this.doctorProfile.photo"
+                    alt=""
+                  />
                 </template>
               </div>
             </div>
             <div class="col d-flex flex-column justify-content-between">
-              <!-- <div class="card">
-                <div class="card-title">
-                  <h3>
-                    Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
-                  </h3>
-                </div>
-                <div class="card-body">
-                  <p>
-                    Hi! You can find me at my studio here :
-                    {{ this.doctorProfile.address }}
-                  </p>
-                  <p>
-                    Or, if you want to get in touch with me, feel free to call at the :
-                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a>
-                  </p>
-                  <p>Otherwise, you can send me a message here:</p>
-                </div>
-              </div> -->
               <div class="card h-75 shadow-lg rounded-4">
                 <div class="card-header">
                   <h5 class="card-title text-center bg-transparent">
@@ -102,60 +120,140 @@ export default {
                   </h5>
                 </div>
 
-                <div class="card-body d-flex flex-column justify-content-center  text-center bg-transparent">
+                <div
+                  class="card-body d-flex flex-column justify-content-center text-center bg-transparent"
+                >
                   <span><strong>Address:</strong> {{ this.doctorProfile.address }}</span>
-                  <span><strong>Services:</strong> {{ this.doctorProfile.services }}</span>
-                  <span><strong>Telephone:</strong>
-                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span>
-                  <span><strong>Email:</strong>
-                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span>
+                  <span
+                    ><strong>Services:</strong> {{ this.doctorProfile.services }}</span
+                  >
+                  <span
+                    ><strong>Telephone:</strong>
+                    <a href="tel:+">{{ this.doctorProfile.telephone }}</a></span
+                  >
+                  <span
+                    ><strong>Email:</strong>
+                    <a href="mailto:">{{ this.doctorProfile.user.email }}</a></span
+                  >
                 </div>
 
                 <div class="card-footer bg-transparent d-flex flex-column">
                   <template v-if="this.doctorProfile.specializations">
                     <p>
                       <strong>Specializations : </strong>
-                      <span v-for="spec in this.doctorProfile.specializations"
-                        class="badge bg-warning text-dark mx-1">{{
-                          spec.name }}</span>
+                      <span
+                        v-for="spec in this.doctorProfile.specializations"
+                        class="badge bg-warning text-dark mx-1"
+                        >{{ spec.name }}</span
+                      >
                     </p>
                   </template>
                 </div>
               </div>
 
-              <!-- <div class="card mt-5">
-                <template v-if="this.doctorProfile.cv == null">
-                  <p>Doctor still has to upload his cv</p>
-                </template>
+              <div class="card h-75 shadow-lg rounded-4 mt-3">
+                <div class="card-header">
+                  <h5 class="card-title text-center bg-transparent">Send me a message</h5>
+                </div>
 
-                <template v-else="this.doctorProfile.cv.startsWith('cv')">
-                  <object
-                    class="pdf"
-                    height="300"
-                    :data="this.state.base_url + '/storage/' + this.doctorProfile.cv"
-                    type=""
-                  ></object>
-                </template>
-              </div> -->
+                <div
+                  class="card-body d-flex flex-column justify-content-center text-center bg-transparent"
+                >
+                  <form @submit.prevent="sendMessage()" action="" method="post">
+                    <div class="mb-3">
+                      <label for="firstName" class="form-label">First Name *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="firstName"
+                        id="firstName"
+                        aria-describedby="helpId"
+                        placeholder="Your first name here"
+                        v-model="firstName"
+                      />
+                      <small id="helpId" class="form-text text-muted"
+                        >Type your first name here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="lastName" class="form-label">Last Name *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lastName"
+                        id="lastName"
+                        aria-describedby="helpId"
+                        placeholder="Your last name here"
+                        v-model="lastName"
+                      />
+                      <small id="helpId" class="form-text text-muted"
+                        >Type your last name here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email *</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        aria-describedby="emailHelpId"
+                        placeholder="abc@mail.com"
+                        v-model="email"
+                      />
+                      <small id="emailHelpId" class="form-text text-muted"
+                        >Insert your email here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="message" class="form-label">Your message *</label>
+                      <textarea
+                        class="form-control"
+                        name="message"
+                        id="message"
+                        rows="6"
+                        v-model="message"
+                      ></textarea>
+                      <small id="messageHelpId" class="form-text text-muted"
+                        >Write here what you want to tell me
+                        <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+                    </div>
+
+                    <div class="col-md-12 mt-5 row text-danger">
+                      <p>( <span class="text-dark">*</span> ) Required fields.</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send</button>
+                  </form>
+                </div>
+              </div>
 
               <div class="actions d-flex justify-content-between mt-4">
                 <!-- <button @click="$router.back()" class="btn btn-dark text-warning">
                   BACK
                 </button> -->
 
-                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                  href="http://127.0.0.1:8000/dashboard">
+                <a
+                  v-if="ButtonA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-dark text-warning"
+                  href="http://127.0.0.1:8000/dashboard"
+                >
                   DASHBOARD
                 </a>
-                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                <button
+                  v-if="ButtonB"
+                  @click="$router.back()"
+                  class="btn btn-dark text-warning"
+                >
                   BACK
                 </button>
-
-                <button class="btn btn-warning text-dark fw-semibold">
-                  <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link>
-                </button>
               </div>
-
             </div>
           </div>
         </div>
