@@ -250,61 +250,7 @@ export default {
                 </form>
               </div>
             </div>
-            <div class="col d-flex flex-column justify-content-between">
-              <div class="card h-75 shadow-lg rounded-4 mb-3">
-                <div class="card-header">
-                  <h5 class="card-title text-center bg-transparent">Send me a message</h5>
-                </div>
-                <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
-                  <form @submit.prevent="sendMessage()" action="" method="post">
-                    <div class="mb-3">
-                      <label for="firstName" class="form-label">First Name *</label>
-                      <input type="text" class="form-control" name="firstName" id="firstName" aria-describedby="helpId"
-                        placeholder="Your first name here" v-model="firstName" />
-                      <p class="text-danger mt-3" v-show="this.firstNameError">
-                        {{ this.firstNameError }}
-                      </p>
-                      <small id="helpId" class="form-text text-muted">Type your first name here <i
-                          class="fa-solid fa-arrow-up"></i></small>
-                    </div>
-                    <div class="mb-3">
-                      <label for="lastName" class="form-label">Last Name *</label>
-                      <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="helpId"
-                        placeholder="Your last name here" v-model="lastName" />
-                      <p class="text-danger mt-3" v-show="this.lastNameError">
-                        {{ this.lastNameError }}
-                      </p>
-                      <small id="helpId" class="form-text text-muted">Type your last name here <i
-                          class="fa-solid fa-arrow-up"></i></small>
-                    </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email *</label>
-                      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
-                        placeholder="abc@mail.com" v-model="email" />
-                      <p class="text-danger mt-3" v-show="this.emailError">
-                        {{ this.emailError }}
-                      </p>
-                      <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
-                          class="fa-solid fa-arrow-up"></i></small>
-                    </div>
-                    <div class="mb-3">
-                      <label for="message" class="form-label">Your message *</label>
-                      <textarea class="form-control" name="message" id="message" rows="6" v-model="message"></textarea>
-                      <p class="text-danger mt-3" v-show="this.emailError">
-                        {{ this.emailError }}
-                      </p>
-                      <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me
-                        <i class="fa-solid fa-arrow-up"></i></small>
-                    </div>
-                    <div class="col-md-12 mt-5 row text-danger">
-                      <p>( <span class="text-dark">*</span> ) Required fields.</p>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                  </form>
-                </div>
-              </div>
-              <ReviewForm :doc_id="this.doctorProfile.id" />
-            </div>
+
             <div class="actions d-flex justify-content-center mt-4">
               <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
                 href="http://127.0.0.1:8000/dashboard">
