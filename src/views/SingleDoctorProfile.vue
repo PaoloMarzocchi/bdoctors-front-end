@@ -14,6 +14,10 @@ export default {
       lastName: "",
       email: "",
       message: "",
+      firstNameError: "",
+      lastNameError: "",
+      emailError: "",
+      messageError: "",
       ButtonA: false,
       ButtonB: false,
     };
@@ -47,12 +51,13 @@ export default {
         message_text: this.message,
       };
 
-      console.log(data);
+      // console.log(data);
 
       const apiUrl = `${this.state.base_url}/api/contacts`;
 
       axios.post(apiUrl, data).then((response) => {
         console.log(response);
+        console.log(response.data.errors);
 
         if (response.data.success) {
           (this.firstName = ""),
@@ -60,9 +65,21 @@ export default {
             (this.email = ""),
             (this.message = "");
         }
-      });
 
-      this.loading = false;
+        if (!response.data.success) {
+          (this.firstNameError = response.data.errors.sender_first_name),
+            (this.lastNameError = response.data.errors.sender_last_name),
+            (this.emailError = response.data.errors.email),
+            (this.messageError = response.data.errors.message_text);
+        }
+
+        console.log(
+          this.firstNameError,
+          this.lastNameError,
+          this.emailError,
+          this.messageError
+        );
+      });
     },
   },
 
