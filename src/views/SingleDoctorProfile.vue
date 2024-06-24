@@ -6,6 +6,7 @@ import ReviewForm from "../components/ReviewForm.vue";
 import MessageForm from "../components/MessageForm.vue";
 import DoctorContacts from "../components/DoctorContacts.vue";
 import DoctorServices from "../components/DoctorServices.vue";
+import VoteForm from '../components/VoteForm.vue';
 
 export default {
   name: "SingleDoctorProfile",
@@ -14,6 +15,7 @@ export default {
     MessageForm,
     DoctorContacts,
     DoctorServices,
+    VoteForm,
   },
   data() {
     return {
@@ -23,8 +25,6 @@ export default {
       ButtonB: false,
       vote: '',
       loading: false,
-      rating: 0,
-      hoverRating: 0,
     };
   },
 
@@ -45,52 +45,6 @@ export default {
         //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
-
-    sendVote() {
-      this.loading = true;
-      const data =
-      {
-        vote_id: this.vote,
-        doctor_profile_id: this.doctorProfile.id,
-      };
-      console.log(data);
-
-      const url = `${this.state.base_url}/api/votes`;
-      axios.post(url, data).then(response => {
-        console.log(response);
-        if (response.data.success) {
-          this.vote = '';
-          n = 0;
-        }
-        else {
-          /* this.$router.push({ name: 'not-found' }); */
-        }
-      }
-      ).catch(err => {
-        //console.log(err.message);
-        this.error_message = err.message;
-      })
-    },
-    getStarIcon(n) {
-      return {
-        icon: this.hoverRating >= n || this.rating >= n ? ['fas', 'star'] : ['far', 'star'],
-        style: { color: '#FFD700 !important' }
-      };
-    },
-    hoverStar(n) {
-      this.hoverRating = n;
-      //console.log(this.hoverRating);
-    },
-    leaveStar() {
-      this.hoverRating = 0;
-      //console.log(this.hoverRating);
-    },
-    setRating(n) {
-      this.rating = n;
-      //console.log(this.rating);
-      this.vote = this.rating;
-      //console.log(this.vote);
-    }
   },
   mounted() {
     //console.log(this.$route.params.slug);
@@ -124,10 +78,8 @@ export default {
         <div class="container py-5 my-5">
           <div class="row">
 
-
             <div class="col-12 col-md-6 d-flex flex-column gap-3">
               <div class="card doc_profile shadow-lg rounded-4 mt-5 border-0">
-
 
                 <div class="card-body">
                   <div class="row">
@@ -146,7 +98,6 @@ export default {
 
                     <div class="col-8">
                       <div class="doc_info d-flex flex-column justify-content-center gap-3">
-
                         <div class="doc_name">
                           <h5>
                             Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
@@ -160,8 +111,6 @@ export default {
                                 spec.specialist }}
                             </span>
                           </div>
-
-
                         </div>
 
                         <div>
@@ -171,9 +120,7 @@ export default {
                             class="badge bg-warning text-dark mx-1">
                             {{ spec.name }}
                           </span>
-
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -204,46 +151,11 @@ export default {
                     <DoctorServices :services="this.doctorProfile.services" />
                   </div>
                 </div>
-
               </div>
 
               <!-- Vote doctor -->
-              <div class="card shadow-lg rounded-4 mt-3">
-                <div class="card-header">
-                  <div class="text-center bg-transparent fs-3 fw-bold">
-                    Hello visitor ! <br>
-                    Do you want to leave a vote for Dr. <span class="text-warning">{{ this.doctorProfile.user.name }}
-                      {{
-                        this.doctorProfile.surname
-                      }}</span>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <form @submit.prevent="sendVote()" action="" method="post">
-                    <div class="stars py-5 justify-content-center">
-                      <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
-                        @click="setRating(n)" class="vote_stars">
-                        <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
-                      </span>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center">
-                      <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              <!-- Navigation button -->
-              <div class="actions mt-4">
-                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                  href="http://127.0.0.1:8000/dashboard">
-                  DASHBOARD
-                </a>
-                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
-                  BACK
-                </button>
-              </div>
-
+              <VoteForm :doc_id="this.doctorProfile.id" :doc_name="this.doctorProfile.user.name"
+                :doc_surname="this.doctorProfile.surname" />
             </div>
 
             <div class="col-12 col-md-6 d-flex flex-column gap-3">
@@ -252,7 +164,16 @@ export default {
               <ReviewForm :doc_id="this.doctorProfile.id" />
 
             </div>
-
+            <!-- Navigation button -->
+            <div class="actions mt-4 d-flex justify-content-center align-items-center">
+              <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                href="http://127.0.0.1:8000/dashboard">
+                Dashboard
+              </a>
+              <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                Back
+              </button>
+            </div>
           </div>
         </div>
       </template>
@@ -285,14 +206,5 @@ export default {
       color: #2d2d2d;
     }
   }
-}
-
-.stars {
-  display: flex;
-}
-
-.vote_stars {
-  cursor: pointer;
-  margin: 5px;
 }
 </style>
