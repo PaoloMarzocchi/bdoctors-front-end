@@ -158,11 +158,13 @@ export default {
                   <template v-if="this.doctorProfile.specializations">
                     <p>
                       <strong>Specializations : </strong>
+
                       <span
                         v-for="spec in this.doctorProfile.specializations"
                         class="badge bg-warning text-dark mx-1"
                         >{{ spec.name }}</span
                       >
+
                     </p>
                   </template>
                 </div>
@@ -283,9 +285,6 @@ export default {
   </div>
 </template>
 
-<style>
-* {
-  background-color: white;
-  color: black;
-}
+<style scoped>
+
 </style>
