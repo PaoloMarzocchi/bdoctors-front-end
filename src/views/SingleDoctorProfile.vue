@@ -102,6 +102,7 @@ export default {
         console.log(response);
         if (response.data.success) {
           this.vote = '';
+          n = 0;
         }
         else {
           /* this.$router.push({ name: 'not-found' }); */
@@ -288,26 +289,15 @@ export default {
                 </div>
               </div>
               <ReviewForm :doc_id="this.doctorProfile.id" />
-              <div class="actions d-flex justify-content-between mt-4">
-                <!-- <button @click="$router.back()" class="btn btn-dark text-warning">
-                  BACK
-                </button> -->
-                <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
-                  href="http://127.0.0.1:8000/dashboard">
-                  DASHBOARD
-                </a>
-                <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
-                  BACK
-                </button>
-                <div class="right_actions">
-                  <button class="btn btn-warning text-dark fw-semibold">
-                    <!-- <router-link class="nav-link" :to="{ name: 'vote-doctor' }">Vote the doctor</router-link> -->
-                  </button>
-                  <button class="btn btn-warning text-dark fw-semibold mx-2">
-                    <!-- <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link> -->
-                  </button>
-                </div>
-              </div>
+            </div>
+            <div class="actions d-flex justify-content-center mt-4">
+              <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                href="http://127.0.0.1:8000/dashboard">
+                DASHBOARD
+              </a>
+              <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                BACK
+              </button>
             </div>
           </div>
         </div>
