@@ -126,7 +126,7 @@ export default {
           <label class="ms-2" for="review_text">Your review</label>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary btn_review" :disabled="loading">
             {{ loading ? 'Sending review...' : 'Send review' }}
           </button>

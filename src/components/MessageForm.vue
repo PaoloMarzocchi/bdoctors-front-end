@@ -161,7 +161,7 @@ export default {
           <p>( <span class="text-dark">*</span> ) Required fields.</p>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary btn_message" :disabled="loading">
             {{ loading ? 'Sending message...' : 'Send message' }}
           </button>
