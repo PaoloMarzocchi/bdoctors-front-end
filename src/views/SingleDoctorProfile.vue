@@ -147,9 +147,12 @@ export default {
                     <p>
                       <strong>Specializations : </strong>
 
-                      <span v-for="spec in this.doctorProfile.specializations"
-                        class="badge bg-warning text-dark mx-1">{{ spec.name }}</span>
-
+                      <span
+                        v-for="spec in this.doctorProfile.specializations"
+                        class="badge bg-warning text-dark mx-1"
+                        >{{ spec.name }}</span
+                      >
+                      
                     </p>
                   </template>
                 </div>
@@ -164,33 +167,85 @@ export default {
                   <form @submit.prevent="sendMessage()" action="" method="post">
                     <div class="mb-3">
                       <label for="firstName" class="form-label">First Name *</label>
-                      <input type="text" class="form-control" name="firstName" id="firstName" aria-describedby="helpId"
-                        placeholder="Your first name here" v-model="firstName" />
-                      <small id="helpId" class="form-text text-muted">Type your first name here <i
-                          class="fa-solid fa-arrow-up"></i></small>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="firstName"
+                        id="firstName"
+                        aria-describedby="helpId"
+                        placeholder="Your first name here"
+                        v-model="firstName"
+                      />
+                      <p class="text-danger mt-3" v-show="this.firstNameError">
+                        {{ this.firstNameError }}
+                      </p>
+                      <small id="helpId" class="form-text text-muted"
+                        >Type your first name here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="lastName" class="form-label">Last Name *</label>
-                      <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="helpId"
-                        placeholder="Your last name here" v-model="lastName" />
-                      <small id="helpId" class="form-text text-muted">Type your last name here <i
-                          class="fa-solid fa-arrow-up"></i></small>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lastName"
+                        id="lastName"
+                        aria-describedby="helpId"
+                        placeholder="Your last name here"
+                        v-model="lastName"
+                      />
+                      <p class="text-danger mt-3" v-show="this.lastNameError">
+                        {{ this.lastNameError }}
+                      </p>
+                      <small id="helpId" class="form-text text-muted"
+                        >Type your last name here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="email" class="form-label">Email *</label>
-                      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
-                        placeholder="abc@mail.com" v-model="email" />
-                      <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
-                          class="fa-solid fa-arrow-up"></i></small>
+
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        aria-describedby="emailHelpId"
+                        placeholder="abc@mail.com"
+                        v-model="email"
+                      />
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
+                      <small id="emailHelpId" class="form-text text-muted"
+                        >Insert your email here <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+
                     </div>
 
                     <div class="mb-3">
                       <label for="message" class="form-label">Your message *</label>
-                      <textarea class="form-control" name="message" id="message" rows="6" v-model="message"></textarea>
-                      <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me
-                        <i class="fa-solid fa-arrow-up"></i></small>
+
+                      <textarea
+                        class="form-control"
+                        name="message"
+                        id="message"
+                        rows="6"
+                        v-model="message"
+                      ></textarea>
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
+                      <small id="messageHelpId" class="form-text text-muted"
+                        >Write here what you want to tell me
+                        <i class="fa-solid fa-arrow-up"></i
+                      ></small>
+
                     </div>
 
                     <div class="col-md-12 mt-5 row text-danger">
