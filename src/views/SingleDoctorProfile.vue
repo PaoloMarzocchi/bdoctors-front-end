@@ -164,7 +164,6 @@ export default {
                         class="badge bg-warning text-dark mx-1"
                         >{{ spec.name }}</span
                       >
-
                     </p>
                   </template>
                 </div>
@@ -190,6 +189,9 @@ export default {
                         placeholder="Your first name here"
                         v-model="firstName"
                       />
+                      <p class="text-danger mt-3" v-show="this.firstNameError">
+                        {{ this.firstNameError }}
+                      </p>
                       <small id="helpId" class="form-text text-muted"
                         >Type your first name here <i class="fa-solid fa-arrow-up"></i
                       ></small>
@@ -206,6 +208,9 @@ export default {
                         placeholder="Your last name here"
                         v-model="lastName"
                       />
+                      <p class="text-danger mt-3" v-show="this.lastNameError">
+                        {{ this.lastNameError }}
+                      </p>
                       <small id="helpId" class="form-text text-muted"
                         >Type your last name here <i class="fa-solid fa-arrow-up"></i
                       ></small>
@@ -222,6 +227,9 @@ export default {
                         placeholder="abc@mail.com"
                         v-model="email"
                       />
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
                       <small id="emailHelpId" class="form-text text-muted"
                         >Insert your email here <i class="fa-solid fa-arrow-up"></i
                       ></small>
@@ -236,6 +244,9 @@ export default {
                         rows="6"
                         v-model="message"
                       ></textarea>
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
                       <small id="messageHelpId" class="form-text text-muted"
                         >Write here what you want to tell me
                         <i class="fa-solid fa-arrow-up"></i
@@ -285,6 +296,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
