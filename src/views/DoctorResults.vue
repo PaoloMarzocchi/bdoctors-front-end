@@ -87,18 +87,21 @@ export default {
 
     <form @submit.prevent="advancedSearch()" method="get">
       <div class="advanced_search mb-3">
-        <div class="mb-3">
-          <label for="specializations">Change Specialization</label>
-          <select class="form-select form-select-sm" name="specializations" id="specializations" v-model="selectedSpec">
-            <option selected disabled>Select specialization</option>
-            <option v-for="(specialization, id) in state.specializations">
-              {{ specialization.name }}
-            </option>
-          </select>
-        </div>
 
-        <div class="my-3 d-flex">
-          <div class="w-25">
+        <div class="row mb-3">
+
+          <div class="col-12 col-md-4">
+            <label for="specializations">Change Specialization</label>
+            <select class="form-select form-select-sm" name="specializations" id="specializations"
+              v-model="selectedSpec">
+              <option selected disabled>Select specialization</option>
+              <option v-for="(specialization, id) in state.specializations">
+                {{ specialization.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-12 col-md-4">
             <label for="votes">Filter for vote</label>
             <select class="form-select form-select-sm" name="votes" id="votes" v-model="selectedVote">
               <option selected disabled>Select vote</option>
@@ -108,7 +111,7 @@ export default {
             </select>
           </div>
 
-          <div class="w-25 ms-3">
+          <div class="col-12 col-md-4">
             <label for="reviews">Filter for reviews number</label>
             <select class="form-select form-select-sm" name="reviews" id="reviews" v-model="selectedReview">
               <option selected disabled>Select n° reviews</option>
@@ -117,6 +120,7 @@ export default {
               <option value="11">10+</option>
             </select>
           </div>
+
         </div>
         <!-- <div class="mb-3">
         <select class="form-select form-select-lg" name="specializations" id="specializations" v-model="selectedSpec">
