@@ -37,6 +37,7 @@ export default {
         email: this.email,
         review_text: this.review_text
       }
+
       console.log(data, this.url);
 
       axios.post(this.url, data)
@@ -75,55 +76,55 @@ export default {
     <div class="shadow-lg rounded-4 p-4">
 
       <div class="review_form_title rounded-4 position-relative d-flex justify-content-center align-items-center">
-        <h2 class="bg-transparent">Leave a review</h2>
+        <h2>Leave a review</h2>
       </div>
+
+      <template v-if="success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong>Thank you!</strong>
+          <br>
+          <span>Your review has been sent!</span>
+        </div>
+      </template>
+
+      <template v-if="errors">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong class="">Errors</strong>
+          <ul class="list-unstyled ">
+            <li class="text-danger " v-for="error in errors">
+              <span class="">{{ error[0] }}</span>
+            </li>
+          </ul>
+        </div>
+      </template>
 
       <form class="row g-3" @submit.prevent="sendReview()">
 
         <div class="col-12 col-md-6 form-floating has-validation">
           <input type="text" class="form-control" id="first_name" placeholder="Mario"
             :class="{ 'is-invalid': errors.first_name }" v-model="first_name">
-          <label class="bg-transparent ms-2" for="first_name">First name</label>
+          <label class="ms-2" for="first_name">First name</label>
         </div>
 
         <div class="col-12 col-md-6 form-floating has-validation">
           <input type="text" class="form-control" id="last_name" placeholder="Rossi"
             :class="{ 'is-invalid': errors.last_name }" v-model="last_name">
-          <label class="bg-transparent ms-2" for="last_name">Last name</label>
+          <label class="ms-2" for="last_name">Last name</label>
         </div>
 
         <div class="col-12 form-floating has-validation">
           <input type="email" class="form-control" id="email" placeholder="mariorossi@example.it"
             :class="{ 'is-invalid': errors.email }" v-model="email">
-          <label class="bg-transparent ms-2" for="email">Email</label>
+          <label class="ms-2" for="email">Email</label>
         </div>
 
         <div class="col-12 form-floating has-validation">
-          <textarea class="form-control" placeholder="Leave a comment here" id="review_text" style="height: 100px"
+          <textarea class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
             :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
-          <label class="bg-transparent ms-2" for="review_text">Your review</label>
+          <label class="ms-2" for="review_text">Your review</label>
         </div>
-
-        <template v-if="success">
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <strong class="bg-transparent">Thank you!</strong>
-            <br>
-            <span class="bg-transparent">Your review has been sent!</span>
-          </div>
-        </template>
-
-        <template v-if="errors">
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <strong class="bg-transparent">Errors</strong>
-            <ul class="list-unstyled bg-transparent">
-              <li class="text-danger bg-transparent" v-for="error in errors">
-                <span class="bg-transparent">{{ error[0] }}</span>
-              </li>
-            </ul>
-          </div>
-        </template>
 
         <div class="col-12">
           <button type="submit" class="btn btn-primary btn_review" :disabled="loading">
@@ -140,7 +141,9 @@ export default {
 <style scoped>
 .btn_review {
   position: relative;
-  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+
+  background-color: #f77b02;
+  background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
   border: #04befe;
   transition: background-image 0.5s linear;
   z-index: 1;
@@ -152,7 +155,8 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(to left, #4481eb 0%, #04befe 100%);
+    background-color: #f77b02;
+    background-image: linear-gradient(to left, #f77b02 0%, #ffc107 100%);
     border-color: #04befe;
     border-radius: inherit;
     z-index: -1;
@@ -171,7 +175,8 @@ export default {
   left: 50%;
   width: 400px;
   height: 140px;
-  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+  background-color: #f77b02;
+  background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
 
   h2 {
     font-weight: bold;
