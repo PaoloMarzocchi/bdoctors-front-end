@@ -23,10 +23,12 @@ export default {
             };
             console.log(data);
 
-            let url = `${this.state.base_url}/api/votes`;
+            const url = `${this.state.base_url}/api/votes`;
             axios.post(url, data).then(response => {
                 console.log(response);
+                if (response.data.success) {
 
+                }
             }
             )
         },
