@@ -1,5 +1,6 @@
 <script>
 import { state } from "../state.js";
+import axios from "axios";
 
 export default {
     name: "VoteDoctor",
@@ -16,8 +17,18 @@ export default {
     {
         sendVote() {
             this.loading = true;
-            const vote = this.vote;
-            console.log(vote);
+            const data =
+            {
+                customer_vote: this.vote,
+            };
+            console.log(data);
+
+            let url = `${this.state.base_url}/api/votes`;
+            axios.post(url, data).then(response => {
+                console.log(response);
+
+            }
+            )
         },
         getStarIcon(n) {
             return {
@@ -27,13 +38,17 @@ export default {
         },
         hoverStar(n) {
             this.hoverRating = n;
+            //console.log(this.hoverRating);
         },
         leaveStar() {
             this.hoverRating = 0;
+            //console.log(this.hoverRating);
         },
         setRating(n) {
             this.rating = n;
+            //console.log(this.rating);
             this.vote = this.rating;
+            //console.log(this.vote);
         },
     }
 }
@@ -61,7 +76,6 @@ export default {
 </template>
 
 <style>
-
 .stars {
     display: flex;
 }
