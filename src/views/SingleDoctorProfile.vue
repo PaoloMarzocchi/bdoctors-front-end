@@ -23,6 +23,10 @@ export default {
       messageError: "",
       ButtonA: false,
       ButtonB: false,
+      vote: '',
+      loading: false,
+      rating: 0,
+      hoverRating: 0,
     };
   },
 
@@ -84,6 +88,50 @@ export default {
         );
       });
     },
+    sendVote() {
+      this.loading = true;
+      const data =
+      {
+        vote_id: this.vote,
+        doctor_profile_id: this.doctorProfile.id,
+      };
+      console.log(data);
+
+      const url = `${this.state.base_url}/api/votes`;
+      axios.post(url, data).then(response => {
+        console.log(response);
+        if (response.data.success) {
+          this.vote = '';
+        }
+        else {
+          /* this.$router.push({ name: 'not-found' }); */
+        }
+      }
+      ).catch(err => {
+        //console.log(err.message);
+        this.error_message = err.message;
+      })
+    },
+    getStarIcon(n) {
+      return {
+        icon: this.hoverRating >= n || this.rating >= n ? ['fas', 'star'] : ['far', 'star'],
+        style: { color: '#FFD700 !important' }
+      };
+    },
+    hoverStar(n) {
+      this.hoverRating = n;
+      //console.log(this.hoverRating);
+    },
+    leaveStar() {
+      this.hoverRating = 0;
+      //console.log(this.hoverRating);
+    },
+    setRating(n) {
+      this.rating = n;
+      //console.log(this.rating);
+      this.vote = this.rating;
+      //console.log(this.vote);
+    },
   },
   mounted() {
     //console.log(this.$route.params.slug);
@@ -119,7 +167,6 @@ export default {
 
             <div class="col">
               <div class="card doc_profile shadow-lg rounded-4">
-
                 <div class="card-body">
                   <div class="row">
                     <div class="col-4">
@@ -170,6 +217,21 @@ export default {
                       spec.name }}</span>
                   </div>
                 </div>
+              </div>
+              <div class="card shadow rounded-3 p-3 py-5">
+                <h2 class="fw-bold fs-1">
+                  Hello visitor ! <br>
+                  Do you want to leave a vote for the Doctor ?
+                </h2>
+                <form @submit.prevent="sendVote()" action="" method="post">
+                  <div class="stars py-5">
+                    <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
+                      @click="setRating(n)" class="vote_stars">
+                      <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
+                    </span>
+                  </div>
+                  <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
+                </form>
               </div>
             </div>
             <div class="col d-flex flex-column justify-content-between">
@@ -239,7 +301,7 @@ export default {
                 </button>
                 <div class="right_actions">
                   <button class="btn btn-warning text-dark fw-semibold">
-                    <router-link class="nav-link" :to="{ name: 'vote-doctor' }">Vote the doctor</router-link>
+                    <!-- <router-link class="nav-link" :to="{ name: 'vote-doctor' }">Vote the doctor</router-link> -->
                   </button>
                   <button class="btn btn-warning text-dark fw-semibold mx-2">
                     <!-- <router-link class="nav-link" :to="{ name: 'contact-me' }">Send me a message</router-link> -->
@@ -268,5 +330,14 @@ export default {
   .doc_specialist {
     font-size: 0.90rem;
   }
+}
+
+.stars {
+  display: flex;
+}
+
+.vote_stars {
+  cursor: pointer;
+  margin: 5px;
 }
 </style>
