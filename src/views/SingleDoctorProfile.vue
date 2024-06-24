@@ -21,6 +21,10 @@ export default {
       success: "",
       ButtonA: false,
       ButtonB: false,
+      vote: '',
+      loading: false,
+      rating: 0,
+      hoverRating: 0,
     };
   },
 
@@ -40,9 +44,53 @@ export default {
         }
         //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
+    },
+
+    sendVote() {
+      this.loading = true;
+      const data =
+      {
+        vote_id: this.vote,
+        doctor_profile_id: this.doctorProfile.id,
+      };
+      console.log(data);
+
+      const url = `${this.state.base_url}/api/votes`;
+      axios.post(url, data).then(response => {
+        console.log(response);
+        if (response.data.success) {
+          this.vote = '';
+          n = 0;
+        }
+        else {
+          /* this.$router.push({ name: 'not-found' }); */
+        }
+      }
+      ).catch(err => {
+        //console.log(err.message);
+        this.error_message = err.message;
+      })
+    },
+    getStarIcon(n) {
+      return {
+        icon: this.hoverRating >= n || this.rating >= n ? ['fas', 'star'] : ['far', 'star'],
+        style: { color: '#FFD700 !important' }
+      };
+    },
+    hoverStar(n) {
+      this.hoverRating = n;
+      //console.log(this.hoverRating);
+    },
+    leaveStar() {
+      this.hoverRating = 0;
+      //console.log(this.hoverRating);
+    },
+    setRating(n) {
+      this.rating = n;
+      //console.log(this.rating);
+      this.vote = this.rating;
+      //console.log(this.vote);
     }
-
-
   },
   mounted() {
     //console.log(this.$route.params.slug);
@@ -76,8 +124,10 @@ export default {
         <div class="container py-5 my-5">
           <div class="row">
 
+
             <div class="col d-flex flex-column gap-3">
               <div class="card doc_profile shadow-lg rounded-4 mt-5 border-0">
+
 
                 <div class="card-body">
                   <div class="row">
@@ -183,12 +233,92 @@ export default {
               <MessageForm :doc_id="this.doctorProfile.id" />
               <ReviewForm :doc_id="this.doctorProfile.id" />
 
+
+              <div class="card shadow rounded-3 p-3 py-5">
+                <h2 class="fw-bold fs-1">
+                  Hello visitor ! <br>
+                  Do you want to leave a vote for the Doctor ?
+                </h2>
+                <form @submit.prevent="sendVote()" action="" method="post">
+                  <div class="stars py-5">
+                    <span v-for="n in 5" :key="n" @mouseover="hoverStar(n)" @mouseleave="leaveStar"
+                      @click="setRating(n)" class="vote_stars">
+                      <font-awesome-icon :icon="getStarIcon(n).icon" size="xl" :style="getStarIcon(n).style" />
+                    </span>
+                  </div>
+                  <button type="submit" class="btn btn-dark text-success" :disabled="loading">Send</button>
+                </form>
+              </div>
+            </div>
+            <div class="col d-flex flex-column justify-content-between">
+              <div class="card h-75 shadow-lg rounded-4 mb-3">
+                <div class="card-header">
+                  <h5 class="card-title text-center bg-transparent">Send me a message</h5>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-center text-center bg-transparent">
+                  <form @submit.prevent="sendMessage()" action="" method="post">
+                    <div class="mb-3">
+                      <label for="firstName" class="form-label">First Name *</label>
+                      <input type="text" class="form-control" name="firstName" id="firstName" aria-describedby="helpId"
+                        placeholder="Your first name here" v-model="firstName" />
+                      <p class="text-danger mt-3" v-show="this.firstNameError">
+                        {{ this.firstNameError }}
+                      </p>
+                      <small id="helpId" class="form-text text-muted">Type your first name here <i
+                          class="fa-solid fa-arrow-up"></i></small>
+                    </div>
+                    <div class="mb-3">
+                      <label for="lastName" class="form-label">Last Name *</label>
+                      <input type="text" class="form-control" name="lastName" id="lastName" aria-describedby="helpId"
+                        placeholder="Your last name here" v-model="lastName" />
+                      <p class="text-danger mt-3" v-show="this.lastNameError">
+                        {{ this.lastNameError }}
+                      </p>
+                      <small id="helpId" class="form-text text-muted">Type your last name here <i
+                          class="fa-solid fa-arrow-up"></i></small>
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email *</label>
+                      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                        placeholder="abc@mail.com" v-model="email" />
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
+                      <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
+                          class="fa-solid fa-arrow-up"></i></small>
+                    </div>
+                    <div class="mb-3">
+                      <label for="message" class="form-label">Your message *</label>
+                      <textarea class="form-control" name="message" id="message" rows="6" v-model="message"></textarea>
+                      <p class="text-danger mt-3" v-show="this.emailError">
+                        {{ this.emailError }}
+                      </p>
+                      <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me
+                        <i class="fa-solid fa-arrow-up"></i></small>
+                    </div>
+                    <div class="col-md-12 mt-5 row text-danger">
+                      <p>( <span class="text-dark">*</span> ) Required fields.</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                  </form>
+                </div>
+              </div>
+              <ReviewForm :doc_id="this.doctorProfile.id" />
+            </div>
+            <div class="actions d-flex justify-content-center mt-4">
+              <a v-if="ButtonA" target="_blank" rel="noopener noreferrer" class="btn btn-dark text-warning"
+                href="http://127.0.0.1:8000/dashboard">
+                DASHBOARD
+              </a>
+              <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+                BACK
+              </button>
+
             </div>
 
           </div>
         </div>
       </template>
-
       <template v-else>
         <p class="py-5">Sorry, nothing to show here. Retry with another doctor.</p>
       </template>
@@ -216,5 +346,14 @@ export default {
       color: #2d2d2d;
     }
   }
+}
+
+.stars {
+  display: flex;
+}
+
+.vote_stars {
+  cursor: pointer;
+  margin: 5px;
 }
 </style>

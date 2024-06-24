@@ -11,41 +11,6 @@ export default {
     data() {
         return {
             state,
-            specializations: [
-                {
-                    name: "Allergology",
-                    description:
-                        "The branch that deals with the effects of seasonal, contact, and medication allergies",
-                },
-                {
-                    name: "Cardiology",
-                    description:
-                        "The branch that deals with the heart and everything related to it",
-                },
-                {
-                    name: "Dermatology",
-                    description: "The branch that takes care of people's skin",
-                },
-                {
-                    name: "Surgery",
-                    description:
-                        "This is the most famous field of medical science, where everything converges on the practical level to save lives",
-                },
-                {
-                    name: "Gastroenterology",
-                    description: "Those doctors to turn to when gastrointestinal problems arise",
-                },
-                {
-                    name: "Occupational Medicine",
-                    description:
-                        "It is the branch of medicine that deals with the prevention, diagnosis, and treatment of diseases caused by work activities.",
-                },
-                {
-                    name: "Urology",
-                    description:
-                        "The medical and surgical specialty that deals with diseases of the male and female urinary tract and the male external genital organs.",
-                },
-            ],
             selectedSpec: null,
             sponsoredDocs: [],
             url: state.base_url + state.sponsored_url,
@@ -53,7 +18,6 @@ export default {
     },
     methods: {
         goToIndex() {
-            console.log(this.selectedSpec);
             this.$router.push({ name: "DoctorResults", params: { name: this.selectedSpec } });
         },
         sponsoredAPI(url) {
@@ -85,7 +49,7 @@ export default {
                     <select class="form-select form-select-lg" name="specializations" id="specializations"
                         v-model="selectedSpec">
                         <option selected disabled>Select one</option>
-                        <option v-for="(specialization, id) in specializations">
+                        <option v-for="(specialization, id) in state.specializations">
                             {{ specialization.name }}
                         </option>
                     </select>
