@@ -6,6 +6,7 @@ import ReviewForm from "../components/ReviewForm.vue";
 import MessageForm from "../components/MessageForm.vue";
 import DoctorContacts from "../components/DoctorContacts.vue";
 import DoctorServices from "../components/DoctorServices.vue";
+import DoctorReviews from "../components/DoctorReviews.vue";
 import VoteForm from '../components/VoteForm.vue';
 
 export default {
@@ -15,6 +16,7 @@ export default {
     MessageForm,
     DoctorContacts,
     DoctorServices,
+    DoctorReviews,
     VoteForm,
   },
   data() {
@@ -137,18 +139,32 @@ export default {
                     <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services-tab-pane"
                       type="button" role="tab" aria-controls="services-tab-pane" aria-selected="false">Services</button>
                   </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane"
+                      type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">Reviews</button>
+                  </li>
                 </ul>
 
                 <!-- Tabs content -->
                 <div class="tab-content" id="myTabContent">
+
+                  <!-- Contacts tab -->
                   <div class="tab-pane fade show active" id="contacts-tab-pane" role="tabpanel"
                     aria-labelledby="contacts-tab" tabindex="0">
                     <DoctorContacts :address="this.doctorProfile.address" :telephone="this.doctorProfile.telephone"
                       :email="this.doctorProfile.user.email" />
                   </div>
+
+                  <!-- Services tab -->
                   <div class="tab-pane fade" id="services-tab-pane" role="tabpanel" aria-labelledby="services-tab"
                     tabindex="0">
                     <DoctorServices :services="this.doctorProfile.services" />
+                  </div>
+
+                  <!-- Reviews tab -->
+                  <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab"
+                    tabindex="0">
+                    <DoctorReviews :reviews="this.doctorProfile.reviews" />
                   </div>
                 </div>
               </div>
