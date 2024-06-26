@@ -1,23 +1,33 @@
 <script>
 import { state } from "../state";
-import DoctorAvgVote from "../components/DoctorAvgVote.vue";
 
 export default {
   name: "DoctorCard",
   props: {
     doc: Object,
   },
-  components: {
-    DoctorAvgVote,
-  },
   data() {
     return {
       state,
+      sum: null,
+      avgVote: null,
     };
   },
-  //   mounted() {
-  //     console.log(this.doc.reviews);
-  //   },
+  methods: {
+    getAverageVote() {
+      for (let i = 0; i < this.doc.votes.length; i++) {
+        this.sum += this.doc.votes[i].vote;
+      }
+
+      this.avgVote = this.sum / this.doc.votes.length;
+
+      // console.log(this.sum, this.avgVote);
+    },
+  },
+  mounted() {
+    // console.log(this.doc.reviews);
+    this.getAverageVote();
+  },
 };
 </script>
 
@@ -42,7 +52,12 @@ export default {
     </div>
 
     <div>
-      <DoctorAvgVote :doc="doc"></DoctorAvgVote>
+      <span class="text-warning">
+        <template v-for="i in 5" :key="i">
+          <i v-if="i <= this.avgVote" class="fa-solid fa-star" style="color: #ffd43b"></i>
+          <i v-else class="fa-regular fa-star" style="color: #ffd43b"></i>
+        </template>
+      </span>
 
       <div class="d-flex justify-content-center align-items-center">
         <span class="doctor_name"> Dr. {{ doc.surname }} {{ doc.user.name }}</span>
@@ -80,7 +95,7 @@ export default {
 
       <div>
         <i class="color_primary fa-solid fa-pen"></i>
-        {{ doc.reviews.length }}
+        {{ doc.reviews.length }} reviews
       </div>
     </div>
 
@@ -109,7 +124,7 @@ export default {
   background-color: #fff;
   border-radius: 20px;
   width: 350px;
-  height: 415px;
+  height: 460px;
   filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.1));
   text-align: center;
   padding: 20px;

@@ -51,7 +51,7 @@ export const state = reactive({
         axios.get(url)
             .then(response => {
                 //console.log(response.data);
-                console.log(response.data.doctors.data);
+                // console.log(response.data.doctors.data);
                 this.doctors = response.data.doctors.data;
                 // console.log();
             })//add errors and messages
