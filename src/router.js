@@ -18,6 +18,12 @@ const router = createRouter({
             component: DoctorResults
         },
         {
+            path: '/doctor-results',
+            name: 'AdvancedResearch',
+            component: DoctorResults
+        },
+
+        {
             path: '/doctor-profile/:slug',
             name: 'DoctorProfile',
             component: SingleDoctorProfile

@@ -11,10 +11,16 @@ export default {
   data() {
     return {
       state,
+      url: "",
+      title: null,
+      prevPage: "",
+      nextPage: "",
+      pageNumber: "",
+      totalResults: "",
       doctorsBySpec: [],
       doctorsByAdvancedSearch: [],
       selectedSpec: null,
-      selectedVote: null,
+      selectedVote: 0,
       selectedReview: null,
       advanceSearch: false,
       isLoading: false, // variabile per l'indicatore di caricamento
@@ -22,16 +28,20 @@ export default {
     };
   },
   methods: {
-    getDoctorsBySpec(specialization) {
+    getDoctorsBySpec(url) {
       this.isLoading = true; // Avvia il caricamento
       this.error = null;
-      const url = `${this.state.base_url}/api/research/${specialization}`;
-      //console.log(url);
+
       axios
         .get(url)
         .then((response) => {
           console.log(response.data.searchResults);
-          this.doctorsBySpec = response.data.searchResults;
+          this.doctorsBySpec = response.data.searchResults.data;
+          (this.prevPage = response.data.searchResults.prev_page_url),
+            (this.nextPage = response.data.searchResults.next_page_url),
+            (this.pageNumber = response.data.searchResults.lastPage),
+            (this.totalResults = response.data.searchResults.links.length),
+            console.log(this.doctorsBySpec, this.prevPage, this.nextPage);
         })
         .catch((err) => {
           console.error("Errore nel recupero dei dottori per la specializzazione:", err);
@@ -43,23 +53,22 @@ export default {
         });
     },
 
-    advancedSearch() {
+    advancedSearch(url) {
       this.advanceSearch = true;
+      this.doctorsBySpec = [];
 
-      const url = `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`;
+      // console.log(url);
+      this.title = this.selectedSpec;
+      axios.get(url).then((response) => {
+        console.log(response.data.searchResults);
+        (this.prevPage = response.data.searchResults.prev_page_url),
+          (this.nextPage = response.data.searchResults.next_page_url),
+          (this.pageNumber = response.data.searchResults.lastPage),
+          (this.totalResults = response.data.searchResults.total),
+          (this.doctorsByAdvancedSearch = response.data.searchResults.data);
 
-      console.log(url);
-
-      axios
-        .get(url)
-        .then((response) => {
-          console.log(response.data);
-          console.log(response.data.searchResults);
-
-          this.doctorsByAdvancedSearch = response.data.searchResults;
-
-          console.log(this.doctorsByAdvancedSearch);
-        });
+        console.log(this.doctorsByAdvancedSearch, this.prevPage, this.nextPage);
+      });
     },
 
     test(review) {
@@ -67,8 +76,11 @@ export default {
     },
   },
   mounted() {
-    // console.log(this.searchEl);
-    this.getDoctorsBySpec(this.$route.params.name);
+    if (this.$route.params.name) {
+      this.selectedSpec = this.$route.params.name;
+      this.url = `${this.state.base_url}/api/research/${this.$route.params.name}`;
+      this.getDoctorsBySpec(this.url);
+    }
   },
 };
 </script>
@@ -77,33 +89,60 @@ export default {
   <div class="container my-5 py-5">
     <div class="my-4 d-flex justify-content-between align-items-center">
       <h2 class="mb-3">
-        Research results for:
-        <span class="text-warning" v-if="selectedSpec">{{ selectedSpec }}</span>
-        <span class="text-warning" v-else>{{ $route.params.name }}</span>
+        <span v-if="this.doctorsBySpec.length > 0">
+          These are the {{ this.totalResults }} results for
+          <strong class="color_primary">"{{ $route.params.name }}"</strong> research
+        </span>
+
+        <span v-else-if="this.doctorsByAdvancedSearch.length > 0">
+          The new research for
+          <strong class="color_primary">{{ this.title }}</strong> has produced
+          {{ this.totalResults }}
+          results
+        </span>
+
+        <span v-else-if="this.$route.params.name == null"> Start a new research </span>
       </h2>
-      <RouterLink :to="{ name: 'home' }" class="btn btn-dark text-warning">
-        BACK</RouterLink>
     </div>
 
-    <form @submit.prevent="advancedSearch()" method="get">
+    <form
+      @submit.prevent="
+        advancedSearch(
+          `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+        )
+      "
+      method="get"
+    >
       <div class="advanced_search mb-3">
-
         <div class="row mb-3">
-
           <div class="col-12 col-md-4">
             <label for="specializations">Change Specialization</label>
-            <select class="form-select form-select-sm" name="specializations" id="specializations"
-              v-model="selectedSpec">
-              <option selected disabled>Select specialization</option>
-              <option v-for="(specialization, id) in state.specializations">
+            <select
+              required
+              class="form-select form-select-sm"
+              name="specializations"
+              id="specializations"
+              v-model="selectedSpec"
+            >
+              <option value="" disabled selected>Select one</option>
+
+              <option
+                v-for="(specialization, id) in state.specializations"
+                :selected="$route.params.name"
+              >
                 {{ specialization.name }}
               </option>
             </select>
           </div>
 
           <div class="col-12 col-md-4">
-            <label for="votes">Filter for vote</label>
-            <select class="form-select form-select-sm" name="votes" id="votes" v-model="selectedVote">
+            <label for="votes">Filter for avg vote</label>
+            <select
+              class="form-select form-select-sm"
+              name="votes"
+              id="votes"
+              v-model="selectedVote"
+            >
               <option selected disabled>Select vote</option>
               <option v-for="n in 5">
                 {{ n }}
@@ -113,23 +152,20 @@ export default {
 
           <div class="col-12 col-md-4">
             <label for="reviews">Filter for reviews number</label>
-            <select class="form-select form-select-sm" name="reviews" id="reviews" v-model="selectedReview">
+            <select
+              class="form-select form-select-sm"
+              name="reviews"
+              id="reviews"
+              v-model="selectedReview"
+            >
               <option selected disabled>Select n° reviews</option>
               <option value="5">>5</option>
               <option value="10">>10</option>
               <option value="11">10+</option>
             </select>
           </div>
-
         </div>
-        <!-- <div class="mb-3">
-        <select class="form-select form-select-lg" name="specializations" id="specializations" v-model="selectedSpec">
-          <option selected disabled>Select one</option>
-          <option v-for="(specialization, id) in state.specializations">
-            {{ specialization.name }}
-          </option>
-        </select>
-       </div> -->
+
         <button type="submit" class="btn btn-dark">Search</button>
       </div>
     </form>
@@ -143,25 +179,89 @@ export default {
       {{ error }}
     </div>
 
-    <div v-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="row row-cols-auto gap-5 justify-content-center">
-
-      <div class="col" v-for="doctor in doctorsByAdvancedSearch" :key="doctor.id">
+    <div
+      v-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
+      class="row row-cols-auto gap-5 justify-content-center"
+    >
+      <!-- :key="doctor.id -->
+      <div class="col" v-for="doctor in doctorsByAdvancedSearch">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
-
     </div>
 
-    <img v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="img-fluid" src="/img/no_results.png"
-      alt="No results">
-
+    <img
+      v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0"
+      class="img-fluid"
+      src="/img/no_results.png"
+      alt="No results"
+    />
+    <!-- :key="doctor.id" -->
     <div v-else class="row row-cols-auto gap-5 justify-content-center">
-      <div class="col" v-for="doctor in doctorsBySpec" :key="doctor.id">
+      <div class="col" v-for="doctor in doctorsBySpec">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
 
+    <div v-if="this.doctorsBySpec.length > 0">
+      <nav aria-label="Page navigation">
+        <div class="pagination d-flex align-items-center gap-0">
+          <span class="page-item" v-if="this.prevPage != null">
+            <button
+              class="page-link"
+              href="#"
+              @click="this.getDoctorsBySpec(this.prevPage)"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </button>
+          </span>
+          <!-- v-show="this.state.projects.next_page_url != null" -->
+          <span class="page-item" v-show="this.nextPage != null">
+            <button
+              class="page-link"
+              href="#"
+              @click="this.getDoctorsBySpec(this.nextPage)"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </button>
+          </span>
+        </div>
+      </nav>
+    </div>
+
+    <div v-if="this.doctorsByAdvancedSearch.length > 0">
+      <nav aria-label="Page navigation">
+        <div class="pagination d-flex align-items-center gap-0">
+          <span class="page-item" v-if="this.prevPage != null">
+            <button
+              class="page-link"
+              href="#"
+              @click="this.advancedSearch(this.prevPage)"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </button>
+          </span>
+          <!-- v-show="this.state.projects.next_page_url != null" -->
+          <span class="page-item" v-show="this.nextPage != null">
+            <button
+              class="page-link"
+              href="#"
+              @click="this.advancedSearch(this.nextPage)"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </button>
+          </span>
+        </div>
+      </nav>
+    </div>
   </div>
 </template>
 
-<style></style>
+<style scoped>
+.color_primary {
+  color: #f77b02;
+}
+</style>
