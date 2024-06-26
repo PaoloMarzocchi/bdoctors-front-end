@@ -2,11 +2,13 @@
 import { state } from "../state.js";
 import axios from "axios";
 import DoctorCard from "../components/DoctorCard.vue";
+import HomeBanner from "../components/HomeBanner.vue";
 
 export default {
     name: "AppHome",
     components: {
-        DoctorCard
+        DoctorCard,
+        HomeBanner,
     },
     data() {
         return {
@@ -14,6 +16,23 @@ export default {
             selectedSpec: null,
             sponsoredDocs: [],
             url: state.base_url + state.sponsored_url,
+            banners: [
+                {
+                    title: "Download our app",
+                    img: "/img/bg_doctors.png",
+                    text: "lorem lorem lorem lorem",
+                },
+                {
+                    title: "Our sponsor !",
+                    img: "",
+                    text: "",
+                },
+                {
+                    title: "Meet our team",
+                    img: "",
+                    text: "",
+                },
+            ],
         };
     },
     methods: {
@@ -64,28 +83,25 @@ export default {
         <div class="container py-5">
             <div class="row row-cols-auto gap-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
-
                     <DoctorCard :doc="doc"></DoctorCard>
-
                 </div>
             </div>
         </div>
     </section>
+
+    <section>
+        <HomeBanner v-for="banner in banners" :banner />
+    </section>
 </template>
 
 <style>
-/* body {
-    background-color: rgba(0, 0, 255, 0.171);
-} */
-
 .spec-search {
-    background-image: url('/img/bg_doctors.png');
+    background-image: url("/img/bg_doctors.png");
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
     border-bottom-left-radius: 20% 20%;
     border-bottom-right-radius: 20% 20%;
-
 
     & h2 {
         color: var(--secondary);
@@ -98,14 +114,10 @@ export default {
 
     & button {
         color: var(--secondary);
-        /* background-color: var(--dark); */
     }
-
 }
 
 .sponsored {
-    /* background-color: rgba(0, 0, 255, 0.171); */
-
     & h3 {
         color: var(--warning);
     }
