@@ -24,13 +24,13 @@ export default {
                 },
                 {
                     title: "Our sponsor !",
-                    img: "",
-                    text: "",
+                    img: "/img/bg_doctors.png",
+                    text: "lorem lorem lorem lorem",
                 },
                 {
                     title: "Meet our team",
-                    img: "",
-                    text: "",
+                    img: "/img/bg_doctors.png",
+                    text: "lorem lorem lorem lorem",
                 },
             ],
         };
