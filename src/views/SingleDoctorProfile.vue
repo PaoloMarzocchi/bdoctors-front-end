@@ -104,15 +104,6 @@ export default {
                           <h5>
                             Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
                           </h5>
-
-                          <div>
-                            <span class="doc_specialist" v-for="(spec, id) in this.doctorProfile.specializations">
-                              {{ id !=
-        this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
-      + ' ' :
-        spec.specialist }}
-                            </span>
-                          </div>
                         </div>
 
                         <div>
@@ -186,7 +177,7 @@ export default {
                 href="http://127.0.0.1:8000/dashboard">
                 Dashboard
               </a>
-              <button v-if="ButtonB" @click="$router.back()" class="btn btn-dark text-warning">
+              <button v-if="ButtonB" @click="$router.back()" class="btn btn_back">
                 Back
               </button>
             </div>
@@ -222,5 +213,17 @@ export default {
       color: #2d2d2d;
     }
   }
+}
+
+.btn_back {
+  border: none;
+  padding: 0.9rem 2rem;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  color: #fff;
+  background-color: var(--primary);
+  transition: all ease-in-out .3s;
 }
 </style>
