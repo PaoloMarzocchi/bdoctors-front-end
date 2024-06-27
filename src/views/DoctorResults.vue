@@ -125,6 +125,7 @@ export default {
 </script>
 
 <template>
+
   <div class="container my-3 my-md-5 py-3 py-md-5">
     <div class="my-4 d-flex align-items-center">
       <h2 class="mb-3 text-center">
@@ -153,6 +154,7 @@ export default {
       <div class="advanced_search mb-3">
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
           <div class="col">
+
             <label for="specializations">Change Specialization</label>
             <select required class="form-select" name="specializations" id="specializations" v-model="selectedSpec">
               <option value="" disabled selected>Select one</option>
@@ -163,26 +165,32 @@ export default {
             </select>
           </div>
 
+
           <div class="col">
             <label class="form-label" for="myRange">Average vote >= {{ selectedVote }} </label>
+
 
             <input type="range" min="0" max="5" v-model="selectedVote" class="PB-range-slider" id="myRange">
           </div>
 
+
           <div class="col">
             <label class="form-label" for="myRange">Reviews number > {{ selectedReview }} </label>
+
 
             <input type="range" min="0" :max="maxReview()" v-model="selectedReview" class="PB-range-slider"
               id="myRange">
           </div>
 
-          <div class="d-grid">
+          <div class="d-grid text-center">
             <button type="submit" class="my_button_primary text-white">Search</button>
+
           </div>
 
         </div>
       </div>
     </form>
+
 
 
 
@@ -327,7 +335,14 @@ export default {
 
 <style scoped>
 .advanced_search {
-  margin-bottom: 7rem;
+  margin-bottom: 4rem;
+  padding: 1rem 2rem;
+  box-shadow: 2px 6px 8px 0px rgb(133, 132, 132);
+  border-bottom-left-radius: 10% 50%;
+  border-bottom-right-radius: 10% 50%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
 }
 
 .color_primary {

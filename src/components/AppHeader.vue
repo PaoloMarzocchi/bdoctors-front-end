@@ -33,9 +33,9 @@ export default {
 </script>
 
 <template>
-  <header class="w-100 navbar navbar-expand-sm bg_primary z-3">
+  <header class="w-100 navbar navbar-expand-sm bg_primary z-3" :class="$route.name != 'home' ? 'my_shadow' : ''">
     <div class="container d-flex justify-content-between rounded-5 px-5">
-      <img width="80" class="img-fluid mw-100" src="/img/logo.png" alt="" />
+      <img width="50" class="img-fluid mw-100 me-4" src="/img/logo-header.png" alt="" />
 
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
         data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -71,6 +71,11 @@ export default {
 </template>
 
 <style scoped>
+.my_shadow {
+  box-shadow: 0px 2px 10px 0px var(--dark-1-active);
+  padding-bottom: 0.5rem;
+}
+
 .my_active {
   font-weight: bold;
 

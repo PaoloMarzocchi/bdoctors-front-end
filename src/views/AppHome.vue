@@ -41,14 +41,14 @@ export default {
                 }
             ],
             linkBanners: [
-                {
+                /* {
                     title: "Download our app",
                     bg:
                         "background: url(/img/bg_banners.jpg); background-repeat: no-repeat; background-size: cover;",
                     text: "Try BDoctor on your mobile device , or download our App !",
                     img: "/img/downloadApp.jpg",
                     link: "https://www.apple.com/us/search/Bdoctor?src=serp",
-                },
+                }, */
                 {
                     title: "Our sponsor !",
                     bg:

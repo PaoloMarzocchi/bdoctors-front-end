@@ -86,11 +86,11 @@ export default {
     <div class="message_form position-relative my-5">
         <div class="shadow-lg rounded-4 p-4">
             <div class="d-flex align-items-center justify-content-center">
-                <div class="my_form_title p-4">
-                    <h2>Leave a vote</h2>
+                <div class="my_form_title p-3">
+                    <h3 class="fs-1">Leave a vote</h3>
                 </div>
             </div>
-            <div class="card-body bg-light rounded-4 p-4">
+            <div class="card-body bg-light rounded-4 p-3">
                 <template v-if="success">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -174,10 +174,10 @@ export default {
     align-items: center;
     padding-left: 30px;
 
-    h2 {
+    /* h2 {
         font-weight: bold;
         font-size: 3rem;
-    }
+    } */
 }
 
 .my_form_title::before,
