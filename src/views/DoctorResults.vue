@@ -125,34 +125,35 @@ export default {
 </script>
 
 <template>
-  <div class="container my-5 py-5">
-    <div class="my-4 d-flex align-items-center">
-      <h2 class="mb-3 text-center">
-        <span v-if="this.doctorsBySpec.length > 0">
-          There are {{ this.totalResults }} results for
-          <strong class="color_primary">"{{ $route.params.name }}"</strong> research
-        </span>
+  <div class="container py-5">
+    <div class="advanced_search">
+      <div class="my-4 d-flex justify-content-center align-items-center">
+        <h2 class="mb-3 text-center">
+          <span v-if="this.doctorsBySpec.length > 0">
+            There are {{ this.totalResults }} results for
+            <strong class="color_primary">"{{ $route.params.name }}"</strong> research
+          </span>
 
-        <span v-else-if="this.doctorsByAdvancedSearch.length > 0">
-          The new research for
-          <strong class="color_primary">{{ this.title }}</strong> has produced
-          {{ this.totalResults }}
-          results
-        </span>
+          <span v-else-if="this.doctorsByAdvancedSearch.length > 0">
+            The new research for
+            <strong class="color_primary">{{ this.title }}</strong> has produced
+            {{ this.totalResults }}
+            results
+          </span>
 
-        <span v-else-if="this.$route.params.name == null"> Start a new research </span>
-      </h2>
-    </div>
+          <span v-else-if="this.$route.params.name == null"> Start a new research </span>
+        </h2>
+      </div>
 
 
-    <form class="pb-3" @submit.prevent="
-          advancedSearch(
-            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-          )
-          " method="get">
-      <div class="advanced_search mb-3">
+      <form class="mb-5" @submit.prevent="
+            advancedSearch(
+              `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+            )
+            " method="get">
+
         <div class="row mb-3">
-          <div class="col-12 col-md-4">
+          <div class="col-12 col-md-4 my-1">
             <label for="specializations">Change Specialization</label>
             <select required class="form-select form-select-sm" name="specializations" id="specializations"
               v-model="selectedSpec">
@@ -164,13 +165,13 @@ export default {
             </select>
           </div>
 
-          <div class="col-12 col-md-4 d-flex flex-column ">
+          <div class="col-12 col-md-4 d-flex flex-column my-1">
             <label class="pb-2" for="myRange">Average vote >= {{ selectedVote }} </label>
 
             <input type="range" min="0" max="5" v-model="selectedVote" class="PB-range-slider" id="myRange">
           </div>
 
-          <div class="col-12 col-md-4 d-flex flex-column ">
+          <div class="col-12 col-md-4 d-flex flex-column my-1">
             <label class="pb-2" for="myRange">Reviews number > {{ selectedReview }} </label>
 
             <input type="range" min="0" :max="maxReview()" v-model="selectedReview" class="PB-range-slider"
@@ -178,13 +179,15 @@ export default {
           </div>
 
 
-   
 
-          <button type="submit" class="mt-3 my_button_primary text-white">Search</button>
+          <div class="text-center">
+            <button type="submit" class="mt-5 mx-auto my_button_primary text-white">Search</button>
+          </div>
 
         </div>
       </form>
     </div>
+
 
 
     <!-- Pagination -->
@@ -323,13 +326,20 @@ export default {
       </nav>
     </template>
     <!-- /Pagination -->
-
   </div>
+  <!-- </div> -->
 </template>
 
 <style scoped>
 .advanced_search {
-  margin-bottom: 7rem;
+  margin-bottom: 4rem;
+  padding: 1rem 2rem;
+  box-shadow: 2px 6px 8px 0px rgb(133, 132, 132);
+  border-bottom-left-radius: 10% 50%;
+  border-bottom-right-radius: 10% 50%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
 }
 
 .color_primary {

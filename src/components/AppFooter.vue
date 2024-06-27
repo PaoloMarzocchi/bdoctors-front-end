@@ -84,7 +84,7 @@ export default {
         <div class="col">
           <ul>
             <li>
-              <img width="100" class="img-fluid mw-100 pb-3" src="/img/logo.png" alt="" />
+              <img width="100" class="img-fluid mw-100 pb-3" src="/img/logo-footer.png" alt="" />
             </li>
             <li>
               <a class="" href="#">
