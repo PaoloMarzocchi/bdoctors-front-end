@@ -18,15 +18,15 @@ export default {
 <template>
   <div class="doc_contacts d-flex flex-column justify-content-center gap-3 p-4">
     <div>
-      <i class="color_primary fa-solid fa-location-dot me-2 text-warning"></i>
+      <i class="text_primary fa-solid fa-location-dot me-2"></i>
       {{ address }}
     </div>
     <div>
-      <i class="color_primary fa-solid fa-phone me-2 text-warning"></i>
+      <i class="text_primary fa-solid fa-phone me-2"></i>
       <a href="tel:+"> {{ telephone }}</a>
     </div>
     <div>
-      <i class="color_primary fa-solid fa-at me-2 text-warning"></i>
+      <i class="text_primary fa-solid fa-at me-2"></i>
       <a href="mailto:"> {{ email }}</a>
     </div>
   </div>

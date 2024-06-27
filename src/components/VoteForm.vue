@@ -102,7 +102,7 @@ export default {
 
                 <div class="text-center mb-3">
                     <span class="">Dr. </span>
-                    <span class="text-warning fs-3 fw-bold">{{ this.doc_name }} {{ this.doc_surname }}
+                    <span class="text_primary fs-3 fw-bold">{{ this.doc_name }} {{ this.doc_surname }}
                     </span>
                 </div>
 
@@ -137,8 +137,8 @@ export default {
 .btn_vote {
     position: relative;
 
-    background-color: #f77b02;
-    background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
+    background-color: var(--primary);
+    background-image: linear-gradient(to top, var(--primary) 0%, var(--tertiary) 100%);
     border: #04befe;
     transition: background-image 0.5s linear;
     z-index: 1;
@@ -150,8 +150,8 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background-color: #f77b02;
-        background-image: linear-gradient(to left, #f77b02 0%, #ffc107 100%);
+        background-color: var(--primary);
+        background-image: linear-gradient(to left, var(--primary) 0%, var(--tertiary) 100%);
         border-color: #04befe;
         border-radius: inherit;
         z-index: -1;
@@ -166,7 +166,7 @@ export default {
 
 .my_form_title {
     font-size: 35px;
-    color: #f77b02;
+    color: var(--primary);
     font-weight: 600;
     letter-spacing: -1px;
     position: relative;
@@ -189,13 +189,13 @@ export default {
     border-radius: 50%;
     left: -10px;
     bottom: 44%;
-    background-color: #f77b02;
+    background-color: var(--primary);
 }
 
 .my_form_title::before {
     width: 20px;
     height: 20px;
-    background-color: #f77b02;
+    background-color: var(--primary);
 }
 
 .my_form_title::after {

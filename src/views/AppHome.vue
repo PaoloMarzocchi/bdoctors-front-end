@@ -165,7 +165,7 @@ export default {
     <section class="sponsored_doctors py-4 text-center">
         <h3 class="text_primary display-5 fw-bold px-3">Our sponsored doctors</h3>
         <div class="container py-3 py-md-5">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 g-sm-5 justify-content-center">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 g-md-3 g-sm-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
                     <DoctorCard :doc="doc"></DoctorCard>
                 </div>
@@ -177,9 +177,9 @@ export default {
         <HomeBanner v-for="banner in banners" :banner />
     </section>
 
-    <section>
+    <!--     <section>
         <LinkBanner v-for="linkBanner in linkBanners" :linkBanner />
-    </section>
+    </section> -->
 
 </template>
 
@@ -371,6 +371,10 @@ export default {
 
     .doctor_card {
         width: 100%;
+    }
+
+    .row {
+        gap: 5rem;
     }
 }
 
