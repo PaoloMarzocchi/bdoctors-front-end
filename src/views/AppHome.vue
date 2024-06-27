@@ -88,10 +88,10 @@ export default {
         </div>
     </section>
 
-    <div class="actions d-flex justify-content-center gap-3">
+    <div class="actions d-flex justify-content-center gap-3 my-3">
         <button v-if="selectedSpec" class="btn btn-dark" @click="goToIndex()">Search</button>
 
-        <button v-if="!selectedSpec" class="btn btn-dark">
+        <button v-if="!selectedSpec" class="btn btn-dark my-3">
             <RouterLink class="nav-link nav_element" :to="{ name: 'AdvancedResearch' }" href="#" aria-current="page">
                 Go to Research
             </RouterLink>
