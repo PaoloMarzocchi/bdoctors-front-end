@@ -6,54 +6,130 @@ export default {
 </script>
 
 <template>
-
     <div class="container bg_light banner py-5">
-
         <div :style="banner.text_style" class="row position-relative">
-
             <div :style="banner.text_style" :class="banner.padding"
-                class="col-12 col-md-7 d-flex flex-column justify-content-center position-relative z-1">
+                class="col-12 col-lg-7 d-flex flex-column justify-content-center position-relative z-1 mb-4 mb-lg-0">
                 <h1 class="text_primary display-5 fw-bold">{{ banner.title }}</h1>
                 <p class="fs-4">{{ banner.text }}</p>
             </div>
 
-            <div class="col-12 col-md-5">
-                <img class="img-fluid banner_img banner_img_1" :src="banner.img_1" />
-                <img class="img-fluid banner_img banner_img_2" :src="banner.img_2" />
+            <div class="col-12 col-lg-5 position-relative banner_images">
+                <img class="img-fluid banner_img banner_img_1" :src="banner.img_1" alt="Banner image 1" />
+                <img class="img-fluid banner_img banner_img_2" :src="banner.img_2" alt="Banner image 2" />
             </div>
-
         </div>
-
     </div>
-
 </template>
 
 <style scoped>
 .banner {
-    margin: 10rem auto;
+    margin: 5rem auto;
+    min-height: 450px;
+}
+
+.banner_images {
     height: 450px;
 }
 
 .banner_img_1,
 .banner_img_2 {
     position: absolute;
-    min-width: 250px;
-    max-width: 400px;
+    max-width: 100%;
+    height: auto;
 }
 
 .banner_img_1 {
-    top: -65%;
-    left: 76%;
+    top: -30%;
+    right: -55px;
+    max-width: 80%;
+
 }
 
 .banner_img_2 {
-    top: 45%;
-    left: 52%;
+    bottom: -76px;
+    left: -55px;
+    max-width: 70%
 }
 
-@media only screen and (max-width: 1200px) {
-    .banner_title {
-        white-space: wrap;
+/* #region :::: MEDIA QUERIES :::: */
+@media (max-width: 1200px) {
+    .banner {
+        margin: 6rem auto;
+    }
+
+    .banner_images {
+        height: 400px;
     }
 }
+
+@media (max-width: 992px) {
+    .banner {
+        margin: 6rem auto;
+    }
+
+    .banner_images {
+        height: 350px;
+    }
+
+    .banner_img_1 {
+        top: -20%;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        margin: 6rem auto;
+    }
+
+    .banner_images {
+        height: 300px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner_images {
+        height: 250px;
+    }
+
+    .banner_img_1 {
+        top: -10%;
+        width: 100px;
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -41%;
+        left: 15%;
+        width: 700px;
+    }
+}
+
+@media (width < 576px) {
+    .banner_images {
+        height: 250px;
+    }
+
+    .banner_img_1 {
+        top: -10%;
+        width: 100px;
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -21%;
+        left: 13%;
+        width: 400px;
+    }
+}
+
+/* #endregion :::: MEDIA QUERIES :::: */
 </style>
