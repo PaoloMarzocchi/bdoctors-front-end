@@ -1,9 +1,9 @@
 <script>
-import { state } from '../state';
+import { state } from "../state";
 import axios from "axios";
 
 export default {
-  name: 'ReviewForm',
+  name: "ReviewForm",
   props: {
     doc_id: Number,
   },
@@ -16,17 +16,16 @@ export default {
 
       // Form variables
       doctor_profile_id: this.doc_id,
-      first_name: '',
-      last_name: '',
-      email: '',
-      review_text: '',
+      first_name: "",
+      last_name: "",
+      email: "",
+      review_text: "",
       loading: false,
       success: false,
-      errors: false
-    }
+      errors: false,
+    };
   },
   methods: {
-
     sendReview() {
       this.loading = true;
 
@@ -35,47 +34,42 @@ export default {
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
-        review_text: this.review_text
-      }
+        review_text: this.review_text,
+      };
 
       console.log(data, this.url);
 
       axios
         .post(this.url, data)
-        .then(response => {
+        .then((response) => {
           console.log(response);
 
           if (response.data.success) {
-
             // show success message
-            this.first_name = '';
-            this.last_name = '';
-            this.email = '';
-            this.review_text = '';
+            this.first_name = "";
+            this.last_name = "";
+            this.email = "";
+            this.review_text = "";
             this.success = response.data.message;
-
           } else {
-
             // get errors
-            this.errors = response.data.errors
+            this.errors = response.data.errors;
             console.log(this.errors);
           }
 
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
-
-    }
-  }
-}
+        });
+    },
+  },
+};
 </script>
 
 <template>
   <div class="review_form position-relative my-5">
     <div class="shadow-lg rounded-4 p-4">
-
       <div class="review_form_title rounded-4 position-relative d-flex justify-content-center align-items-center">
         <h2>Leave a review</h2>
       </div>
@@ -84,7 +78,7 @@ export default {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           <strong>Thank you!</strong>
-          <br>
+          <br />
           <span>Your review has been sent!</span>
         </div>
       </template>
@@ -93,8 +87,8 @@ export default {
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           <strong class="">Errors</strong>
-          <ul class="list-unstyled ">
-            <li class="text-danger " v-for="error in errors">
+          <ul class="list-unstyled">
+            <li class="text-danger" v-for="error in errors">
               <span class="">{{ error[0] }}</span>
             </li>
           </ul>
@@ -102,41 +96,50 @@ export default {
       </template>
 
       <form class="row g-3" @submit.prevent="sendReview()">
-
         <div class="col-12 col-md-6 form-floating has-validation">
           <input type="text" class="form-control" id="first_name" placeholder="Mario"
-            :class="{ 'is-invalid': errors.first_name }" v-model="first_name">
+            :class="{ 'is-invalid': errors.first_name }" v-model="first_name" />
           <label class="ms-2" for="first_name">First name</label>
+          <small id="helpId" class="form-text text-muted">Type your first name here <i
+              class="fa-solid fa-arrow-up"></i></small>
         </div>
 
         <div class="col-12 col-md-6 form-floating has-validation">
           <input type="text" class="form-control" id="last_name" placeholder="Rossi"
-            :class="{ 'is-invalid': errors.last_name }" v-model="last_name">
+            :class="{ 'is-invalid': errors.last_name }" v-model="last_name" />
           <label class="ms-2" for="last_name">Last name</label>
+          <small id="helpId" class="form-text text-muted">Type your last name here <i
+              class="fa-solid fa-arrow-up"></i></small>
         </div>
 
         <div class="col-12 form-floating has-validation">
           <input type="email" class="form-control" id="email" placeholder="mariorossi@example.it"
-            :class="{ 'is-invalid': errors.email }" v-model="email">
+            :class="{ 'is-invalid': errors.email }" v-model="email" />
           <label class="ms-2" for="email">Email</label>
+          <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
+              class="fa-solid fa-arrow-up"></i></small>
         </div>
 
         <div class="col-12 form-floating has-validation">
-          <textarea class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
+          <textarea required class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
             style="height: 100px" :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
-          <label class="ms-2" for="review_text">Your review</label>
+          <label class="ms-2" for="review_text">Your review *</label>
+          <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me <i
+              class="fa-solid fa-arrow-up"></i></small>
+        </div>
+
+        <div class="col-md-12 mt-5 row text-danger">
+          <p>( <span class="text-dark">*</span> ) Required fields.</p>
         </div>
 
         <div class="col-12 d-flex justify-content-center align-items-center">
           <button type="submit" class="btn btn-primary btn_review" :disabled="loading">
-            {{ loading ? 'Sending review...' : 'Send review' }}
+            {{ loading ? "Sending review..." : "Send review" }}
           </button>
         </div>
-
       </form>
     </div>
   </div>
-
 </template>
 
 <style scoped>
@@ -166,7 +169,7 @@ export default {
   }
 
   &:hover::before {
-    opacity: 1
+    opacity: 1;
   }
 }
 

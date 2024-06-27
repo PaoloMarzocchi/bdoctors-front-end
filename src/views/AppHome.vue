@@ -2,19 +2,38 @@
 import { state } from "../state.js";
 import axios from "axios";
 import DoctorCard from "../components/DoctorCard.vue";
+import HomeBanner from "../components/HomeBanner.vue";
 
 export default {
-  name: "AppHome",
-  components: {
-    DoctorCard,
-  },
-  data() {
-    return {
-      state,
-      selectedSpec: null,
-      sponsoredDocs: [],
-      url: state.base_url + state.sponsored_url,
-    };
+    name: "AppHome",
+    components: {
+        DoctorCard,
+        HomeBanner,
+    },
+    data() {
+        return {
+            state,
+            selectedSpec: null,
+            sponsoredDocs: [],
+            url: state.base_url + state.sponsored_url,
+            banners: [
+                {
+                    title: "Download our app",
+                    img: "/img/bg_doctors.png",
+                    text: "lorem lorem lorem lorem",
+                },
+                {
+                    title: "Our sponsor !",
+                    img: "",
+                    text: "",
+                },
+                {
+                    title: "Meet our team",
+                    img: "",
+                    text: "",
+                },
+            ],
+        };
   },
   methods: {
     goToIndex() {
@@ -58,6 +77,11 @@ export default {
             </option>
           </select>
         </div>
+  </section>
+  
+    <section>
+        <HomeBanner v-for="banner in banners" :banner />
+    </section>
         <div class="actions d-flex justify-content-center gap-3">
           <button v-if="selectedSpec" class="btn btn-dark" @click="goToIndex()">
             Search
@@ -91,10 +115,6 @@ export default {
 </template>
 
 <style>
-/* body {
-    background-color: rgba(0, 0, 255, 0.171);
-} */
-
 .spec-search {
   background-image: url("/img/bg_doctors.png");
   background-position: bottom;
