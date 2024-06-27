@@ -33,41 +33,29 @@ export default {
   methods: {
     getDoctor(url) {
       axios.get(url).then((response) => {
-        //console.log(response.data);
         this.doctorProfile = response.data.doctor;
-        console.log(this.doctorProfile);
 
         if (response.data.success) {
           this.success = response.data.success;
           this.project = response.data.doctor;
         } else {
-          //console.log(this.doctorProfile, this.success);
           this.$router.push({ name: "notFound" });
         }
-        //console.log(this.state.base_url + "/storage/" + this.doctorProfile.cv);
       });
     },
   },
   mounted() {
-    //console.log(this.$route.params.slug);
     let url =
       this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
-    /* this.getDoctorsBySpec(this.$route.params.name); */
-
-    //console.log(typeof (document.referrer));
-    //console.log(document.referrer);
-    //console.log(document.referrer.includes('/admin'));
 
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get("source");
 
     if (source === "back-end") {
       this.ButtonA = true;
-      //console.log("A " + this.ButtonA);
     } else {
       this.ButtonB = true;
-      //console.log("B " + this.ButtonB);
     }
   },
 };
@@ -80,13 +68,13 @@ export default {
         <div class="container py-3">
           <div class="row">
 
-            <div class="col-12 col-md-6 d-flex flex-column gap-3">
+            <div class="col-12 col-lg-6 d-flex flex-column gap-3">
               <div class="card doc_profile shadow-lg rounded-4 mt-5 border-0">
 
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-12 col-md-4">
-                      <div class="doc_photo">
+                    <div class="col-12 col-sm-4 text-center text-sm-start">
+                      <div class="doc_photo mx-auto mx-sm-0">
                         <template v-if="!this.doctorProfile.photo">
                           <img class="img-fluid" src="/img/DoctorAvatar.png" alt="" />
                         </template>
@@ -98,7 +86,7 @@ export default {
                       </div>
                     </div>
 
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-sm-8 mt-3 mt-sm-0">
                       <div class="doc_info d-flex flex-column justify-content-center gap-3">
                         <div class="doc_name">
                           <h3 class="fs-1">
@@ -107,7 +95,7 @@ export default {
                         </div>
 
                         <div>
-                          <strong>Specializations : </strong>
+                          <strong>Specializations: </strong>
                           <br>
                           <span v-for="spec in this.doctorProfile.specializations"
                             class="badge bg_primary text-white mx-1">
@@ -165,7 +153,7 @@ export default {
                 :doc_surname="this.doctorProfile.surname" />
             </div>
 
-            <div class="col-12 col-md-6 d-flex flex-column gap-3">
+            <div class="col-12 col-lg-6 d-flex flex-column gap-3">
 
               <MessageForm :doc_id="this.doctorProfile.id" />
               <ReviewForm :doc_id="this.doctorProfile.id" />
@@ -195,7 +183,6 @@ export default {
 
 <style scoped>
 .doc_profile {
-
   .doc_photo {
     width: 150px;
     aspect-ratio: 1;
