@@ -32,30 +32,23 @@ export default {
 </script>
 
 <template>
-  <div
-    class="doctor_card d-flex flex-column gap-3"
-    :class="{ sponsored: doc.sponsorships.length > 0 }"
-  >
+  <div class="doctor_card d-flex flex-column gap-3" :class="{ sponsored: doc.sponsorships.length > 0 }">
     <div class="profile_image">
       <template v-if="doc.photo == null">
         <img src="/img/DoctorAvatar.png" class="img-fluid" alt="Foto del dottore" />
       </template>
 
       <template v-else>
-        <img
-          :src="`${state.base_url}/storage/${doc.photo}`"
-          class="img-fluid"
-          alt="Foto del dottore"
-          style="object-fit: cover"
-        />
+        <img :src="`${state.base_url}/storage/${doc.photo}`" class="img-fluid" alt="Foto del dottore"
+          style="object-fit: cover" />
       </template>
     </div>
 
     <div>
-      <span class="text-warning">
+      <span>
         <template v-for="i in 5" :key="i">
-          <i v-if="i <= this.avgVote" class="fa-solid fa-star" style="color: #ffd43b"></i>
-          <i v-else class="fa-regular fa-star" style="color: #ffd43b"></i>
+          <i v-if="i <= this.avgVote" class="fa-solid fa-star"></i>
+          <i v-else class="fa-regular fa-star"></i>
         </template>
       </span>
 
@@ -99,12 +92,13 @@ export default {
       </div>
     </div>
 
-    <router-link
-      :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }"
-      class="doctor_profile_button btn mt-3"
-    >
-      Visit doctor profile
-    </router-link>
+    <button class="doctor_card_button btn mt-3">
+
+      <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }">
+        Visit doctor profile
+      </router-link>
+    </button>
+
   </div>
 </template>
 
@@ -115,8 +109,8 @@ export default {
   box-sizing: border-box;
 }
 
-.color_primary {
-  color: #f77b02;
+i {
+  color: var(--primary);
 }
 
 .doctor_card {
@@ -133,8 +127,8 @@ export default {
     font-size: 1.3rem;
     font-weight: bold;
 
-    & + i {
-      color: goldenrod;
+    &+i {
+      color: var(--secondary);
     }
   }
 
@@ -143,7 +137,7 @@ export default {
     height: 150px;
     border-radius: 50%;
     margin-top: -50px;
-    border: 5px solid #e1d9f7;
+    border: 5px solid var(--primary);
   }
 
   h2 {
@@ -151,14 +145,29 @@ export default {
     margin: 10px 0 5px;
   }
 
-  .doctor_profile_button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #2c3e50;
-    color: #fff;
-    border-radius: 10px;
-    text-decoration: none;
-    margin-bottom: 20px;
+  .doctor_card_button {
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    background-color: var(--primary);
+    transition: all ease-in-out .3s;
+
+    a {
+      text-decoration: none;
+      color: var(--light-1);
+    }
+  }
+
+  .doctor_card_button:hover {
+    background-color: var(--primary-hover);
+  }
+
+  .doctor_card_button:active {
+    background-color: var(--primary-active);
   }
 
   .doctor_info {
@@ -167,12 +176,24 @@ export default {
 }
 
 .sponsored {
-  .doctor_profile_button {
-    background-color: goldenrod;
+  i {
+    color: var(--secondary);
+  }
+
+  .doctor_card_button {
+    background-color: var(--secondary);
+  }
+
+  .doctor_card_button:hover {
+    background-color: var(--secondary-hover);
+  }
+
+  .doctor_card_button:active {
+    background-color: var(--secondary-active);
   }
 
   .profile_image img {
-    border: 5px solid goldenrod;
+    border: 5px solid var(--secondary);
   }
 }
 </style>

@@ -70,74 +70,77 @@ export default {
 <template>
   <div class="review_form position-relative my-5">
     <div class="shadow-lg rounded-4 p-4">
-      <div class="review_form_title rounded-4 position-relative d-flex justify-content-center align-items-center">
-        <h2>Leave a review</h2>
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="my_form_title p-4">
+          <h2>Leave a review</h2>
+        </div>
       </div>
+      <div class="card-body bg-light rounded-4 p-4">
+        <template v-if="success">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Thank you!</strong>
+            <br />
+            <span>Your review has been sent!</span>
+          </div>
+        </template>
 
-      <template v-if="success">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          <strong>Thank you!</strong>
-          <br />
-          <span>Your review has been sent!</span>
-        </div>
-      </template>
+        <template v-if="errors">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong class="">Errors</strong>
+            <ul class="list-unstyled">
+              <li class="text-danger" v-for="error in errors">
+                <span class="">{{ error[0] }}</span>
+              </li>
+            </ul>
+          </div>
+        </template>
 
-      <template v-if="errors">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          <strong class="">Errors</strong>
-          <ul class="list-unstyled">
-            <li class="text-danger" v-for="error in errors">
-              <span class="">{{ error[0] }}</span>
-            </li>
-          </ul>
-        </div>
-      </template>
+        <form class="row g-3" @submit.prevent="sendReview()">
+          <div class="col-12 col-md-6 form-floating has-validation">
+            <input type="text" class="form-control" id="first_name" placeholder="Mario"
+              :class="{ 'is-invalid': errors.first_name }" v-model="first_name" />
+            <label class="ms-2" for="first_name">First name</label>
+            <small id="helpId" class="form-text text-muted">Type your first name here <i
+                class="fa-solid fa-arrow-up"></i></small>
+          </div>
 
-      <form class="row g-3" @submit.prevent="sendReview()">
-        <div class="col-12 col-md-6 form-floating has-validation">
-          <input type="text" class="form-control" id="first_name" placeholder="Mario"
-            :class="{ 'is-invalid': errors.first_name }" v-model="first_name" />
-          <label class="ms-2" for="first_name">First name</label>
-          <small id="helpId" class="form-text text-muted">Type your first name here <i
-              class="fa-solid fa-arrow-up"></i></small>
-        </div>
+          <div class="col-12 col-md-6 form-floating has-validation">
+            <input type="text" class="form-control" id="last_name" placeholder="Rossi"
+              :class="{ 'is-invalid': errors.last_name }" v-model="last_name" />
+            <label class="ms-2" for="last_name">Last name</label>
+            <small id="helpId" class="form-text text-muted">Type your last name here <i
+                class="fa-solid fa-arrow-up"></i></small>
+          </div>
 
-        <div class="col-12 col-md-6 form-floating has-validation">
-          <input type="text" class="form-control" id="last_name" placeholder="Rossi"
-            :class="{ 'is-invalid': errors.last_name }" v-model="last_name" />
-          <label class="ms-2" for="last_name">Last name</label>
-          <small id="helpId" class="form-text text-muted">Type your last name here <i
-              class="fa-solid fa-arrow-up"></i></small>
-        </div>
+          <div class="col-12 form-floating has-validation">
+            <input type="email" class="form-control" id="email" placeholder="mariorossi@example.it"
+              :class="{ 'is-invalid': errors.email }" v-model="email" />
+            <label class="ms-2" for="email">Email</label>
+            <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
+                class="fa-solid fa-arrow-up"></i></small>
+          </div>
 
-        <div class="col-12 form-floating has-validation">
-          <input type="email" class="form-control" id="email" placeholder="mariorossi@example.it"
-            :class="{ 'is-invalid': errors.email }" v-model="email" />
-          <label class="ms-2" for="email">Email</label>
-          <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
-              class="fa-solid fa-arrow-up"></i></small>
-        </div>
+          <div class="col-12 form-floating has-validation">
+            <textarea required class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
+              style="height: 100px" :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
+            <label class="ms-2" for="review_text">Your review *</label>
+            <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me <i
+                class="fa-solid fa-arrow-up"></i></small>
+          </div>
 
-        <div class="col-12 form-floating has-validation">
-          <textarea required class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
-            style="height: 100px" :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
-          <label class="ms-2" for="review_text">Your review *</label>
-          <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me <i
-              class="fa-solid fa-arrow-up"></i></small>
-        </div>
+          <div class="col-md-12 mt-5 row text-danger">
+            <p>( <span class="text-dark">*</span> ) Required fields.</p>
+          </div>
 
-        <div class="col-md-12 mt-5 row text-danger">
-          <p>( <span class="text-dark">*</span> ) Required fields.</p>
-        </div>
-
-        <div class="col-12 d-flex justify-content-center align-items-center">
-          <button type="submit" class="btn btn-primary btn_review" :disabled="loading">
-            {{ loading ? "Sending review..." : "Send review" }}
-          </button>
-        </div>
-      </form>
+          <div class="col-12 d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn btn-primary btn_review" :disabled="loading">
+              {{ loading ? "Sending review..." : "Send review" }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -186,6 +189,58 @@ export default {
     font-weight: bold;
     color: #fff;
     font-size: 2rem;
+  }
+}
+
+.my_form_title {
+  font-size: 35px;
+  color: #f77b02;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+
+  h2 {
+    font-weight: bold;
+    font-size: 3rem;
+  }
+}
+
+.my_form_title::before,
+.my_form_title::after {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  left: -10px;
+  bottom: 44%;
+  background-color: #f77b02;
+}
+
+.my_form_title::before {
+  width: 20px;
+  height: 20px;
+  background-color: #f77b02;
+}
+
+.my_form_title::after {
+  width: 20px;
+  height: 20px;
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(2);
+    opacity: 0;
   }
 }
 </style>

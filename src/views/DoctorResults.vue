@@ -129,7 +129,7 @@ export default {
     <div class="my-4 d-flex align-items-center">
       <h2 class="mb-3 text-center">
         <span v-if="this.doctorsBySpec.length > 0">
-          These are the {{ this.totalResults }} results for
+          There are {{ this.totalResults }} results for
           <strong class="color_primary">"{{ $route.params.name }}"</strong> research
         </span>
 
@@ -143,6 +143,7 @@ export default {
         <span v-else-if="this.$route.params.name == null"> Start a new research </span>
       </h2>
     </div>
+
 
     <form class="pb-3" @submit.prevent="
           advancedSearch(
@@ -176,11 +177,14 @@ export default {
               id="myRange">
           </div>
 
-        </div>
 
-        <button type="submit" class="btn btn-dark">Search</button>
-      </div>
-    </form>
+   
+
+          <button type="submit" class="mt-3 my_button_primary text-white">Search</button>
+
+        </div>
+      </form>
+    </div>
 
 
     <!-- Pagination -->
@@ -245,8 +249,10 @@ export default {
       {{ error }}
     </div>
 
+
     <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
       class="row row-cols-auto gap-5 mt-5 justify-content-center">
+
       <!-- :key="doctor.id -->
       <div class="col my-5" v-for="doctor in doctorsByAdvancedSearch">
         <DoctorCard :doc="doctor"></DoctorCard>
@@ -261,6 +267,7 @@ export default {
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
+
 
     <!-- Pagination -->
     <template v-if="this.doctorsBySpec.length > 0">
@@ -285,8 +292,10 @@ export default {
             </a>
           </li>
         </ul>
+
       </nav>
     </template>
+
 
     <template v-if="this.doctorsByAdvancedSearch.length > 0">
       <nav class="pagination_container" aria-label="Page navigation">
@@ -310,6 +319,7 @@ export default {
             </a>
           </li>
         </ul>
+
       </nav>
     </template>
     <!-- /Pagination -->
@@ -318,8 +328,12 @@ export default {
 </template>
 
 <style scoped>
+.advanced_search {
+  margin-bottom: 7rem;
+}
+
 .color_primary {
-  color: #f77b02;
+  color: var(--primary);
 }
 
 .pagination_container {
