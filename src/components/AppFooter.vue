@@ -44,68 +44,61 @@ export default {
 
 <template>
   <footer class="mt-5 grad">
-    <div
-      class="text-warning py-5 d-flex flex-column align-items-center text-center"
-      @click="scrollToTop"
-    >
-      <span
-        ><strong><i class="fa-solid fa-chevron-up"></i></strong
-      ></span>
+
+    <div class="text-warning py-5 d-flex flex-column align-items-center text-center" @click="scrollToTop">
+      <span><strong><i class="fa-solid fa-chevron-up"></i></strong></span>
       <span><strong class="color_primary">UP</strong></span>
     </div>
-    <div class="container d-flex justify-content-between">
-      <div>
-        <ul>
-          <h5 class="color_primary">Services</h5>
-          <li v-for="link in servicesLinks">
-            <a href="#">{{ link }}</a>
-          </li>
-        </ul>
-      </div>
+    <div class="container">
+      <div class="row justify-content-between row-cols-1 row-cols-md-2 row-cols-lg-4">
+        <div class="col">
+          <ul>
+            <h5 class="color_primary">Services</h5>
+            <li v-for="link in servicesLinks">
+              <a href="#">{{ link }}</a>
+            </li>
+          </ul>
+        </div>
 
-      <div>
-        <ul>
-          <h5 class="color_primary">For the patients</h5>
-          <li v-for="link in patientsLinks">
-            <a href="#">{{ link }}</a>
-          </li>
-        </ul>
-      </div>
+        <div class="col">
+          <ul>
+            <h5 class="color_primary">For the patients</h5>
+            <li v-for="link in patientsLinks">
+              <a href="#">{{ link }}</a>
+            </li>
+          </ul>
+        </div>
 
-      <div>
-        <ul>
-          <h5 class="color_primary">For the doctors</h5>
-          <li v-for="link in doctorsLinks">
-            <a href="#">{{ link }}</a>
-          </li>
-        </ul>
-      </div>
+        <div class="col">
+          <ul>
+            <h5 class="color_primary">For the doctors</h5>
+            <li v-for="link in doctorsLinks">
+              <a href="#">{{ link }}</a>
+            </li>
+          </ul>
+        </div>
 
-      <div>
-        <ul>
-          <li>
-            <img
-              width="100"
-              class="img-fluid mw-100 pb-3"
-              src="/img/logo-transparent.png"
-              alt=""
-            />
-          </li>
-          <li>
-            <a class="" href="#">
-              <i class="fa-brands fa-facebook"></i>
-              <i class="fa-brands fa-twitter"></i>
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+        <div class="col">
+          <ul>
+            <li>
+              <img width="100" class="img-fluid mw-100 pb-3" src="/img/logo-transparent.png" alt="" />
+            </li>
+            <li>
+              <a class="" href="#">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-    <div class="py-3 text-center">
-      <div class="text-white">Made by Boolean team #4 class 119</div>
-      <div class="text-white">All rights reserved &copy;</div>
+      </div>
+      <div class="py-3 text-center">
+        <div class="text-white">Made by Boolean team #4 class 119</div>
+        <div class="text-white">All rights reserved &copy;</div>
+      </div>
     </div>
   </footer>
 </template>
