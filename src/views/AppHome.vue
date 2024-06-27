@@ -19,18 +19,29 @@ export default {
             banners: [
                 {
                     title: "Download our app",
-                    img: "/img/bg_doctors.png",
-                    text: "lorem lorem lorem lorem",
+                    bg:
+                        "background: url(/img/bg_banners.jpg); background-repeat: no-repeat; background-size: cover;",
+                    text: "Try BDoctor on your mobile device , or download our App !",
+                    img: "/img/downloadApp.jpg",
+                    link: "https://www.apple.com/us/search/Bdoctor?src=serp",
                 },
                 {
                     title: "Our sponsor !",
-                    img: "",
-                    text: "",
+                    bg:
+                        "background: url(/img/bg_banners.jpg); background-repeat: no-repeat; background-size: cover; transform: scaleX(-1);",
+                    text:
+                        "Thanks to our sponsor , we can make your experience always better every day .",
+                    text_style: "transform: scaleX(-1);",
+                    img: "/img/sponsor1.png",
+                    link: "https://boolean.careers/",
                 },
                 {
                     title: "Meet our team",
-                    img: "",
-                    text: "",
+                    bg:
+                        "background: url(/img/bg_banners.jpg); background-repeat: no-repeat; background-size: cover;",
+                    text: "Let's take a look at our DEV team !",
+                    img: "/img/devs.jpg",
+                    link: "",
                 },
             ],
         };
