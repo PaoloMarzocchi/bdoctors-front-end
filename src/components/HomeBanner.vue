@@ -58,6 +58,8 @@ export default {
         img {
             width: 300px;
             border-radius: 50%;
+            border: 8px solid var(--secondary);
+            padding: 1em;
         }
     }
 }
