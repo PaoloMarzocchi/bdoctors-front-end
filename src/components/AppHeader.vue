@@ -43,7 +43,7 @@ export default {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse nav_elements" id="collapsibleNavId">
-        <ul class="navbar-nav gap-2 d-flex w-100 align-items-center mt-2 mt-lg-0 me-1">
+        <ul class="navbar-nav gap-2 d-flex w-100 align-items-center justify-content-between mt-2 mt-lg-0 me-1">
           <li class="nav-item px-1 rounded-2" :class="$route.name == 'home' ? 'my_active' : ''">
             <RouterLink class="nav-link nav_element text-white" :to="{ name: 'home' }" href="#" aria-current="page">
               Home
@@ -57,7 +57,7 @@ export default {
               </a>
             </button>
           </li>
-          <li class="nav-item ms-auto" v-if="this.ButtonB">
+          <li class="nav-item " v-if="this.ButtonB">
             <button class="my_button_light py-0 px-3">
               <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/login">
                 Sign-in
