@@ -95,7 +95,7 @@ export default {
 </script>
 
 <template>
-    <section class="spec-search p-5 pb-5 bg_primary">
+    <section class="spec-search p-3 p-md-5 pb-5 bg_primary">
 
         <img class="search_bg img-fluid" src="/img/doctors_2.png" alt="Doctors with patiens illustration">
 
@@ -162,10 +162,10 @@ export default {
     </section>
 
 
-    <section class="sponsored py-4 text-center">
-        <h3 class="text_primary display-5 fw-bold">Our sponsored doctors</h3>
-        <div class="container py-5">
-            <div class="row row-cols-auto gap-5 justify-content-center">
+    <section class="sponsored_doctors py-4 text-center">
+        <h3 class="text_primary display-5 fw-bold px-3">Our sponsored doctors</h3>
+        <div class="container py-3 py-md-5">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 g-sm-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
                     <DoctorCard :doc="doc"></DoctorCard>
                 </div>
@@ -186,9 +186,10 @@ export default {
 <style scoped>
 .spec-search {
     position: relative;
-    height: 700px;
+    min-height: 700px;
     border-bottom-left-radius: 60% 10%;
     border-bottom-right-radius: 60% 10%;
+    overflow: hidden;
 
     .search_bg {
         max-width: 750px;
@@ -212,7 +213,7 @@ export default {
     }
 }
 
-.sponsored {
+.sponsored_doctors {
     h3 {
         margin: 5rem auto;
     }
@@ -312,9 +313,66 @@ export default {
 
 }
 
-
-
-
-
 /* #endregion :::: NEW SEARCH BAR :::: */
+
+/* #region :::: MEDIA QUERIES :::: */
+
+@media (max-width: 1200px) {
+    .spec-search {
+        height: auto;
+        padding-bottom: 100px !important;
+    }
+
+    .search_container {
+        left: 10%;
+        max-width: 80%;
+    }
+
+    .search_bg {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .spec-search {
+        height: auto;
+        padding-bottom: 50px !important;
+    }
+
+    .search_container {
+        left: 5%;
+        max-width: 90%;
+        top: 20%;
+    }
+
+    .search_bg {
+        max-width: 80%;
+        top: 0;
+        left: 10%;
+    }
+
+    .sponsored_doctors h3 {
+        margin: 2rem auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .search_container h2 {
+        font-size: 2rem;
+    }
+
+    .search_bar {
+        max-width: 100%;
+    }
+
+    .search__icon {
+        width: 40px;
+    }
+
+    .doctor_card {
+        width: 100%;
+    }
+}
+
+/* #endregion :::: MEDIA QUERIES :::: */
 </style>

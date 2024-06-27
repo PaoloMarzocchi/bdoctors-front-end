@@ -125,7 +125,7 @@ export default {
 </script>
 
 <template>
-  <div class="container my-5 py-5">
+  <div class="container my-3 my-md-5 py-3 py-md-5">
     <div class="my-4 d-flex align-items-center">
       <h2 class="mb-3 text-center">
         <span v-if="this.doctorsBySpec.length > 0">
@@ -146,16 +146,15 @@ export default {
 
 
     <form class="pb-3" @submit.prevent="
-          advancedSearch(
-            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-          )
-          " method="get">
+      advancedSearch(
+        `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+      )
+      " method="get">
       <div class="advanced_search mb-3">
-        <div class="row mb-3">
-          <div class="col-12 col-md-4">
+        <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
+          <div class="col">
             <label for="specializations">Change Specialization</label>
-            <select required class="form-select form-select-sm" name="specializations" id="specializations"
-              v-model="selectedSpec">
+            <select required class="form-select" name="specializations" id="specializations" v-model="selectedSpec">
               <option value="" disabled selected>Select one</option>
 
               <option v-for="(specialization, id) in state.specializations" :selected="$route.params.name">
@@ -164,27 +163,27 @@ export default {
             </select>
           </div>
 
-          <div class="col-12 col-md-4 d-flex flex-column ">
-            <label class="pb-2" for="myRange">Average vote >= {{ selectedVote }} </label>
+          <div class="col">
+            <label class="form-label" for="myRange">Average vote >= {{ selectedVote }} </label>
 
             <input type="range" min="0" max="5" v-model="selectedVote" class="PB-range-slider" id="myRange">
           </div>
 
-          <div class="col-12 col-md-4 d-flex flex-column ">
-            <label class="pb-2" for="myRange">Reviews number > {{ selectedReview }} </label>
+          <div class="col">
+            <label class="form-label" for="myRange">Reviews number > {{ selectedReview }} </label>
 
             <input type="range" min="0" :max="maxReview()" v-model="selectedReview" class="PB-range-slider"
               id="myRange">
           </div>
 
-
-   
-
-          <button type="submit" class="mt-3 my_button_primary text-white">Search</button>
+          <div class="d-grid">
+            <button type="submit" class="my_button_primary text-white">Search</button>
+          </div>
 
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+
 
 
     <!-- Pagination -->
@@ -251,10 +250,10 @@ export default {
 
 
     <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="row row-cols-auto gap-5 mt-5 justify-content-center">
+      class="advanced_search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-3 g-sm-5 mt-5">
 
       <!-- :key="doctor.id -->
-      <div class="col my-5" v-for="doctor in doctorsByAdvancedSearch">
+      <div class="col" v-for="doctor in doctorsByAdvancedSearch">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
@@ -262,8 +261,8 @@ export default {
     <img v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="img-fluid" src="/img/no_results.png"
       alt="No results" />
     <!-- :key="doctor.id" -->
-    <div v-else class="row row-cols-auto gap-5 mt-5 justify-content-center">
-      <div class="col my-5" v-for="doctor in doctorsBySpec">
+    <div v-else class="search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-3 g-sm-5 mt-5">
+      <div class="col" v-for="doctor in doctorsBySpec">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
@@ -271,8 +270,8 @@ export default {
 
     <!-- Pagination -->
     <template v-if="this.doctorsBySpec.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
-        <ul class="pagination">
+      <nav class="pagination_container overflow-auto" aria-label="Page navigation">
+        <ul class="pagination flex-nowrap">
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
@@ -298,8 +297,9 @@ export default {
 
 
     <template v-if="this.doctorsByAdvancedSearch.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
-        <ul class="pagination">
+      <nav class="pagination_container row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-5"
+        aria-label="Page navigation">
+        <ul class="pagination flex-nowrap">
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
@@ -322,8 +322,6 @@ export default {
 
       </nav>
     </template>
-    <!-- /Pagination -->
-
   </div>
 </template>
 
@@ -392,4 +390,49 @@ export default {
   background-color: #f77b02;
   cursor: pointer;
 }
+
+
+/* #region :::: MEDIA QUERIES :::: */
+@media (max-width: 768px) {
+  .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .advanced_search {
+    margin-bottom: 3rem;
+  }
+
+  .pagination_container {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .pagination {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .advanced_search {
+    margin-bottom: 2rem;
+  }
+
+}
+
+/* #endregion :::: MEDIA QUERIES :::: */
 </style>
