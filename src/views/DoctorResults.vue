@@ -147,10 +147,10 @@ export default {
 
 
     <form class="pb-3" @submit.prevent="
-      advancedSearch(
-        `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-      )
-      " method="get">
+          advancedSearch(
+            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+          )
+          " method="get">
       <div class="advanced_search mb-3">
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
           <div class="col">
@@ -182,7 +182,7 @@ export default {
               id="myRange">
           </div>
 
-          <div class="d-grid text-center">
+          <div class="text-center mx-auto">
             <button type="submit" class="my_button_primary text-white">Search</button>
 
           </div>
@@ -308,9 +308,8 @@ export default {
 
     <template v-if="this.doctorsByAdvancedSearch.length > 0">
 
-      <nav class="pagination_container row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-5"
-        aria-label="Page navigation">
-        <ul class="pagination flex-nowrap">
+      <nav class="pagination_container" aria-label="Page navigation">
+        <ul class="pagination">
 
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
@@ -356,6 +355,8 @@ export default {
 .pagination_container {
   width: fit-content;
   margin: 0 auto;
+  margin-top: 3.5rem;
+
 
   .arrow {
     background-color: var(--light-2);
@@ -395,13 +396,13 @@ export default {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #f77b02;
+  background-color: var(--primary);
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
 .PB-range-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 0px 0px 8px rgba(255, 113, 94, 0.281);
   transition: 0.3s ease-in-out;
 }
 
@@ -409,7 +410,7 @@ export default {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #f77b02;
+  background-color: var(--primary);
   cursor: pointer;
 }
 
