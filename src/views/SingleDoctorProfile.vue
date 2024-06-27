@@ -101,9 +101,9 @@ export default {
                     <div class="col-12 col-md-8">
                       <div class="doc_info d-flex flex-column justify-content-center gap-3">
                         <div class="doc_name">
-                          <h5>
+                          <h3 class="fs-1">
                             Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
-                          </h5>
+                          </h3>
                         </div>
 
                         <div>
