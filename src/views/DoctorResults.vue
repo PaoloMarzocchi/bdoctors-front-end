@@ -90,7 +90,7 @@ export default {
     <div class="my-4 d-flex justify-content-between align-items-center">
       <h2 class="mb-3">
         <span v-if="this.doctorsBySpec.length > 0">
-          These are the {{ this.totalResults }} results for
+          There are {{ this.totalResults }} results for
           <strong class="color_primary">"{{ $route.params.name }}"</strong> research
         </span>
 
@@ -105,70 +105,51 @@ export default {
       </h2>
     </div>
 
-    <form
-      @submit.prevent="
+    <div class="advanced_search">
+      <form @submit.prevent="
         advancedSearch(
           `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
         )
-      "
-      method="get"
-    >
-      <div class="advanced_search mb-3">
-        <div class="row mb-3">
-          <div class="col-12 col-md-4">
-            <label for="specializations">Change Specialization</label>
-            <select
-              required
-              class="form-select form-select-sm"
-              name="specializations"
-              id="specializations"
-              v-model="selectedSpec"
-            >
-              <option value="" disabled selected>Select one</option>
+        " method="get">
+        <div class="advanced_search mb-3">
+          <div class="row mb-3">
+            <div class="col-12 col-md-4">
+              <label for="specializations">Change Specialization</label>
+              <select required class="form-select form-select-sm" name="specializations" id="specializations"
+                v-model="selectedSpec">
+                <option value="" disabled selected>Select one</option>
 
-              <option
-                v-for="(specialization, id) in state.specializations"
-                :selected="$route.params.name"
-              >
-                {{ specialization.name }}
-              </option>
-            </select>
+                <option v-for="(specialization, id) in state.specializations" :selected="$route.params.name">
+                  {{ specialization.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="votes">Filter for avg vote</label>
+              <select class="form-select form-select-sm" name="votes" id="votes" v-model="selectedVote">
+                <option selected disabled>Select vote</option>
+                <option v-for="n in 5">
+                  {{ n }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="reviews">Filter for reviews number</label>
+              <select class="form-select form-select-sm" name="reviews" id="reviews" v-model="selectedReview">
+                <option selected disabled>Select n° reviews</option>
+                <option value="5">>5</option>
+                <option value="10">>10</option>
+                <option value="11">10+</option>
+              </select>
+            </div>
           </div>
 
-          <div class="col-12 col-md-4">
-            <label for="votes">Filter for avg vote</label>
-            <select
-              class="form-select form-select-sm"
-              name="votes"
-              id="votes"
-              v-model="selectedVote"
-            >
-              <option selected disabled>Select vote</option>
-              <option v-for="n in 5">
-                {{ n }}
-              </option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-4">
-            <label for="reviews">Filter for reviews number</label>
-            <select
-              class="form-select form-select-sm"
-              name="reviews"
-              id="reviews"
-              v-model="selectedReview"
-            >
-              <option selected disabled>Select n° reviews</option>
-              <option value="5">>5</option>
-              <option value="10">>10</option>
-              <option value="11">10+</option>
-            </select>
-          </div>
+          <button type="submit" class="mt-3 my_button_primary text-white">Search</button>
         </div>
-
-        <button type="submit" class="btn btn-dark">Search</button>
-      </div>
-    </form>
+      </form>
+    </div>
 
     <div v-if="isLoading" class="d-flex justify-content-center my-5">
       <div class="spinner-border" role="status">
@@ -179,22 +160,16 @@ export default {
       {{ error }}
     </div>
 
-    <div
-      v-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="row row-cols-auto gap-5 justify-content-center"
-    >
+    <div v-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
+      class="row row-cols-auto gap-5 justify-content-center">
       <!-- :key="doctor.id -->
       <div class="col" v-for="doctor in doctorsByAdvancedSearch">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
 
-    <img
-      v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0"
-      class="img-fluid"
-      src="/img/no_results.png"
-      alt="No results"
-    />
+    <img v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="img-fluid" src="/img/no_results.png"
+      alt="No results" />
     <!-- :key="doctor.id" -->
     <div v-else class="row row-cols-auto gap-5 justify-content-center">
       <div class="col" v-for="doctor in doctorsBySpec">
@@ -206,23 +181,13 @@ export default {
       <nav aria-label="Page navigation">
         <div class="pagination d-flex align-items-center gap-0">
           <span class="page-item" v-if="this.prevPage != null">
-            <button
-              class="page-link"
-              href="#"
-              @click="this.getDoctorsBySpec(this.prevPage)"
-              aria-label="Previous"
-            >
+            <button class="page-link" href="#" @click="this.getDoctorsBySpec(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </button>
           </span>
           <!-- v-show="this.state.projects.next_page_url != null" -->
           <span class="page-item" v-show="this.nextPage != null">
-            <button
-              class="page-link"
-              href="#"
-              @click="this.getDoctorsBySpec(this.nextPage)"
-              aria-label="Next"
-            >
+            <button class="page-link" href="#" @click="this.getDoctorsBySpec(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </button>
           </span>
@@ -234,23 +199,13 @@ export default {
       <nav aria-label="Page navigation">
         <div class="pagination d-flex align-items-center gap-0">
           <span class="page-item" v-if="this.prevPage != null">
-            <button
-              class="page-link"
-              href="#"
-              @click="this.advancedSearch(this.prevPage)"
-              aria-label="Previous"
-            >
+            <button class="page-link" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </button>
           </span>
           <!-- v-show="this.state.projects.next_page_url != null" -->
           <span class="page-item" v-show="this.nextPage != null">
-            <button
-              class="page-link"
-              href="#"
-              @click="this.advancedSearch(this.nextPage)"
-              aria-label="Next"
-            >
+            <button class="page-link" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </button>
           </span>
@@ -261,7 +216,11 @@ export default {
 </template>
 
 <style scoped>
+.advanced_search {
+  margin-bottom: 7rem;
+}
+
 .color_primary {
-  color: #f77b02;
+  color: var(--primary);
 }
 </style>

@@ -1,10 +1,130 @@
-:root {
+@import url('assets/css/partials/variables.css');
+
+/* :root {
     --primary: #5FAD56;
     --secondary: #F2C14E;
     --warning: #F78154;
     --dark: #4D9078;
-}
+} */
 
 body {
     font-family: "Poppins", sans-serif !important;
+}
+
+
+
+.text_primary {
+    color: var(--primary);
+}
+
+.text_secondary {
+    color: var(--secondary);
+}
+
+.bg_light {
+    background-color: var(--light-1);
+}
+
+.bg_primary {
+    background-color: var(--primary);
+}
+
+.bg_primary_hover {
+    background-color: var(--primary-hover);
+}
+
+.my_button_light {
+    border: none;
+    padding: 0.9rem 2rem;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    background-color: var(--light-1);
+    transition: all ease-in-out .3s;
+
+    a {
+        text-decoration: none;
+        color: var(--primary);
+    }
+}
+
+.my_button_light:hover {
+    cursor: pointer;
+    background-color: var(--light-2);
+
+    a {
+
+        color: var(--primary);
+    }
+}
+
+.my_button_light:active {
+    background-color: var(--light-3);
+}
+
+.my_button_dark {
+    border: none;
+    padding: 0.9rem 2rem;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    background-color: var(--dark-1);
+    transition: all ease-in-out .3s;
+
+    a {
+        text-decoration: none;
+        color: var(--secondary);
+    }
+}
+
+.my_button_dark:hover {
+    cursor: pointer;
+    background-color: var(--dark-1-hover);
+}
+
+.my_button_dark:active {
+    background-color: var(--dark-1-active);
+}
+
+.my_button_primary {
+    border: none;
+    padding: 0.9rem 2rem;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    background-color: var(--primary);
+    transition: all ease-in-out .3s;
+
+    a {
+        text-decoration: none;
+        color: var(--secondary);
+    }
+}
+
+.my_button_primary:hover {
+    cursor: pointer;
+    background-color: var(--primary-hover);
+}
+
+.my_button_primary:active {
+    background-color: var(--primary-active);
+}
+
+.advanced_search_button {
+    a {
+        .fa-arrow-right {
+            transition: all ease-in-out 0.3s;
+        }
+    }
+
+    &:hover {
+        a {
+            .fa-arrow-right {
+                transform: translateX(10px);
+            }
+        }
+    }
 }
