@@ -197,7 +197,7 @@ export default {
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -208,7 +208,7 @@ export default {
           <li class="page-item" v-if="this.nextPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -222,7 +222,7 @@ export default {
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -233,7 +233,7 @@ export default {
           <li class="page-item" v-if="this.nextPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -274,12 +274,12 @@ export default {
 
     <!-- Pagination -->
     <template v-if="this.doctorsBySpec.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
+      <nav class="pagination_container mt-5" aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -290,7 +290,7 @@ export default {
           <li class="page-item" v-if="this.nextPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
               </span>
             </a>
           </li>
@@ -301,7 +301,7 @@ export default {
 
 
     <template v-if="this.doctorsByAdvancedSearch.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
+      <nav class="pagination_container mt-5" aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
@@ -351,18 +351,21 @@ export default {
   margin: 0 auto;
 
   .arrow {
-    background-color: #212529;
-    border: 1px solid #f77b02;
+    background-color: var(--light-2);
+    border: 1px solid var(--primary);
   }
 
   .number {
-    color: black;
+    color: var(--primary);
+    background-color: var(--light-2);
+
   }
 
   .number.my_active {
-    background-color: #212529;
-    border: 1px solid #f77b02;
-    color: #f77b02;
+    background-color: var(--light-2);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-weight: bold;
   }
 }
 
