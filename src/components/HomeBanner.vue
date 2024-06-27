@@ -1,65 +1,54 @@
 <script>
 export default {
     name: "HomeBanner",
-    props: { banner: Object },
-    data() {
-        return {};
-    },
-    methods: {},
+    props: { banner: Object }
 };
 </script>
 
 <template>
-    <div class="container-fluid m-0 p-0">
-        <div class="row">
-            <div class="col-12 h-100 align-self-center py-5" :style="banner.bg">
-                <div class="row justify-content-evenly text-center p-5">
-                    <div :style="banner.text_style"
-                        class="col-6 col-lg-4 my_text align-self-center d-flex flex-column gap-3">
-                        <div class="banner_title">
-                            {{ banner.title }}
-                        </div>
-                        <div class="div">
-                            {{ banner.text }}
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-4 my_img">
-                        <a :href="banner.link" target="_blank" rel="noopener noreferrer">
-                            <img class="shadow-lg" :src="banner.img" alt="" />
-                        </a>
-                    </div>
-                </div>
+
+    <div class="container bg_light banner py-5">
+
+        <div :style="banner.text_style" class="row position-relative">
+
+            <div :style="banner.text_style" :class="banner.padding"
+                class="col-12 col-md-7 d-flex flex-column justify-content-center position-relative z-1">
+                <h1 class="text_primary display-5 fw-bold">{{ banner.title }}</h1>
+                <p class="fs-4">{{ banner.text }}</p>
             </div>
+
+            <div class="col-12 col-md-5">
+                <img class="img-fluid banner_img banner_img_1" :src="banner.img_1" />
+                <img class="img-fluid banner_img banner_img_2" :src="banner.img_2" />
+            </div>
+
         </div>
+
     </div>
+
 </template>
 
 <style scoped>
-.banner_title {
-    font-weight: bold;
-    font-size: 60px;
-    color: var(--secondary);
-    text-align: center;
-    white-space: nowrap;
+.banner {
+    margin: 10rem auto;
+    height: 450px;
 }
 
-.col-12 {
-    height: 600px;
-    background-repeat: no-repeat;
-    background-size: cover;
+.banner_img_1,
+.banner_img_2 {
+    position: absolute;
+    min-width: 250px;
+    max-width: 400px;
+}
 
-    .my_text {
-        font-weight: bold;
-        font-size: large;
-        color: var(--warning);
-    }
+.banner_img_1 {
+    top: -65%;
+    left: 76%;
+}
 
-    .my_img {
-        img {
-            width: 300px;
-            border-radius: 50%;
-        }
-    }
+.banner_img_2 {
+    top: 45%;
+    left: 52%;
 }
 
 @media only screen and (max-width: 1200px) {

@@ -44,13 +44,8 @@ export default {
 
 <template>
   <footer class="mt-5 grad">
-    <div
-      class="text-warning py-5 d-flex flex-column align-items-center text-center"
-      @click="scrollToTop"
-    >
-      <span
-        ><strong><i class="fa-solid fa-chevron-up"></i></strong
-      ></span>
+    <div class="text_primary py-5 d-flex flex-column align-items-center text-center" @click="scrollToTop">
+      <span><strong><i class="fa-solid fa-chevron-up"></i></strong></span>
       <span><strong class="color_primary">UP</strong></span>
     </div>
     <div class="container d-flex justify-content-between">
@@ -84,12 +79,7 @@ export default {
       <div>
         <ul>
           <li>
-            <img
-              width="100"
-              class="img-fluid mw-100 pb-3"
-              src="/img/logo-transparent.png"
-              alt=""
-            />
+            <img width="100" class="img-fluid mw-100 pb-3" src="/img/logo.png" alt="" />
           </li>
           <li>
             <a class="" href="#">
@@ -112,11 +102,11 @@ export default {
 
 <style scoped>
 .color_primary {
-  color: #f77b02;
+  color: var(--primary);
 }
 
 .grad {
-  background-image: linear-gradient(rgba(255, 0, 0, 0), rgba(47, 116, 146));
+  background-image: linear-gradient(rgba(255, 0, 0, 0) 20%, #ff918227 50%, #ffd2ccd4 70%, var(--primary));
 }
 
 span {
