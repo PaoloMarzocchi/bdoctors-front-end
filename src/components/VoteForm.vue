@@ -1,9 +1,9 @@
 <script>
-import { state } from '../state';
+import { state } from "../state";
 import axios from "axios";
 
 export default {
-    name: 'VoteForm',
+    name: "VoteForm",
     props: {
         doc_id: Number,
         doc_name: String,
@@ -12,15 +12,14 @@ export default {
     data() {
         return {
             state,
-            vote: '',
+            vote: "",
             success: false,
             loading: false,
             rating: 0,
             hoverRating: 0,
-        }
+        };
     },
-    methods:
-    {
+    methods: {
         sendVote() {
             this.loading = true;
 
@@ -35,30 +34,34 @@ export default {
 
             axios
                 .post(url, data)
-                .then(response => {
+                .then((response) => {
                     console.log(response);
 
                     if (response.data.success) {
-                        this.vote = '';
+                        this.vote = "";
                         this.rating = 0;
                         this.hoverRating = 0;
                         this.success = response.data.message;
                         console.log(this.success);
                     } else {
-                        console.error('Error:', response.data.errors || response.data.message);
+                        console.error("Error:", response.data.errors || response.data.message);
                     }
 
                     this.loading = false;
-
-                }).catch(err => {
-                    console.error('Error submitting form:', err.response ? err.response.data : err.message);
+                })
+                .catch((err) => {
+                    console.error(
+                        "Error submitting form:",
+                        err.response ? err.response.data : err.message
+                    );
                     this.loading = false;
                 });
         },
         getStarIcon(n) {
             return {
-                icon: this.hoverRating >= n || this.rating >= n ? ['fas', 'star'] : ['far', 'star'],
-                style: { color: '#FFD700 !important' }
+                icon:
+                    this.hoverRating >= n || this.rating >= n ? ["fas", "star"] : ["far", "star"],
+                style: { color: "#FFD700 !important" },
             };
         },
         hoverStar(n) {
@@ -74,29 +77,25 @@ export default {
             //console.log(this.rating);
             this.vote = this.rating;
             //console.log(this.vote);
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <template>
     <div class="message_form position-relative my-5">
         <div class="shadow-lg rounded-4 p-4">
-            <div class="">
-                <div
-                    class="vote_form_title rounded-4 position-relative d-flex justify-content-center align-items-center">
-                    <h2>
-                        Leave a vote
-                    </h2>
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="my_form_title p-4">
+                    <h2>Leave a vote</h2>
                 </div>
             </div>
-            <div class="card-body">
-
+            <div class="card-body bg-light rounded-4 p-4">
                 <template v-if="success">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         <strong>Thank you!</strong>
-                        <br>
+                        <br />
                         <span>Your vote has been sent!</span>
                     </div>
                 </template>
@@ -115,12 +114,11 @@ export default {
                         </span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-primary btn_vote" :disabled="loading">
-                            {{ loading ? 'Sending vote...' : 'Vote' }}
+                        <button type="submit" class="btn btn_vote text-white" :disabled="loading">
+                            {{ loading ? "Sending vote..." : "Vote" }}
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -162,23 +160,59 @@ export default {
     }
 
     &:hover::before {
-        opacity: 1
+        opacity: 1;
     }
 }
 
-.vote_form_title {
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 100px;
-    background-color: #f77b02;
-    background-image: linear-gradient(to top, #f77b02 0%, #ffc107 100%);
+.my_form_title {
+    font-size: 35px;
+    color: #f77b02;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
 
     h2 {
         font-weight: bold;
-        color: #fff;
-        font-size: 2rem;
+        font-size: 3rem;
+    }
+}
+
+.my_form_title::before,
+.my_form_title::after {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    left: -10px;
+    bottom: 44%;
+    background-color: #f77b02;
+}
+
+.my_form_title::before {
+    width: 20px;
+    height: 20px;
+    background-color: #f77b02;
+}
+
+.my_form_title::after {
+    width: 20px;
+    height: 20px;
+    animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
     }
 }
 </style>
