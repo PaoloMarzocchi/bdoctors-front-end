@@ -70,7 +70,7 @@ export default {
       </div>
     </div>
 
-    <div class="doctor_info flex-fill">
+    <div class="doctor_info flex-fill small">
       <div>
         <i class="color_primary fa-solid fa-location-dot me-2"></i>
         {{ doc.address }}
@@ -92,12 +92,14 @@ export default {
       </div>
     </div>
 
-    <button class="doctor_card_button btn mt-3">
+    <div class="d-grid">
+      <button class="doctor_card_button btn mt-3">
 
-      <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }">
-        Visit doctor profile
-      </router-link>
-    </button>
+        <router-link :to="{ name: 'DoctorProfile', params: { slug: doc.slug } }">
+          Visit doctor profile
+        </router-link>
+      </button>
+    </div>
 
   </div>
 </template>
@@ -117,15 +119,17 @@ i {
   position: relative;
   background-color: #fff;
   border-radius: 20px;
-  width: 350px;
-  height: 460px;
+  min-height: 460px;
   filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.1));
   text-align: center;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 
   .doctor_name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    word-break: break-word;
 
     &+i {
       color: var(--secondary);
@@ -135,6 +139,8 @@ i {
   .profile_image img {
     width: 150px;
     height: 150px;
+    max-width: 100%;
+    object-fit: cover;
     border-radius: 50%;
     margin-top: -50px;
     border: 5px solid var(--primary);
@@ -148,10 +154,11 @@ i {
   .doctor_card_button {
     cursor: pointer;
     border: none;
-    padding: 0.9rem 2rem;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
     letter-spacing: 0.05rem;
     font-weight: 700;
-    font-size: 17px;
     border-radius: 500px;
     background-color: var(--primary);
     transition: all ease-in-out .3s;
@@ -171,7 +178,8 @@ i {
   }
 
   .doctor_info {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    word-break: break-word;
   }
 }
 
@@ -196,4 +204,34 @@ i {
     border: 5px solid var(--secondary);
   }
 }
+
+/* #region :::: MEDIA QUERIES :::: */
+@media (max-width: 576px) {
+  .doctor_card {
+    padding: 15px;
+    min-height: auto;
+    /* Rimuove l'altezza minima su schermi molto piccoli */
+  }
+
+  .profile_image img {
+    width: 120px;
+    height: 120px;
+    margin-top: -40px;
+  }
+
+  .doctor_name {
+    font-size: 1.1rem;
+  }
+
+  .doctor_info {
+    font-size: 0.8rem;
+  }
+
+  .doctor_card_button {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* #endregion :::: MEDIA QUERIES :::: */
 </style>
