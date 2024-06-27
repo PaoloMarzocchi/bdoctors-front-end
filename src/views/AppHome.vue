@@ -27,7 +27,7 @@ export default {
                 },
                 {
                     title: "Easily contact your doctor",
-                    text: "After finding your docotr, you can easily send them a message directly from your profile page. And after your visit you can send a rating and a review!",
+                    text: "After finding your doctor, you can easily send them a message directly from your profile page. And after your visit you can send a rating and a review!",
                     text_style: "transform: scaleX(-1);",
                     padding: "ps-5",
                     img_1: "/img/doc_computer.png",
@@ -41,14 +41,6 @@ export default {
                 }
             ],
             linkBanners: [
-                /* {
-                    title: "Download our app",
-                    bg:
-                        "background: url(/img/bg_banners.jpg); background-repeat: no-repeat; background-size: cover;",
-                    text: "Try BDoctor on your mobile device , or download our App !",
-                    img: "/img/downloadApp.jpg",
-                    link: "https://www.apple.com/us/search/Bdoctor?src=serp",
-                }, */
                 {
                     title: "Our sponsor !",
                     bg:
@@ -97,20 +89,20 @@ export default {
 <template>
     <section class="spec-search p-3 p-md-5 pb-5 bg_primary">
 
-        <img class="search_bg img-fluid" src="/img/doctors_2.png" alt="Doctors with patiens illustration">
+        <img class="search_bg img-fluid" src="/img/doctors_2.png" alt="Doctors with patients illustration">
 
         <div class="search_container">
 
             <!-- Title -->
             <h2 class="mb-3 text-white fw-bold display-5">Find your specialist
-                <br> Bdoctor
+                <br> BDoctor
             </h2>
 
             <!-- Search bar -->
             <div class="search_bar bg_primary_hover mb-3">
                 <div class="search shadow-lg">
-                    <select class="form-select form-select-lg me-3" name="specializations" id="specializations"
-                        v-model="selectedSpec">
+                    <select class="form-select form-select-lg responsive-select me-3" name="specializations"
+                        id="specializations" v-model="selectedSpec">
                         <option selected disabled>Select specialization</option>
                         <option v-for="(specialization, id) in state.specializations">
                             {{ specialization.name }}
@@ -136,38 +128,12 @@ export default {
                 </RouterLink>
             </button>
         </div>
-
-
-        <!--             <div class="col-md-8 fs-4 text-center">
-                <div class="mb-3">
-                    <select class="form-select form-select-lg" name="specializations" id="specializations"
-                        v-model="selectedSpec">
-                        <option selected disabled>Select one</option>
-                        <option v-for="(specialization, id) in state.specializations">
-                            {{ specialization.name }}
-                        </option>
-                    </select>
-                </div>
-            </div> -->
-        <!--             <div class="actions d-flex justify-content-center gap-3">
-                <button v-if="selectedSpec" class="btn btn-dark" @click="goToIndex()">Search</button>
-
-                <button v-if="!selectedSpec" class="btn btn-dark">
-                    <RouterLink class="nav-link nav_element" :to="{ name: 'AdvancedResearch' }" href="#"
-                        aria-current="page">
-                        Go to Research
-                    </RouterLink>
-                </button>
-            </div> -->
-
-
     </section>
 
-
     <section class="sponsored_doctors py-4 text-center">
-        <h3 class="text_primary display-5 fw-bold px-3">Our sponsored Bdoctors</h3>
+        <h3 class="text_primary display-5 fw-bold px-3">Our sponsored BDoctors</h3>
         <div class="container py-3 py-md-5">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 g-md-3 g-sm-5 justify-content-center">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
                     <DoctorCard :doc="doc"></DoctorCard>
                 </div>
@@ -178,11 +144,6 @@ export default {
     <section>
         <HomeBanner v-for="banner in banners" :banner />
     </section>
-
-    <!--     <section>
-        <LinkBanner v-for="linkBanner in linkBanners" :linkBanner />
-    </section> -->
-
 </template>
 
 <style scoped>
@@ -205,13 +166,11 @@ export default {
     }
 
     & select {
-        /* border: 3px solid var(--secondary); */
         border-radius: 30px;
     }
 
     & button {
         color: var(--secondary);
-        /* background-color: var(--dark); */
     }
 }
 
@@ -221,7 +180,6 @@ export default {
     }
 }
 
-/* #region :::: NEW SEARCH BAR :::: */
 .search_container {
     position: relative;
     z-index: 1;
@@ -297,7 +255,6 @@ export default {
                     transform: scale(1.1);
                     border-left-color: lightcoral;
                     cursor: pointer;
-                    /* border-left: 3px solid lightcoral; */
 
                     path {
                         fill: lightcoral;
@@ -310,14 +267,8 @@ export default {
                 fill: white;
             }
         }
-
     }
-
 }
-
-/* #endregion :::: NEW SEARCH BAR :::: */
-
-/* #region :::: MEDIA QUERIES :::: */
 
 @media (max-width: 1200px) {
     .spec-search {
@@ -353,8 +304,14 @@ export default {
         left: 10%;
     }
 
-    .sponsored_doctors h3 {
-        margin: 2rem auto;
+    .sponsored_doctors {
+        h3 {
+            margin: 2rem auto;
+        }
+    }
+
+    .row {
+        gap: 5rem;
     }
 }
 
@@ -378,7 +335,19 @@ export default {
     .row {
         gap: 5rem;
     }
+
+    .responsive-select {
+        font-size: 0.9rem;
+    }
 }
 
-/* #endregion :::: MEDIA QUERIES :::: */
+@media (min-width: 577px) and (max-width: 655px) {
+    .search_bar {
+        max-width: 80%;
+    }
+
+    .responsive-select {
+        font-size: 1rem;
+    }
+}
 </style>

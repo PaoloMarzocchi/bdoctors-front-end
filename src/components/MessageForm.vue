@@ -61,15 +61,34 @@ export default {
               (this.lastNameError = response.data.errors.sender_last_name),
               (this.emailError = response.data.errors.email),
               (this.messageError = response.data.errors.message_text);
+            this.loading = false;
           }
 
-          this.loading = false;
         })
         .catch((err) => {
           console.log(err);
         });
     },
+
+    validation() {
+
+      const forms = document.querySelectorAll('.needs_validation')
+
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+    }
   },
+  mounted() {
+    this.validation();
+  }
 };
 </script>
 
@@ -103,52 +122,42 @@ export default {
           </div>
         </template>
 
-        <form @submit.prevent="sendMessage()" class="row g-3">
+        <form @submit.prevent="sendMessage()" class="row g-3 needs_validation" novalidate>
           <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" id="sender_first_name" aria-describedby="helpId"
-              placeholder="Your first name here" v-model="sender_first_name" />
+              placeholder="Your first name here" v-model="sender_first_name" required />
 
             <label for="sender_first_name" class="ms-2">First Name *</label>
 
-            <p class="text-danger mt-3" v-show="this.sender_first_nameError">
-              {{ this.sender_first_nameError }}
-            </p>
             <small id="helpId" class="form-text text-muted">Type your first name here <i
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
           <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" name="sender_last_name" id="sender_last_name"
-              aria-describedby="helpId" placeholder="Your last name here" v-model="sender_last_name" />
+              aria-describedby="helpId" placeholder="Your last name here" v-model="sender_last_name" required />
             <label for="sender_last_name" class="ms-2">Last Name *</label>
 
-            <p class="text-danger mt-3" v-show="this.sender_last_nameError">
-              {{ this.sender_last_nameError }}
-            </p>
+
             <small id="helpId" class="form-text text-muted">Type your last name here <i
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
           <div class="col-12 form-floating">
             <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
-              placeholder="abc@mail.com" v-model="email" />
+              placeholder="abc@mail.com" v-model="email" required />
             <label for="email" class="ms-2">Email *</label>
 
-            <p class="text-danger mt-3" v-show="this.emailError">
-              {{ this.emailError }}
-            </p>
+
             <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
           <div class="col-12 form-floating">
             <textarea class="form-control" placeholder="Leave a message here" name="message" id="message" rows="10"
-              style="height: 100px" v-model="message"></textarea>
+              style="height: 100px" v-model="message" required></textarea>
             <label for="message" class="ms-2">Your message *</label>
 
-            <p class="text-danger mt-3" v-show="this.messageError">
-              {{ this.messageError }}
-            </p>
             <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me <i
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
