@@ -102,14 +102,16 @@ export default {
         <div class="search_container">
 
             <!-- Title -->
-            <h2 class="mb-3 text-white fw-bold display-5">Search your doctor by specialization</h2>
+            <h2 class="mb-3 text-white fw-bold display-5">Find your specialist
+                <br> Bdoctor
+            </h2>
 
             <!-- Search bar -->
             <div class="search_bar bg_primary_hover mb-3">
                 <div class="search shadow-lg">
                     <select class="form-select form-select-lg me-3" name="specializations" id="specializations"
                         v-model="selectedSpec">
-                        <option selected disabled>Select one</option>
+                        <option selected disabled>Select specialization</option>
                         <option v-for="(specialization, id) in state.specializations">
                             {{ specialization.name }}
                         </option>
@@ -163,7 +165,7 @@ export default {
 
 
     <section class="sponsored_doctors py-4 text-center">
-        <h3 class="text_primary display-5 fw-bold px-3">Our sponsored doctors</h3>
+        <h3 class="text_primary display-5 fw-bold px-3">Our sponsored Bdoctors</h3>
         <div class="container py-3 py-md-5">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 g-md-3 g-sm-5 justify-content-center">
                 <div class="col" v-for="doc in sponsoredDocs">
