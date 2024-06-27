@@ -77,7 +77,7 @@ export default {
   <div>
     <main>
       <template v-if="this.success">
-        <div class="container py-5 my-5">
+        <div class="container py-3">
           <div class="row">
 
             <div class="col-12 col-md-6 d-flex flex-column gap-3">
@@ -108,9 +108,9 @@ export default {
                           <div>
                             <span class="doc_specialist" v-for="(spec, id) in this.doctorProfile.specializations">
                               {{ id !=
-                                this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
-                              + ' ' :
-                                spec.specialist }}
+        this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
+      + ' ' :
+        spec.specialist }}
                             </span>
                           </div>
                         </div>
