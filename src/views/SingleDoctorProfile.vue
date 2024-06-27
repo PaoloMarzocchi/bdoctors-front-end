@@ -26,7 +26,13 @@ export default {
       ButtonA: false,
       ButtonB: false,
       vote: '',
+      votes: [],
+      reviews: [],
       loading: false,
+      sumVote: null,
+      avgVote: null,
+      sumReview: null,
+      avgReview: null,
     };
   },
 
@@ -34,6 +40,19 @@ export default {
     getDoctor(url) {
       axios.get(url).then((response) => {
         this.doctorProfile = response.data.doctor;
+        this.votes = response.data.doctor.votes
+        this.reviews = response.data.doctor.reviews
+
+        for (let i = 0; i < this.votes.length; i++) {
+          this.sumVote += this.votes[i].vote;
+        }
+
+        this.avgVote = this.sumVote / this.votes.length;
+
+
+        /*         console.log(this.doctorProfile)
+                console.log(typeof this.votes, this.votes)
+                console.log(typeof this.reviews, this.reviews) */
 
         if (response.data.success) {
           this.success = response.data.success;
@@ -43,7 +62,10 @@ export default {
         }
       });
     },
+
+
   },
+
   mounted() {
     let url =
       this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
@@ -57,6 +79,8 @@ export default {
     } else {
       this.ButtonB = true;
     }
+
+
   },
 };
 </script>
@@ -92,6 +116,19 @@ export default {
                           <h3 class="fs-1">
                             Dr {{ this.doctorProfile.user.name }} {{ this.doctorProfile.surname }}
                           </h3>
+                        </div>
+
+                        <div>
+                          <span>
+                            <template v-for="i in 5" :key="i">
+                              <i v-if="i <= this.avgVote" class="text_primary fa-solid fa-star"></i>
+                              <i v-else class="text_primary fa-regular fa-star"></i>
+                            </template>
+                          </span>
+
+                          <span>
+                            ({{ this.reviews.length }})
+                          </span>
                         </div>
 
                         <div>

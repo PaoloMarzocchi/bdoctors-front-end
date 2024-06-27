@@ -44,12 +44,16 @@ export default {
       </template>
     </div>
 
-    <div>
+    <div class="flex-fill">
       <span>
         <template v-for="i in 5" :key="i">
           <i v-if="i <= this.avgVote" class="fa-solid fa-star"></i>
           <i v-else class="fa-regular fa-star"></i>
         </template>
+      </span>
+
+      <span>
+        ({{ doc.reviews.length }})
       </span>
 
       <div class="d-flex justify-content-center align-items-center">
@@ -70,7 +74,7 @@ export default {
       </div>
     </div>
 
-    <div class="doctor_info flex-fill small">
+    <div class="doctor_info small">
       <div>
         <i class="color_primary fa-solid fa-location-dot me-2"></i>
         {{ doc.address }}
@@ -84,11 +88,6 @@ export default {
       <div>
         <i class="color_primary fa-solid fa-at me-2"></i>
         {{ doc.user.email }}
-      </div>
-
-      <div>
-        <i class="color_primary fa-solid fa-pen"></i>
-        {{ doc.reviews.length }} reviews
       </div>
     </div>
 

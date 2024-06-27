@@ -55,15 +55,33 @@ export default {
             // get errors
             this.errors = response.data.errors;
             console.log(this.errors);
+            this.loading = false;
           }
 
-          this.loading = false;
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    validation() {
+
+      const forms = document.querySelectorAll('.needs_validation')
+
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+    }
   },
+  mounted() {
+    this.validation();
+  }
 };
 </script>
 
@@ -97,8 +115,8 @@ export default {
           </div>
         </template>
 
-        <form class="row g-3" @submit.prevent="sendReview()">
-          <div class="col-12 col-md-6 form-floating has-validation">
+        <form class="row g-3 needs_validation" @submit.prevent="sendReview()" novalidate>
+          <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" id="first_name" placeholder="Mario"
               :class="{ 'is-invalid': errors.first_name }" v-model="first_name" />
             <label class="ms-2" for="first_name">First name</label>
@@ -106,7 +124,7 @@ export default {
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
-          <div class="col-12 col-md-6 form-floating has-validation">
+          <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" id="last_name" placeholder="Rossi"
               :class="{ 'is-invalid': errors.last_name }" v-model="last_name" />
             <label class="ms-2" for="last_name">Last name</label>
@@ -114,7 +132,7 @@ export default {
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
-          <div class="col-12 form-floating has-validation">
+          <div class="col-12 form-floating">
             <input type="email" class="form-control" id="email" placeholder="mariorossi@example.it"
               :class="{ 'is-invalid': errors.email }" v-model="email" />
             <label class="ms-2" for="email">Email</label>
@@ -122,7 +140,7 @@ export default {
                 class="fa-solid fa-arrow-up"></i></small>
           </div>
 
-          <div class="col-12 form-floating has-validation">
+          <div class="col-12 form-floating">
             <textarea required class="form-control" placeholder="Leave a review here" id="review_text" rows="6"
               style="height: 100px" :class="{ 'is-invalid': errors.review_text }" v-model="review_text"></textarea>
             <label class="ms-2" for="review_text">Your review *</label>

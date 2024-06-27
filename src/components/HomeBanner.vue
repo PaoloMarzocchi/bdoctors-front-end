@@ -73,7 +73,13 @@ export default {
     }
 
     .banner_img_1 {
-        top: -20%;
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -15%;
+        left: 15%;
+        width: 700px;
     }
 }
 
@@ -95,22 +101,24 @@ export default {
     }
 }
 
+@media (min-width: 577px) and (max-width: 655px) {
+    .banner_img_1 {
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -15%;
+        left: 15%;
+        width: 700px;
+    }
+}
+
 @media (max-width: 576px) {
     .banner_images {
         height: 250px;
     }
 
-    .banner_img_1 {
-        top: -10%;
-        width: 100px;
-        display: none;
-    }
 
-    .banner_img_2 {
-        top: -41%;
-        left: 15%;
-        width: 700px;
-    }
 }
 
 @media (width < 576px) {
@@ -119,15 +127,13 @@ export default {
     }
 
     .banner_img_1 {
-        top: -10%;
-        width: 100px;
         display: none;
     }
 
     .banner_img_2 {
-        top: -21%;
-        left: 13%;
-        width: 400px;
+        top: -15%;
+        left: 15%;
+        width: 700px;
     }
 }
 

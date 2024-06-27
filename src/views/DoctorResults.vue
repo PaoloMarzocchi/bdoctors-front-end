@@ -147,10 +147,10 @@ export default {
 
 
     <form class="pb-3" @submit.prevent="
-          advancedSearch(
-            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-          )
-          " method="get">
+      advancedSearch(
+        `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+      )
+      " method="get">
       <div class="advanced_search mb-3">
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
           <div class="col">
@@ -195,7 +195,7 @@ export default {
 
 
     <!-- Pagination -->
-    <template v-if="this.doctorsBySpec.length > 0">
+    <!--     <template v-if="this.doctorsBySpec.length > 0">
       <nav class="pagination_container" aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item" v-if="this.prevPage != null">
@@ -220,7 +220,7 @@ export default {
       </nav>
     </template>
 
-    <template v-if="this.doctorsByAdvancedSearch.length > 0">
+<template v-if="this.doctorsByAdvancedSearch.length > 0">
       <nav class="pagination_container" aria-label="Page navigation">
         <ul class="pagination">
           <li class="page-item" v-if="this.prevPage != null">
@@ -243,7 +243,7 @@ export default {
           </li>
         </ul>
       </nav>
-    </template>
+    </template> -->
     <!-- /Pagination -->
 
 
@@ -258,7 +258,7 @@ export default {
 
 
     <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="advanced_search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-3 g-sm-5 mt-5">
+      class="advanced_search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-5 mt-5">
 
       <!-- :key="doctor.id -->
       <div class="col" v-for="doctor in doctorsByAdvancedSearch">
@@ -266,10 +266,16 @@ export default {
       </div>
     </div>
 
-    <img v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="img-fluid" src="/img/no_results.png"
-      alt="No results" />
+    <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="position-relative">
+      <div class="no_result text-center position-absolute">
+        <h3 class="text_primary">Sorry! No results found</h3>
+        <p>Try with other filters</p>
+      </div>
+      <img class="img-fluid" src="/img/no_results.png" alt="No results" />
+    </div>
+
     <!-- :key="doctor.id" -->
-    <div v-else class="search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-3 g-sm-5 mt-5">
+    <div v-else class="search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-5 mt-5">
       <div class="col" v-for="doctor in doctorsBySpec">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
@@ -337,15 +343,18 @@ export default {
 </template>
 
 <style scoped>
+.no_result {
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .advanced_search {
+  border-radius: 16px;
   margin-bottom: 4rem;
   padding: 1rem 2rem;
   box-shadow: 2px 6px 8px 0px rgb(133, 132, 132);
-  border-bottom-left-radius: 10% 50%;
-  border-bottom-right-radius: 10% 50%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-
+  transition: all ease-in-out 0.4s;
 }
 
 .color_primary {
@@ -416,6 +425,18 @@ export default {
 
 
 /* #region :::: MEDIA QUERIES :::: */
+@media (min-width: 992px) {
+  .advanced_search {
+    margin-bottom: 4rem;
+    padding: 1rem 2rem;
+    box-shadow: 2px 6px 8px 0px rgb(133, 132, 132);
+    border-bottom-left-radius: 10% 50%;
+    border-bottom-right-radius: 10% 50%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding-top: 2rem;
@@ -439,6 +460,7 @@ export default {
     flex-wrap: nowrap;
     white-space: nowrap;
   }
+
 }
 
 @media (max-width: 576px) {
@@ -455,6 +477,10 @@ export default {
     margin-bottom: 2rem;
   }
 
+  .advanced_search_results,
+  .search_results {
+    gap: 5rem;
+  }
 }
 
 /* #endregion :::: MEDIA QUERIES :::: */
