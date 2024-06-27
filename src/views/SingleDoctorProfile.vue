@@ -85,7 +85,7 @@ export default {
 
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                       <div class="doc_photo">
                         <template v-if="!this.doctorProfile.photo">
                           <img class="img-fluid" src="/img/DoctorAvatar.png" alt="" />
@@ -98,7 +98,7 @@ export default {
                       </div>
                     </div>
 
-                    <div class="col-8">
+                    <div class="col-12 col-md-8">
                       <div class="doc_info d-flex flex-column justify-content-center gap-3">
                         <div class="doc_name">
                           <h5>
@@ -108,9 +108,9 @@ export default {
                           <div>
                             <span class="doc_specialist" v-for="(spec, id) in this.doctorProfile.specializations">
                               {{ id !=
-                                this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
-                              + ' ' :
-                                spec.specialist }}
+        this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
+      + ' ' :
+        spec.specialist }}
                             </span>
                           </div>
                         </div>
