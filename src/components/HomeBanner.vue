@@ -41,16 +41,15 @@ export default {
 
 .banner_img_1 {
     top: -30%;
-    right: 0;
+    right: -55px;
     max-width: 80%;
-    z-index: 2;
+
 }
 
 .banner_img_2 {
-    bottom: 0;
-    left: 0;
-    max-width: 70%;
-    z-index: 1;
+    bottom: -76px;
+    left: -55px;
+    max-width: 70%
 }
 
 /* #region :::: MEDIA QUERIES :::: */
@@ -103,6 +102,32 @@ export default {
 
     .banner_img_1 {
         top: -10%;
+        width: 100px;
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -41%;
+        left: 15%;
+        width: 700px;
+    }
+}
+
+@media (width < 576px) {
+    .banner_images {
+        height: 250px;
+    }
+
+    .banner_img_1 {
+        top: -10%;
+        width: 100px;
+        display: none;
+    }
+
+    .banner_img_2 {
+        top: -21%;
+        left: 13%;
+        width: 400px;
     }
 }
 

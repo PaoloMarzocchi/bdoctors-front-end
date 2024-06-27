@@ -108,9 +108,9 @@ export default {
                           <div>
                             <span class="doc_specialist" v-for="(spec, id) in this.doctorProfile.specializations">
                               {{ id !=
-        this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
-      + ' ' :
-        spec.specialist }}
+                                this.doctorProfile.specializations.length - 1 ? spec.specialist + ','
+                              + ' ' :
+                                spec.specialist }}
                             </span>
                           </div>
                         </div>
@@ -119,7 +119,7 @@ export default {
                           <strong>Specializations : </strong>
                           <br>
                           <span v-for="spec in this.doctorProfile.specializations"
-                            class="badge bg-warning text-dark mx-1">
+                            class="badge bg_primary text-white mx-1">
                             {{ spec.name }}
                           </span>
                         </div>
@@ -218,7 +218,7 @@ export default {
     color: #2d2d2d;
 
     &.active {
-      background-image: linear-gradient(to top, #fff 0%, #ffd149 90%);
+      background-image: linear-gradient(to top, #fff 0%, var(--primary) 90%);
       color: #2d2d2d;
     }
   }
