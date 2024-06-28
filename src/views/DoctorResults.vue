@@ -21,8 +21,8 @@ export default {
       doctorsBySpec: [],
       doctorsByAdvancedSearch: [],
       selectedSpec: null,
-      selectedVote: null,
-      selectedReview: null,
+      selectedVote: 0,
+      selectedReview: 0,
       advanceSearch: false,
       isLoading: false, // variabile per l'indicatore di caricamento
       error: null, // variabile per il messaggio di errore
@@ -130,15 +130,11 @@ export default {
     <div class="my-4 d-flex align-items-center">
       <h2 class="mb-3 text-center">
         <span v-if="this.doctorsBySpec.length > 0">
-          There are {{ this.totalResults }} results for
-          <strong class="color_primary">"{{ $route.params.name }}"</strong> research
+          <strong class="color_primary">{{ this.totalResults + ' ' }}</strong>Profiles found
         </span>
 
         <span v-else-if="this.doctorsByAdvancedSearch.length > 0">
-          The new research for
-          <strong class="color_primary">{{ this.title }}</strong> has produced
-          {{ this.totalResults }}
-          results
+          <strong class="color_primary">{{ this.totalResults + ' ' }}</strong>Profiles found
         </span>
 
         <span v-else-if="this.$route.params.name == null"> Start a new research </span>
@@ -167,7 +163,7 @@ export default {
 
 
           <div class="col">
-            <label class="form-label" for="myRange">Average vote >= {{ selectedVote }} </label>
+            <label class="form-label" for="myRange">Minimum average rating: {{ selectedVote }} </label>
 
 
             <input type="range" min="0" max="5" v-model="selectedVote" class="PB-range-slider" id="myRange">
@@ -175,7 +171,7 @@ export default {
 
 
           <div class="col">
-            <label class="form-label" for="myRange">Reviews number > {{ selectedReview }} </label>
+            <label class="form-label" for="myRange">Minimum number of reviews: {{ selectedReview }} </label>
 
 
             <input type="range" min="0" :max="maxReview()" v-model="selectedReview" class="PB-range-slider"
