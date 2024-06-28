@@ -67,6 +67,10 @@ export default {
   },
 
   mounted() {
+    window.onload = function () {
+      window.scrollTo(0, 0);
+    };
+
     let url =
       this.state.base_url + this.state.doctors_url + "/" + this.$route.params.slug;
     this.getDoctor(url);
@@ -126,9 +130,9 @@ export default {
                             </template>
                           </span>
 
-                          <span>
+                          <!-- <span>
                             ({{ this.reviews.length }})
-                          </span>
+                          </span> -->
                         </div>
 
                         <div>
@@ -157,7 +161,8 @@ export default {
                   </li>
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane"
-                      type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">Reviews</button>
+                      type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">Reviews ({{
+        this.reviews.length }})</button>
                   </li>
                 </ul>
 
