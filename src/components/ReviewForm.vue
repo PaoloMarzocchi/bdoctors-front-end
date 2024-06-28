@@ -43,7 +43,8 @@ export default {
         .post(this.url, data)
         .then((response) => {
           console.log(response);
-
+          console.log(response.data);
+          console.log(response.data.errors);
           if (response.data.success) {
             // show success message
             this.first_name = "";
@@ -72,6 +73,7 @@ export default {
           if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
+            console.log('error')
           }
 
           form.classList.add('was-validated')
