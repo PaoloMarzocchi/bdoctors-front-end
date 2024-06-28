@@ -133,7 +133,8 @@ export default {
     <section class="sponsored_doctors py-4 text-center">
         <h3 class="text_primary display-5 fw-bold px-3">Our sponsored BDoctors</h3>
         <div class="container py-3 py-md-5">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 justify-content-center">
+            <div
+                class="row justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5">
                 <div class="col" v-for="doc in sponsoredDocs">
                     <DoctorCard :doc="doc"></DoctorCard>
                 </div>
@@ -270,6 +271,16 @@ export default {
     }
 }
 
+/* #region :::: MEDIA QUERIES :::: */
+
+@media (min-width: 1200px) {
+    .row {
+        .col {
+            margin-bottom: 3rem;
+        }
+    }
+}
+
 @media (max-width: 1200px) {
     .spec-search {
         height: auto;
@@ -310,9 +321,6 @@ export default {
         }
     }
 
-    .row {
-        gap: 5rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -333,7 +341,10 @@ export default {
     }
 
     .row {
-        gap: 5rem;
+        .col {
+            display: flex;
+            justify-content: center;
+        }
     }
 
     .responsive-select {
@@ -350,4 +361,6 @@ export default {
         font-size: 1rem;
     }
 }
+
+/* #endregion :::: MEDIA QUERIES :::: */
 </style>

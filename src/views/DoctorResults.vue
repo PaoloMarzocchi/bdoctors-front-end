@@ -254,7 +254,7 @@ export default {
 
 
     <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="advanced_search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-5 mt-5">
+      class="advanced_search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5">
 
       <!-- :key="doctor.id -->
       <div class="col" v-for="doctor in doctorsByAdvancedSearch">
@@ -271,7 +271,8 @@ export default {
     </div>
 
     <!-- :key="doctor.id" -->
-    <div v-else class="search_results row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 g-md-5 mt-5">
+    <div v-else
+      class="search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5">
       <div class="col" v-for="doctor in doctorsBySpec">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
@@ -475,7 +476,11 @@ export default {
 
   .advanced_search_results,
   .search_results {
-    gap: 5rem;
+
+    .col {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 
