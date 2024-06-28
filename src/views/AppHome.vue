@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             state,
-            selectedSpec: null,
+            selectedSpec: '',
             sponsoredDocs: [],
             url: state.base_url + state.sponsored_url,
             banners: [
@@ -103,8 +103,8 @@ export default {
                 <div class="search shadow-lg">
                     <select class="form-select form-select-lg responsive-select me-3" name="specializations"
                         id="specializations" v-model="selectedSpec">
-                        <option selected disabled>Select specialization</option>
-                        <option v-for="(specialization, id) in state.specializations">
+                        <option value="" disabled>Select specialization</option>
+                        <option v-for="(specialization, id) in state.specializations" :value="specialization.name">
                             {{ specialization.name }}
                         </option>
                     </select>
