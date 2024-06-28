@@ -143,10 +143,10 @@ export default {
 
 
     <form class="pb-3" @submit.prevent="
-      advancedSearch(
-        `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-      )
-      " method="get">
+          advancedSearch(
+            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+          )
+          " method="get">
       <div class="advanced_search mb-3">
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
           <div class="col">
@@ -288,7 +288,7 @@ export default {
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5;"></i>
               </span>
             </a>
           </li>
@@ -299,7 +299,7 @@ export default {
           <li class="page-item" v-if="this.nextPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5;"></i>
               </span>
             </a>
           </li>
@@ -317,7 +317,7 @@ export default {
           <li class="page-item" v-if="this.prevPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5;"></i>
               </span>
             </a>
           </li>
@@ -328,7 +328,7 @@ export default {
           <li class="page-item" v-if="this.nextPage != null">
             <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f77b02;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5;"></i>
               </span>
             </a>
           </li>
@@ -365,20 +365,20 @@ export default {
 
 
   .arrow {
-    background-color: var(--light-2);
+    background-color: var(--primary);
     border: 1px solid var(--primary);
   }
 
   .number {
     color: var(--primary);
     background-color: var(--light-2);
-
+    border-color: var(--primary);
   }
 
   .number.my_active {
-    background-color: var(--light-2);
+    background-color: var(--primary);
     border: 1px solid var(--primary);
-    color: var(--primary);
+    color: var(--light-2);
     font-weight: bold;
   }
 }
@@ -408,7 +408,7 @@ export default {
 }
 
 .PB-range-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0px 0px 0px 8px rgba(255, 113, 94, 0.281);
+  box-shadow: 0px 0px 0px 8px rgba(255, 113, 94, 0.61);
   transition: 0.3s ease-in-out;
 }
 
