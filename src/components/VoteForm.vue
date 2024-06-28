@@ -87,16 +87,19 @@ export default {
         <div class="shadow-lg rounded-4 p-4">
             <div class="d-flex align-items-center justify-content-center">
                 <div class="my_form_title p-3">
-                    <h3 class="fs-1">Leave a vote</h3>
+                    <h3 class="fs-1">
+                        <i class="fa-solid fa-star" style="color: #ff725e;"></i>
+                        Leave a vote
+                    </h3>
                 </div>
             </div>
             <div class="card-body bg-light rounded-4 p-3">
                 <template v-if="success">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <strong>Thank you!</strong>
-                        <br />
-                        <span>Your vote has been sent!</span>
+                        <strong>Vote sent!</strong>
+
+                        <!-- <span>Vote sent!</span> -->
                     </div>
                 </template>
 
@@ -114,7 +117,7 @@ export default {
                         </span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn_vote text-white" :disabled="loading">
+                        <button type="submit" class="btn btn_vote text-white" :disabled="loading || success">
                             {{ loading ? "Sending vote..." : "Vote" }}
                         </button>
                     </div>
@@ -124,7 +127,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style scoped>
 .stars {
     display: flex;
 }
@@ -180,7 +183,7 @@ export default {
     } */
 }
 
-.my_form_title::before,
+/* .my_form_title::before,
 .my_form_title::after {
     position: absolute;
     content: "";
@@ -214,5 +217,5 @@ export default {
         transform: scale(2);
         opacity: 0;
     }
-}
+} */
 </style>

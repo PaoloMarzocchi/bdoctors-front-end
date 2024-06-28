@@ -97,16 +97,19 @@ export default {
     <div class="shadow-lg rounded-4 p-4">
       <div class="d-flex align-items-center justify-content-center">
         <div class="my_form_title p-4">
-          <h3 class="fs-1">Leave a message</h3>
+          <h3 class="fs-1">
+            <i class="fa-solid fa-envelope" style="color: #ff725e;"></i>
+            Send a message
+          </h3>
         </div>
       </div>
       <div class="card-body bg-light rounded-4 p-4">
         <template v-if="success">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <strong>Thank you!</strong>
-            <br />
-            <span>Your review has been sent!</span>
+            <strong>Message sent!</strong>
+            <!-- <br />
+            <span></span> -->
           </div>
         </template>
 
@@ -125,41 +128,38 @@ export default {
         <form @submit.prevent="sendMessage()" class="row g-3 needs_validation" novalidate>
           <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" id="sender_first_name" aria-describedby="helpId"
-              placeholder="Your first name here" v-model="sender_first_name" required />
+              placeholder="Your first name here" v-model="sender_first_name" required :disabled="success" />
 
             <label for="sender_first_name" class="ms-2">First Name *</label>
 
-            <small id="helpId" class="form-text text-muted">Type your first name here <i
-                class="fa-solid fa-arrow-up"></i></small>
+            <small id="helpId" class="form-text text-muted">Type your first name here </small>
           </div>
 
           <div class="col-12 col-md-6 form-floating">
             <input type="text" class="form-control" name="sender_last_name" id="sender_last_name"
-              aria-describedby="helpId" placeholder="Your last name here" v-model="sender_last_name" required />
+              aria-describedby="helpId" placeholder="Your last name here" v-model="sender_last_name" required
+              :disabled="success" />
             <label for="sender_last_name" class="ms-2">Last Name *</label>
 
 
-            <small id="helpId" class="form-text text-muted">Type your last name here <i
-                class="fa-solid fa-arrow-up"></i></small>
+            <small id="helpId" class="form-text text-muted">Type your last name here </small>
           </div>
 
           <div class="col-12 form-floating">
             <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
-              placeholder="abc@mail.com" v-model="email" required />
+              placeholder="abc@mail.com" v-model="email" required :disabled="success" />
             <label for="email" class="ms-2">Email *</label>
 
 
-            <small id="emailHelpId" class="form-text text-muted">Insert your email here <i
-                class="fa-solid fa-arrow-up"></i></small>
+            <small id="emailHelpId" class="form-text text-muted">Insert your email here </small>
           </div>
 
           <div class="col-12 form-floating">
             <textarea class="form-control" placeholder="Leave a message here" name="message" id="message" rows="10"
-              style="height: 100px" v-model="message" required></textarea>
+              style="height: 100px" v-model="message" required :disabled="success"></textarea>
             <label for="message" class="ms-2">Your message *</label>
 
-            <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me <i
-                class="fa-solid fa-arrow-up"></i></small>
+            <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me </small>
           </div>
 
           <div class="col-md-12 mt-5 row text-danger">
@@ -167,7 +167,7 @@ export default {
           </div>
 
           <div class="col-12 d-flex justify-content-center align-items-center">
-            <button type="submit" class="btn btn-primary btn_message" :disabled="loading">
+            <button type="submit" class="btn btn-primary btn_message" :disabled="loading || success">
               {{ loading ? "Sending message..." : "Send message" }}
             </button>
           </div>
@@ -240,7 +240,7 @@ export default {
   } */
 }
 
-.my_form_title::before,
+/* .my_form_title::before,
 .my_form_title::after {
   position: absolute;
   content: "";
@@ -274,5 +274,5 @@ export default {
     transform: scale(2);
     opacity: 0;
   }
-}
+} */
 </style>

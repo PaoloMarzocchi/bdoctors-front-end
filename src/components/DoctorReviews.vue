@@ -17,8 +17,11 @@ export default {
       let dateObject = new Date(date);
 
       // Mapping months
-      const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-        "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+      const monthNames =
+        [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
 
       // Change date format to DD-month-AAAA
       let day = String(dateObject.getUTCDate()).padStart(2, '0');
