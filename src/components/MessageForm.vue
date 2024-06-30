@@ -64,6 +64,7 @@ export default {
             this.loading = false;
           }
 
+          this.loading = false;
         })
         .catch((err) => {
           console.log(err);
@@ -95,14 +96,14 @@ export default {
 <template>
   <div class="message_form position-relative mt-5">
     <div class="shadow-lg rounded-4 p-4">
-      <div class="d-flex align-items-center justify-content-center">
-        <div class="my_form_title p-4">
-          <h3 class="fs-1">
-            <i class="fa-solid fa-envelope" style="color: #ff725e;"></i>
-            Send a message
-          </h3>
-        </div>
-      </div>
+
+
+      <h3 class="fs-1 text_primary mb-4 text-center">
+        <i class="fa-solid fa-envelope" style="color: #ff725e;"></i>
+        Send a message
+      </h3>
+
+
       <div class="card-body bg-light rounded-4 p-4">
         <template v-if="success">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -205,22 +206,6 @@ export default {
 
   &:hover::before {
     opacity: 1;
-  }
-}
-
-.message_form_title {
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 100px;
-  background-color: var(--primary);
-  background-image: linear-gradient(to top, var(--primary) 0%, #ffc107 100%);
-
-  h2 {
-    font-weight: bold;
-    color: #fff;
-    font-size: 2rem;
   }
 }
 
