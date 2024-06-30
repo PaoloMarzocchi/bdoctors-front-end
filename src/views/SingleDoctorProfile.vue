@@ -96,7 +96,7 @@ export default {
         <div class="container py-3">
           <div class="row">
 
-            <div class="col-12 col-lg-6 d-flex flex-column gap-3">
+            <div class="col-12 col-lg-6 d-flex flex-column gap-4">
               <div class="card doc_profile shadow-lg rounded-4 mt-5 border-0">
 
                 <div class="card-body">
@@ -162,7 +162,7 @@ export default {
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-tab-pane"
                       type="button" role="tab" aria-controls="reviews-tab-pane" aria-selected="false">Reviews ({{
-        this.reviews.length }})</button>
+                        this.reviews.length }})</button>
                   </li>
                 </ul>
 
@@ -195,7 +195,7 @@ export default {
                 :doc_surname="this.doctorProfile.surname" />
             </div>
 
-            <div class="col-12 col-lg-6 d-flex flex-column gap-3">
+            <div class="col-12 col-lg-6 d-flex flex-column gap-4">
 
               <MessageForm :doc_id="this.doctorProfile.id" />
               <ReviewForm :doc_id="this.doctorProfile.id" />

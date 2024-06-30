@@ -83,16 +83,16 @@ export default {
 </script>
 
 <template>
-    <div class="message_form position-relative my-5">
+    <div class="message_form position-relative">
         <div class="shadow-lg rounded-4 p-4">
-            <div class="d-flex align-items-center justify-content-center">
-                <div class="my_form_title p-3">
-                    <h3 class="fs-1">
-                        <i class="fa-solid fa-star" style="color: #ff725e;"></i>
-                        Leave a vote
-                    </h3>
-                </div>
-            </div>
+
+
+            <h3 class="fs-1 text_primary mb-4 text-center">
+                <i class="fa-solid fa-star" style="color: #ff725e;"></i>
+                Leave a vote
+            </h3>
+
+
             <div class="card-body bg-light rounded-4 p-3">
                 <template v-if="success">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
