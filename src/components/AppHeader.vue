@@ -45,7 +45,8 @@ export default {
       <div class="collapse navbar-collapse nav_elements" id="collapsibleNavId">
         <ul class="navbar-nav gap-2 d-flex w-100 align-items-center justify-content-between mt-2 mt-lg-0 me-1">
           <li class="nav-item px-1 rounded-2" :class="$route.name == 'home' ? 'my_active' : ''">
-            <RouterLink class="nav-link nav_element text-white" :to="{ name: 'home' }" href="#" aria-current="page">
+            <RouterLink id="homeLink" class="nav-link nav_element text-white" :to="{ name: 'home' }" href="#"
+              aria-current="page">
               Home
             </RouterLink>
           </li>
@@ -99,11 +100,11 @@ nav {
 }
 
 .nav-item {
-  a {
+  #homeLink {
     position: relative;
   }
 
-  a::before {
+  #homeLink::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -117,7 +118,7 @@ nav {
     transition: transform .3s ease-in-out;
   }
 
-  a:hover::before {
+  #homeLink:hover::before {
     transform-origin: left;
     transform: scaleX(1);
   }
