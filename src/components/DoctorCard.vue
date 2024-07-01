@@ -35,7 +35,7 @@ export default {
   <div class="doctor_card d-flex flex-column" :class="{ sponsored: doc.sponsorships.length > 0 }">
     <div class="profile_image">
       <template v-if="doc.photo == null">
-        <img src="/img/DoctorAvatar.png" class="img-fluid" alt="Foto del dottore" />
+        <img src="/img/doc_avatar.png" class="img-fluid" alt="Foto del dottore" />
       </template>
 
       <template v-else>
@@ -52,7 +52,7 @@ export default {
         </template>
       </span>
 
-      <div class="d-flex justify-content-center align-items-center">
+      <div class="d-flex justify-content-center align-items-baseline">
         <span class="doctor_name"> Dr. {{ doc.surname }} {{ doc.user.name }}</span>
 
         <i v-if="doc.sponsorships.length > 0" class="ms-2 fa-solid fa-crown fa-lg"></i>
@@ -144,6 +144,7 @@ i {
 
 
     img {
+      background-color: var(--primary);
       width: 70%;
       aspect-ratio: 1 / 1;
       max-width: 100%;
@@ -211,9 +212,14 @@ i {
     background-color: var(--secondary-active);
   }
 
-  .profile_image img {
-    border: 5px solid var(--secondary);
+  .profile_image {
+    img {
+      background-color: var(--secondary);
+      border: 5px solid var(--secondary);
+    }
   }
+
+
 }
 
 /* #region :::: MEDIA QUERIES :::: */
