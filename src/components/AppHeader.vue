@@ -33,38 +33,82 @@ export default {
 </script>
 
 <template>
-  <header class="w-100 navbar navbar-expand-sm bg_primary z-3" :class="$route.name != 'home' ? 'my_shadow' : ''">
+  <header
+    class="w-100 navbar navbar-expand-sm bg_primary z-3"
+    :class="$route.name != 'home' ? 'my_shadow' : ''"
+  >
     <div class="container d-flex justify-content-between rounded-5 px-5">
       <img width="50" class="img-fluid mw-100 me-4" src="/img/logo-header.png" alt="" />
 
-      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler d-lg-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse nav_elements" id="collapsibleNavId">
-        <ul class="navbar-nav gap-2 d-flex w-100 align-items-center justify-content-between mt-2 mt-lg-0 me-1">
-          <li class="nav-item px-1 rounded-2" :class="$route.name == 'home' ? 'my_active' : ''">
-            <RouterLink id="homeLink" class="nav-link nav_element text-white" :to="{ name: 'home' }" href="#"
-              aria-current="page">
+        <ul
+          class="navbar-nav gap-2 d-flex w-100 align-items-center justify-content-between mt-2 mt-lg-0 me-1"
+        >
+          <li
+            class="nav-item px-1 rounded-2"
+            :class="$route.name == 'home' ? 'my_active' : ''"
+          >
+            <RouterLink
+              id="homeLink"
+              class="nav-link nav_element text-white"
+              :to="{ name: 'home' }"
+              href="#"
+              aria-current="page"
+            >
               Home
             </RouterLink>
           </li>
 
           <li class="nav-item ms-auto" v-if="this.ButtonA">
             <button class="my_button_light py-0 px-3">
-              <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/logout/">
+              <a
+                class="nav-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="http://127.0.0.1:8000/logout/"
+              >
                 Log-out
               </a>
             </button>
           </li>
-          <li class="nav-item " v-if="this.ButtonB">
-            <button class="my_button_light py-0 px-3">
-              <a class="nav-link" target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/login">
-                Sign-in
-              </a>
-            </button>
-          </li>
+
+          <div class="d-flex gap-3 flex-column align-items-center flex-md-row">
+            <li class="nav-item" v-if="this.ButtonB">
+              <button class="my_button_light py-0 px-3">
+                <a
+                  class="nav-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="http://127.0.0.1:8000/login"
+                >
+                  Log-in
+                </a>
+              </button>
+            </li>
+            <li class="nav-item" v-if="this.ButtonB">
+              <button class="my_button_light py-0 px-3">
+                <a
+                  class="nav-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="http://127.0.0.1:8000/register"
+                >
+                  Become a BDoctor
+                </a>
+              </button>
+            </li>
+          </div>
         </ul>
       </div>
     </div>
@@ -81,7 +125,7 @@ export default {
   font-weight: bold;
 
   a::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 4px;
@@ -96,7 +140,6 @@ nav {
   position: absolute;
   top: 0;
   width: 100%;
-
 }
 
 .nav-item {
@@ -105,7 +148,7 @@ nav {
   }
 
   #homeLink::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 4px;
@@ -115,7 +158,7 @@ nav {
     left: 0;
     transform-origin: right;
     transform: scaleX(0);
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
 
   #homeLink:hover::before {

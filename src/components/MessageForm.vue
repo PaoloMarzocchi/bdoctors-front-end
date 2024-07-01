@@ -20,10 +20,10 @@ export default {
       sender_last_name: "",
       email: "",
       message: "",
-      sender_first_nameError: "",
-      sender_last_nameError: "",
-      emailError: "",
-      messageError: "",
+      // sender_first_nameError: "",
+      // sender_last_nameError: "",
+      // emailError: "",
+      // messageError: "",
       loading: false,
       success: false,
       errors: false,
@@ -51,16 +51,16 @@ export default {
           console.log(response.data.errors);
 
           if (response.data.success) {
-            (this.sender_first_name = ""),
+            (this.errors = ""),
+              (this.sender_first_name = ""),
               (this.sender_last_name = ""),
               (this.email = ""),
               (this.message = ""),
               (this.success = response.data.message);
           } else {
-            (this.firstNameError = response.data.errors.sender_first_name),
-              (this.lastNameError = response.data.errors.sender_last_name),
-              (this.emailError = response.data.errors.email),
-              (this.messageError = response.data.errors.message_text);
+            // get errors
+            this.errors = response.data.errors;
+            console.log(this.errors);
             this.loading = false;
           }
 
@@ -72,42 +72,47 @@ export default {
     },
 
     validation() {
+      const forms = document.querySelectorAll(".needs_validation");
 
-      const forms = document.querySelectorAll('.needs_validation')
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          "submit",
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
 
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-    }
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    },
   },
   mounted() {
     this.validation();
-  }
+  },
 };
 </script>
 
 <template>
   <div class="message_form position-relative mt-5">
     <div class="shadow-lg rounded-4 p-4">
-
-
       <h3 class="fs-1 text_primary mb-4 text-center">
-        <i class="fa-solid fa-envelope" style="color: #ff725e;"></i>
+        <i class="fa-solid fa-envelope" style="color: #ff725e"></i>
         Send a message
       </h3>
-
 
       <div class="card-body bg-light rounded-4 p-4">
         <template v-if="success">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
             <strong>Message sent!</strong>
             <!-- <br />
             <span></span> -->
@@ -116,51 +121,98 @@ export default {
 
         <template v-if="errors">
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
             <strong class="">Errors</strong>
-            <ul class="list-unstyled">
+            <!-- <ul class="list-unstyled">
               <li class="text-danger" v-for="error in errors">
                 <span class="">{{ error[0] }}</span>
               </li>
-            </ul>
+            </ul> -->
+
+            <p>Fields with (*) are required</p>
           </div>
         </template>
 
         <form @submit.prevent="sendMessage()" class="row g-3 needs_validation" novalidate>
           <div class="col-12 col-md-6 form-floating">
-            <input type="text" class="form-control" id="sender_first_name" aria-describedby="helpId"
-              placeholder="Your first name here" v-model="sender_first_name" required :disabled="success" />
+            <input
+              type="text"
+              class="form-control"
+              id="sender_first_name"
+              aria-describedby="helpId"
+              placeholder="Your first name here"
+              v-model="sender_first_name"
+              required
+              :disabled="success"
+            />
 
             <label for="sender_first_name" class="ms-2">First Name *</label>
 
-            <small id="helpId" class="form-text text-muted">Type your first name here </small>
+            <small id="helpId" class="form-text text-muted"
+              >Type your first name here
+            </small>
           </div>
 
           <div class="col-12 col-md-6 form-floating">
-            <input type="text" class="form-control" name="sender_last_name" id="sender_last_name"
-              aria-describedby="helpId" placeholder="Your last name here" v-model="sender_last_name" required
-              :disabled="success" />
+            <input
+              type="text"
+              class="form-control"
+              name="sender_last_name"
+              id="sender_last_name"
+              aria-describedby="helpId"
+              placeholder="Your last name here"
+              v-model="sender_last_name"
+              required
+              :disabled="success"
+            />
             <label for="sender_last_name" class="ms-2">Last Name *</label>
 
-
-            <small id="helpId" class="form-text text-muted">Type your last name here </small>
+            <small id="helpId" class="form-text text-muted"
+              >Type your last name here
+            </small>
           </div>
 
           <div class="col-12 form-floating">
-            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
-              placeholder="abc@mail.com" v-model="email" required :disabled="success" />
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              aria-describedby="emailHelpId"
+              placeholder="abc@mail.com"
+              v-model="email"
+              required
+              :disabled="success"
+            />
             <label for="email" class="ms-2">Email *</label>
 
-
-            <small id="emailHelpId" class="form-text text-muted">Insert your email here </small>
+            <small id="emailHelpId" class="form-text text-muted"
+              >Insert your email here
+            </small>
           </div>
 
           <div class="col-12 form-floating">
-            <textarea class="form-control" placeholder="Leave a message here" name="message" id="message" rows="10"
-              style="height: 100px" v-model="message" required :disabled="success"></textarea>
+            <textarea
+              class="form-control"
+              placeholder="Leave a message here"
+              name="message"
+              id="message"
+              rows="10"
+              style="height: 100px"
+              v-model="message"
+              required
+              :disabled="success"
+            ></textarea>
             <label for="message" class="ms-2">Your message *</label>
 
-            <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me </small>
+            <small id="messageHelpId" class="form-text text-muted"
+              >Write here what you want to tell me
+            </small>
           </div>
 
           <div class="col-md-12 mt-5 row text-danger">
@@ -168,7 +220,11 @@ export default {
           </div>
 
           <div class="col-12 d-flex justify-content-center align-items-center">
-            <button type="submit" class="btn btn-primary btn_message" :disabled="loading || success">
+            <button
+              type="submit"
+              class="btn btn-primary btn_message"
+              :disabled="loading || success"
+            >
               {{ loading ? "Sending message..." : "Send message" }}
             </button>
           </div>
