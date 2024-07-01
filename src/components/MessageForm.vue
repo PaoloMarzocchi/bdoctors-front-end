@@ -51,7 +51,8 @@ export default {
           console.log(response.data.errors);
 
           if (response.data.success) {
-            (this.sender_first_name = ""),
+            (this.errors = ""),
+              (this.sender_first_name = ""),
               (this.sender_last_name = ""),
               (this.email = ""),
               (this.message = ""),

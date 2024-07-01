@@ -118,8 +118,8 @@ export default {
                       >
                         <div class="doc_name">
                           <h3 class="fs-1">
-                            Dr {{ this.doctorProfile.user.name }}
-                            {{ this.doctorProfile.surname }}
+                            Dr {{ this.doctorProfile.surname }}
+                            {{ this.doctorProfile.user.name }}
                           </h3>
                         </div>
 
@@ -259,7 +259,7 @@ export default {
                 v-if="ButtonA"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-dark text-warning"
+                class="btn btn_back"
                 href="http://127.0.0.1:8000/dashboard"
               >
                 Dashboard

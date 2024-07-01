@@ -63,7 +63,7 @@ export default {
 
       if (Number.isInteger(url)) {
         url++;
-        url = `${this.state.base_url}/api/research/${this.$route.params.name}?page=${url}`;
+        url = `${this.state.base_url}/api/research/${this.selectedSpec}?page=${url}`;
       }
 
       // console.log(url);
@@ -89,6 +89,8 @@ export default {
         .finally(() => {
           this.isLoading = false; // Fine del caricamento
         });
+
+      this.$router.push({ name: "DoctorResults", params: { name: this.selectedSpec } });
     },
 
     maxReview() {
@@ -210,58 +212,6 @@ export default {
       </div>
     </form>
 
-    <!-- Pagination -->
-    <!--     <template v-if="this.doctorsBySpec.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item" v-if="this.prevPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
-              <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
-              </span>
-            </a>
-          </li>
-          <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <a class="page-link number" :class="currentPage == (id + 1) ? 'my_active' : ''" href="#"
-              @click="this.advancedSearch(id)">{{ id + 1 }}</a>
-          </li>
-          <li class="page-item" v-if="this.nextPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
-              <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
-              </span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </template>
-
-<template v-if="this.doctorsByAdvancedSearch.length > 0">
-      <nav class="pagination_container" aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item" v-if="this.prevPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
-              <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #ff725e;"></i>
-              </span>
-            </a>
-          </li>
-          <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <a class="page-link number" :class="currentPage == (id + 1) ? 'my_active' : ''" href="#"
-              @click="this.advancedSearch(id)">{{ id + 1 }}</a>
-          </li>
-          <li class="page-item" v-if="this.nextPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
-              <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #ff725e;"></i>
-              </span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </template> -->
-    <!-- /Pagination -->
-
     <div v-if="isLoading" class="d-flex justify-content-center my-5">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Caricamento...</span>
@@ -319,11 +269,12 @@ export default {
             </a>
           </li>
           <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <span
+            <a
               class="page-link number"
               :class="currentPage == id + 1 ? 'my_active' : ''"
               href="#"
-              >{{ id + 1 }}</span
+              @click="this.advancedSearch(id)"
+              >{{ id + 1 }}</a
             >
           </li>
           <li class="page-item" v-if="this.nextPage != null">
@@ -358,11 +309,12 @@ export default {
             </a>
           </li>
           <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <span
+            <a
               class="page-link number"
               :class="currentPage == id + 1 ? 'my_active' : ''"
               href="#"
-              >{{ id + 1 }}</span
+              @click="this.advancedSearch(id)"
+              >{{ id + 1 }}</a
             >
           </li>
           <li class="page-item" v-if="this.nextPage != null">

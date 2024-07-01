@@ -47,7 +47,7 @@ export default {
           console.log(response.data.errors);
           if (response.data.success) {
             // show success message
-            this.first_name = "";
+            (this.errors = ""), (this.first_name = "");
             this.last_name = "";
             this.email = "";
             this.review_text = "";
