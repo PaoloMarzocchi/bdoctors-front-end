@@ -15,7 +15,7 @@ export default {
       title: null,
       prevPage: "",
       nextPage: "",
-      currentPage: '',
+      currentPage: "",
       pageNumber: "",
       totalResults: "",
       doctorsBySpec: [],
@@ -62,23 +62,25 @@ export default {
       this.error = null;
 
       if (Number.isInteger(url)) {
-        url++
-        url = `${this.state.base_url}/api/research/${this.$route.params.name}?page=${url}`
+        url++;
+        url = `${this.state.base_url}/api/research/${this.$route.params.name}?page=${url}`;
       }
 
       // console.log(url);
       this.title = this.selectedSpec;
-      axios.get(url).then((response) => {
-        console.log(response.data.searchResults);
-        (this.prevPage = response.data.searchResults.prev_page_url),
-          (this.nextPage = response.data.searchResults.next_page_url),
-          (this.currentPage = response.data.searchResults.current_page),
-          (this.pageNumber = response.data.searchResults.last_page),
-          (this.totalResults = response.data.searchResults.total),
-          (this.doctorsByAdvancedSearch = response.data.searchResults.data);
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.data.searchResults);
+          (this.prevPage = response.data.searchResults.prev_page_url),
+            (this.nextPage = response.data.searchResults.next_page_url),
+            (this.currentPage = response.data.searchResults.current_page),
+            (this.pageNumber = response.data.searchResults.last_page),
+            (this.totalResults = response.data.searchResults.total),
+            (this.doctorsByAdvancedSearch = response.data.searchResults.data);
 
-        console.log(this.doctorsByAdvancedSearch, this.prevPage, this.nextPage);
-      })
+          console.log(this.doctorsByAdvancedSearch, this.prevPage, this.nextPage);
+        })
         .catch((err) => {
           console.error("Errore nel recupero dei dottori per la specializzazione:", err);
           this.error =
@@ -86,30 +88,28 @@ export default {
         })
         .finally(() => {
           this.isLoading = false; // Fine del caricamento
-        });;
+        });
     },
 
     maxReview() {
-
       if (this.doctorsBySpec.length > 0) {
-        let max = 0
+        let max = 0;
 
-        this.doctorsBySpec.forEach(doctor => {
-
+        this.doctorsBySpec.forEach((doctor) => {
           if (doctor.reviews.length > max) {
-            max = doctor.reviews.length
+            max = doctor.reviews.length;
             /* console.log('ciao'); */
           }
-        })
+        });
         return max;
       } else if (this.doctorsByAdvancedSearch.length > 0) {
-        let max = 0
+        let max = 0;
         /* console.log(this.doctorsByAdvancedSearch); */
-        this.doctorsByAdvancedSearch.forEach(doctor => {
+        this.doctorsByAdvancedSearch.forEach((doctor) => {
           if (doctor.reviews.length > max) {
-            max = doctor.reviews.length
+            max = doctor.reviews.length;
           }
-        })
+        });
         return max;
       }
     },
@@ -125,70 +125,90 @@ export default {
 </script>
 
 <template>
-
   <div class="container my-3 my-md-5 py-3 py-md-5">
     <div class="my-4 d-flex align-items-center">
       <h2 class="mb-3 text-center">
         <span v-if="this.doctorsBySpec.length > 0">
-          <strong class="color_primary">{{ this.totalResults + ' ' }}</strong>Profiles found
+          <strong class="color_primary">{{ this.totalResults + " " }}</strong
+          >Profiles found
         </span>
 
         <span v-else-if="this.doctorsByAdvancedSearch.length > 0">
-          <strong class="color_primary">{{ this.totalResults + ' ' }}</strong>Profiles found
+          <strong class="color_primary">{{ this.totalResults + " " }}</strong
+          >Profiles found
         </span>
 
         <span v-else-if="this.$route.params.name == null"> Start a new research </span>
       </h2>
     </div>
 
-
-    <form class="pb-3" @submit.prevent="
-          advancedSearch(
-            `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
-          )
-          " method="get">
+    <form
+      class="pb-3"
+      @submit.prevent="
+        advancedSearch(
+          `${this.state.base_url}/api/advanced-research/${this.selectedSpec}/${this.selectedVote}/${this.selectedReview}`
+        )
+      "
+      method="get"
+    >
       <div class="advanced_search mb-3">
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
           <div class="col">
-
             <label for="specializations">Change Specialization</label>
-            <select required class="form-select" name="specializations" id="specializations" v-model="selectedSpec">
+            <select
+              required
+              class="form-select"
+              name="specializations"
+              id="specializations"
+              v-model="selectedSpec"
+            >
               <option value="" disabled selected>Select one</option>
 
-              <option v-for="(specialization, id) in state.specializations" :selected="$route.params.name">
+              <option
+                v-for="(specialization, id) in state.specializations"
+                :selected="$route.params.name"
+              >
                 {{ specialization.name }}
               </option>
             </select>
           </div>
 
-
           <div class="col">
-            <label class="form-label" for="myRange">Minimum average rating: {{ selectedVote }} </label>
+            <label class="form-label" for="myRange"
+              >Minimum average rating: {{ selectedVote }}
+            </label>
 
-
-            <input type="range" min="0" max="5" v-model="selectedVote" class="PB-range-slider" id="myRange">
+            <input
+              type="range"
+              min="0"
+              max="5"
+              v-model="selectedVote"
+              class="PB-range-slider"
+              id="myRange"
+            />
           </div>
 
-
           <div class="col">
-            <label class="form-label" for="myRange">Minimum number of reviews: {{ selectedReview }} </label>
+            <label class="form-label" for="myRange"
+              >Minimum number of reviews: {{ selectedReview }}
+            </label>
 
-
-            <input type="range" min="0" :max="maxReview()" v-model="selectedReview" class="PB-range-slider"
-              id="myRange">
+            <input
+              type="range"
+              min="0"
+              :max="maxReview()"
+              v-model="selectedReview"
+              class="PB-range-slider"
+              id="myRange"
+            />
           </div>
 
           <div class="text-center mx-auto">
             <button type="submit" class="my_button_primary text-white">Search</button>
-
           </div>
-
         </div>
       </div>
     </form>
-
-
-
 
     <!-- Pagination -->
     <!--     <template v-if="this.doctorsBySpec.length > 0">
@@ -242,7 +262,6 @@ export default {
     </template> -->
     <!-- /Pagination -->
 
-
     <div v-if="isLoading" class="d-flex justify-content-center my-5">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Caricamento...</span>
@@ -252,17 +271,20 @@ export default {
       {{ error }}
     </div>
 
-
-    <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
-      class="advanced_search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5">
-
+    <div
+      v-else-if="advanceSearch && doctorsByAdvancedSearch.length > 0"
+      class="advanced_search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5"
+    >
       <!-- :key="doctor.id -->
       <div class="col" v-for="doctor in doctorsByAdvancedSearch">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
 
-    <div v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0" class="position-relative">
+    <div
+      v-else-if="advanceSearch && doctorsByAdvancedSearch.length === 0"
+      class="position-relative"
+    >
       <div class="no_result text-center position-absolute">
         <h3 class="text_primary">Sorry! No results found</h3>
         <p>Try with other filters</p>
@@ -271,69 +293,91 @@ export default {
     </div>
 
     <!-- :key="doctor.id" -->
-    <div v-else
-      class="search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5">
+    <div
+      v-else
+      class="search_results justify-content-center row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 g-md-5 mt-5"
+    >
       <div class="col" v-for="doctor in doctorsBySpec">
         <DoctorCard :doc="doctor"></DoctorCard>
       </div>
     </div>
 
-
     <!-- Pagination -->
     <template v-if="this.doctorsBySpec.length > 0">
-
       <nav class="pagination_container overflow-auto" aria-label="Page navigation">
         <ul class="pagination flex-nowrap">
-
           <li class="page-item" v-if="this.prevPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
+            <a
+              class="page-link arrow"
+              href="#"
+              @click="this.advancedSearch(this.prevPage)"
+              aria-label="Previous"
+            >
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5"></i>
               </span>
             </a>
           </li>
           <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <a class="page-link number" :class="currentPage == (id + 1) ? 'my_active' : ''" href="#"
-              @click="this.advancedSearch(id)">{{ id + 1 }}</a>
+            <span
+              class="page-link number"
+              :class="currentPage == id + 1 ? 'my_active' : ''"
+              href="#"
+              >{{ id + 1 }}</span
+            >
           </li>
           <li class="page-item" v-if="this.nextPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
+            <a
+              class="page-link arrow"
+              href="#"
+              @click="this.advancedSearch(this.nextPage)"
+              aria-label="Next"
+            >
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5"></i>
               </span>
             </a>
           </li>
         </ul>
-
       </nav>
     </template>
 
-
     <template v-if="this.doctorsByAdvancedSearch.length > 0">
-
       <nav class="pagination_container" aria-label="Page navigation">
         <ul class="pagination">
-
           <li class="page-item" v-if="this.prevPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.prevPage)" aria-label="Previous">
+            <a
+              class="page-link arrow"
+              href="#"
+              @click="this.advancedSearch(this.prevPage)"
+              aria-label="Previous"
+            >
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5;"></i>
+                <i class="fa-solid fa-chevron-left" style="color: #f5f5f5"></i>
               </span>
             </a>
           </li>
           <li class="page-item" aria-current="page" v-for="(page, id) in pageNumber">
-            <a class="page-link number" :class="currentPage == (id + 1) ? 'my_active' : ''" href="#"
-              @click="this.advancedSearch(id)">{{ id + 1 }}</a>
+            <span
+              class="page-link number"
+              :class="currentPage == id + 1 ? 'my_active' : ''"
+              href="#"
+              >{{ id + 1 }}</span
+            >
           </li>
           <li class="page-item" v-if="this.nextPage != null">
-            <a class="page-link arrow" href="#" @click="this.advancedSearch(this.nextPage)" aria-label="Next">
+            <a
+              class="page-link arrow"
+              href="#"
+              @click="this.advancedSearch(this.nextPage)"
+              aria-label="Next"
+            >
               <span aria-hidden="true">
-                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5;"></i>
+                <i class="fa-solid fa-chevron-right" style="color: #f5f5f5"></i>
               </span>
             </a>
           </li>
         </ul>
-
       </nav>
     </template>
   </div>
@@ -363,7 +407,6 @@ export default {
   margin: 0 auto;
   margin-top: 3.5rem;
 
-
   .arrow {
     background-color: var(--primary);
     border: 1px solid var(--primary);
@@ -392,8 +435,8 @@ export default {
   background: #dfdfdf;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .PB-range-slider::-webkit-slider-thumb {
@@ -419,7 +462,6 @@ export default {
   background-color: var(--primary);
   cursor: pointer;
 }
-
 
 /* #region :::: MEDIA QUERIES :::: */
 @media (min-width: 992px) {
@@ -457,7 +499,6 @@ export default {
     flex-wrap: nowrap;
     white-space: nowrap;
   }
-
 }
 
 @media (max-width: 576px) {
@@ -476,7 +517,6 @@ export default {
 
   .advanced_search_results,
   .search_results {
-
     .col {
       display: flex;
       justify-content: center;

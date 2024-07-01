@@ -53,7 +53,6 @@ export default {
             this.review_text = "";
             this.success = response.data.message;
             this.loading = false;
-
           } else {
             // get errors
             this.errors = response.data.errors;
@@ -61,51 +60,55 @@ export default {
             this.loading = false;
           }
           this.loading = false;
-
         })
         .catch((err) => {
           console.log(err);
         });
     },
     validation() {
+      const forms = document.querySelectorAll(".needs_validation");
 
-      const forms = document.querySelectorAll('.needs_validation')
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          "submit",
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+              console.log("error");
+              this.loading = false;
+            }
 
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-            console.log('error')
-            this.loading = false;
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-    }
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    },
   },
   mounted() {
     this.validation();
-  }
+  },
 };
 </script>
 
 <template>
   <div class="review_form position-relative">
     <div class="shadow-lg rounded-4 p-4">
-
-
       <h3 class="fs-1 text_primary mb-4 text-center">
-        <i class="fa-solid fa-comment-dots" style="color: #ff725e;"></i>
+        <i class="fa-solid fa-comment-dots" style="color: #ff725e"></i>
         Leave a review
       </h3>
-
 
       <div class="card-body bg-light rounded-4 p-4">
         <template v-if="success">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
             <strong>Review sent!</strong>
             <!-- <br />
             <span>Review sent!</span> -->
@@ -114,44 +117,91 @@ export default {
 
         <template v-if="errors">
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
             <strong class="">Errors</strong>
-            <ul class="list-unstyled">
+            <!-- <ul class="list-unstyled">
               <li class="text-danger" v-for="error in errors">
                 <span class="">{{ error[0] }}</span>
               </li>
-            </ul>
+            </ul> -->
+
+            <p>Fields with (*) are required</p>
           </div>
         </template>
 
         <form class="row g-3 needs_validation" @submit.prevent="sendReview()" novalidate>
           <div class="col-12 col-md-6 form-floating">
-            <input required :disabled="success" type="text" class="form-control" id="first_name" placeholder="Mario"
-              :class="{ 'is-invalid': errors.first_name }" v-model="first_name" />
+            <input
+              required
+              :disabled="success"
+              type="text"
+              class="form-control"
+              id="first_name"
+              placeholder="Mario"
+              :class="{ 'is-invalid': errors.first_name }"
+              v-model="first_name"
+            />
             <label class="ms-2" for="first_name">First name *</label>
-            <small id="helpId" class="form-text text-muted">Type your first name here </small>
+            <small id="helpId" class="form-text text-muted"
+              >Type your first name here
+            </small>
           </div>
 
           <div class="col-12 col-md-6 form-floating">
-            <input required :disabled="success" type="text" class="form-control" id="last_name" placeholder="Rossi"
-              :class="{ 'is-invalid': errors.last_name }" v-model="last_name" />
+            <input
+              required
+              :disabled="success"
+              type="text"
+              class="form-control"
+              id="last_name"
+              placeholder="Rossi"
+              :class="{ 'is-invalid': errors.last_name }"
+              v-model="last_name"
+            />
             <label class="ms-2" for="last_name">Last name *</label>
-            <small id="helpId" class="form-text text-muted">Type your last name here </small>
+            <small id="helpId" class="form-text text-muted"
+              >Type your last name here
+            </small>
           </div>
 
           <div class="col-12 form-floating">
-            <input required :disabled="success" type="email" class="form-control" id="email"
-              placeholder="mariorossi@example.it" :class="{ 'is-invalid': errors.email }" v-model="email" />
+            <input
+              required
+              :disabled="success"
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="mariorossi@example.it"
+              :class="{ 'is-invalid': errors.email }"
+              v-model="email"
+            />
             <label class="ms-2" for="email">Email *</label>
-            <small id="emailHelpId" class="form-text text-muted">Insert your email here </small>
+            <small id="emailHelpId" class="form-text text-muted"
+              >Insert your email here
+            </small>
           </div>
 
           <div class="col-12 form-floating">
-            <textarea required :disabled="success" class="form-control" placeholder="Leave a review here"
-              id="review_text" rows="6" style="height: 100px" :class="{ 'is-invalid': errors.review_text }"
-              v-model="review_text"></textarea>
+            <textarea
+              required
+              :disabled="success"
+              class="form-control"
+              placeholder="Leave a review here"
+              id="review_text"
+              rows="6"
+              style="height: 100px"
+              :class="{ 'is-invalid': errors.review_text }"
+              v-model="review_text"
+            ></textarea>
             <label class="ms-2" for="review_text">Your review *</label>
-            <small id="messageHelpId" class="form-text text-muted">Write here what you want to tell me </small>
+            <small id="messageHelpId" class="form-text text-muted"
+              >Write here what you want to tell me
+            </small>
           </div>
 
           <div class="col-md-12 mt-5 row text-danger">
@@ -159,7 +209,11 @@ export default {
           </div>
 
           <div class="col-12 d-flex justify-content-center align-items-center">
-            <button type="submit" class="btn btn-primary btn_review" :disabled="loading || success">
+            <button
+              type="submit"
+              class="btn btn-primary btn_review"
+              :disabled="loading || success"
+            >
               {{ loading ? "Sending review..." : "Send review" }}
             </button>
           </div>
